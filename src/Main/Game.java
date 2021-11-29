@@ -1,10 +1,7 @@
 package Main;
 
 import Controller.*;
-import Entities.Block;
-import Entities.Crate;
-import Entities.Enemy;
-import Entities.Wizard;
+import Entities.*;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -70,7 +67,6 @@ public class Game  extends Canvas implements Runnable {
         double ns = Math.pow(10,9)/amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
-        System.out.println(timer);
         //int frames = 0;
         while (isRunning) {
             long now = System.nanoTime();
@@ -164,7 +160,7 @@ public class Game  extends Canvas implements Runnable {
                 if (blue == 177)
                     handler.addObject(new Wizard(xi*32,yi*32, ID.Player,handler,this,ss));
                 if(red == 255 && blue == 255)
-                    handler.addObject(new Enemy(xi*32,yi*32, ID.Enemy,handler,ss));
+                    handler.addObject(new BlackDevil(xi*32,yi*32, ID.Black_Devil,handler,ss));
 
                 if(blue == 255 && red == 0)
                     handler.addObject(new Crate(xi*32,yi*32, ID.Crate,ss));

@@ -15,7 +15,7 @@ public class Camera {
 
 
         if(x<=0) x=0;
-        if(x>=1100) x = 1100;
+        if(x>=1065) x = 1065;
         if(y<=0) y =0;
         if(y> 1500) y = 1500;
 

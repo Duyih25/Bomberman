@@ -72,7 +72,7 @@ public class Wizard extends GameObjects {
                 }
             }
 
-            if(tmp.getId() == ID.Enemy) {
+            if(tmp.getId() == ID.Black_Devil) {
                 if(getBounds().intersects(tmp.getBounds())) {
                     game.hp--;
                 }

@@ -4,6 +4,6 @@ public enum ID {
     Player(),
     Block(),
     Crate(),
-    Enemy(),
+    Black_Devil(),
     Bullet();
 }
