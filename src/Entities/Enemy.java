@@ -26,7 +26,7 @@ public class Enemy extends GameObjects {
         for(int i=0;i<3;i++)
         enemy_image[i] = ss.grabImage(i+4,1,32,32);
 
-        animation = new Animation(3,enemy_image[0],enemy_image[1],enemy_image[2] );
+        animation = new Animation(3,enemy_image );
     }
 
     @Override
@@ -69,8 +69,8 @@ public class Enemy extends GameObjects {
     public void render(Graphics g) {
         animation.drawAnimation(g,x,y,0);
 
-        /*
-        Graphics2D g2d = (Graphics2D) g;
+
+       /* Graphics2D g2d = (Graphics2D) g;
         g.setColor(Color.green);
         g2d.draw(getBoundBig());*/
     }

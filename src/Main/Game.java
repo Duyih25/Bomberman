@@ -12,7 +12,6 @@ import java.awt.image.BufferedImage;
 
 public class Game  extends Canvas implements Runnable {
 
-    private static final long serialVersionUID = 1L;
     private boolean isRunning = false;
     private Thread thread;
     private Handler handler;
@@ -36,14 +35,14 @@ public class Game  extends Canvas implements Runnable {
 
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        level = loader.loadImage("../../Res/wizard.png");
-        sprite_sheet = loader.loadImage("../../Res/sprite_sheet.png");
+        level = loader.loadImage("../../Res/wizard.png"); // map
+        sprite_sheet = loader.loadImage("../../Res/sprite_sheet.png"); // items
 
         ss = new SpriteSheet(sprite_sheet);
         this.addMouseListener(new MouseInput(handler,camera,this,ss));
 
         floor = ss.grabImage(4,2,32,32);
-        loaderLevel(level);
+        loaderLevel(level); // load all pics
        // handler.addObject(new Entities.Wizard(100,100,Main.ID.Player,handler));
 
     }
@@ -57,7 +56,7 @@ public class Game  extends Canvas implements Runnable {
     private void stop() {
         isRunning = false;
         try {
-            thread.join();
+            thread.join(); // wait for thread
         }
         catch (InterruptedException e) {
             e.printStackTrace();
@@ -71,7 +70,8 @@ public class Game  extends Canvas implements Runnable {
         double ns = Math.pow(10,9)/amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
-        int frames = 0;
+        System.out.println(timer);
+        //int frames = 0;
         while (isRunning) {
             long now = System.nanoTime();
             delta += (now - lastTime)/ns;
@@ -81,15 +81,15 @@ public class Game  extends Canvas implements Runnable {
                 delta--;
             }
             render();
-            frames++;
+            //frames++;
             if (System.currentTimeMillis()- timer > 1000) {
                 timer += 1000;
-                frames = 0;
+                //frames = 0;
             }
         }
         stop();
     }
-    public void tick() {
+    public void tick() {  // 60 per second
 
         for (int i=0;i<handler.objects.size();i++) {
             if(handler.objects.get(i).getId() == ID.Player) {
@@ -99,10 +99,10 @@ public class Game  extends Canvas implements Runnable {
 
         handler.tick();
     }
-    public void render() {
-        BufferStrategy bs = this.getBufferStrategy();
+    public void render() { // a couple of thousand per second
+        BufferStrategy bs = this.getBufferStrategy(); // Canvas before drawing
         if(bs == null) {
-            this.createBufferStrategy(3);
+            this.createBufferStrategy(3 ); // pre-load 3 frames
             return;
         }
         Graphics g = bs.getDrawGraphics();
@@ -110,17 +110,18 @@ public class Game  extends Canvas implements Runnable {
         //////////////////////////////////////////
 
 
-        g2d.translate(-camera.getX(), - camera.getY());
+        g2d.translate(-camera.getX(),  -camera.getY()); // origin
 
-        for(int xi=0;xi<30*72;xi+=32)
-            for(int yi=0;yi<30*72;yi+=32) {
+        for(int xi=0;xi<30*70;xi+=32)
+            for(int yi=0;yi<30*70;yi+=32) {
                 g.drawImage(floor,xi,yi,null);
             }
 
         handler.render(g);
 
-        g2d.translate(camera.getX(),  camera.getY());
+        g2d.translate(camera.getX(),  camera.getY()); // stick HP bar
 
+        /** HP bar*/
         g.setColor(Color.gray);
         g.fillRect(5,5,200,32);
 
@@ -129,22 +130,25 @@ public class Game  extends Canvas implements Runnable {
 
         g.setColor(Color.black);
         g.drawRect(5,5,200,32);
+        //
 
+        /** Ammo number*/
         g.setColor(Color.white);
         g.drawString("Ammo: " + ammo, 5,50);
 
+
+        /**lose*/
         if(hp <= 0) {
             g.setColor(Color.white);
             g.drawString("Oh dear, you are dead!", 400, 281);
         }
-        //g.drawRect(5,5,200,32);
         /////////////////////////////////////////
 
-         g.dispose();
+         g.dispose(); // window to be destroyed and cleaned up by the operating system
          bs.show();
     }
 
-    private void loaderLevel (BufferedImage image) {
+    private void loaderLevel (BufferedImage image) { // map
         int w = image.getWidth();
         int h = image.getHeight();
 

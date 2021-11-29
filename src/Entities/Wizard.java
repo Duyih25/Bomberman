@@ -24,7 +24,7 @@ public class Wizard extends GameObjects {
         for(int i=1;i<=3;i++)
         wizard_image[i-1] = ss.grabImage(i,1,32,48);
 
-        animation = new Animation(3,wizard_image[0],wizard_image[1],wizard_image[2]);
+        animation = new Animation(10,wizard_image);
     }
 
     @Override
@@ -35,16 +35,16 @@ public class Wizard extends GameObjects {
 
         collision();
 
-        if(handler.isUp()) velY = -5;
+        if(handler.isUp()) velY = -4;
         else if(!handler.isDown()) velY = 0;
 
-        if(handler.isDown()) velY = 5;
+        if(handler.isDown()) velY = 4;
         else if(!handler.isUp()) velY = 0;
 
-        if(handler.isLeft()) velX = -5;
+        if(handler.isLeft()) velX = -4;
         else if(!handler.isRight()) velX = 0;
 
-        if(handler.isRight()) velX = 5;
+        if(handler.isRight()) velX = 4;
         else if(!handler.isLeft()) velX = 0;
 
         if(game.hp <= 0) {
@@ -75,7 +75,6 @@ public class Wizard extends GameObjects {
             if(tmp.getId() == ID.Enemy) {
                 if(getBounds().intersects(tmp.getBounds())) {
                     game.hp--;
-                    //handler.removeObject(tmp);
                 }
             }
 
