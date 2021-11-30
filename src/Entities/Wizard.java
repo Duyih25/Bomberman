@@ -10,15 +10,18 @@ import java.awt.image.BufferedImage;
 public class Wizard extends GameObjects {
 
     Handler handler;
-    Game game;
+    GamePanel gamePanel;
+    boolean moving = false;
+    int pixelCounter = 0;
+    int speed = 4;
 
     private BufferedImage[] wizard_image = new BufferedImage[3];
     Animation animation;
 
-    public Wizard(int x, int y, ID id, Handler handler, Game game, SpriteSheet ss) {
+    public Wizard(int x, int y, ID id, Handler handler, GamePanel gamePanel, SpriteSheet ss) {
         super(x, y, id,ss);
         this.handler = handler;
-        this.game = game;
+        this.gamePanel = gamePanel;
         this.ss = ss;
 
         for(int i=1;i<=3;i++)
@@ -33,23 +36,46 @@ public class Wizard extends GameObjects {
         x += velX;
         y += velY;
 
+
         collision();
 
-        if(handler.isUp()) velY = -4;
+        if(handler.isUp()) {
+            velY = -speed;
+            pixelCounter += speed;
+            if (pixelCounter == 32 ) {
+                velY = 0;
+                pixelCounter = 0;
+            }
+        }
         else if(!handler.isDown()) velY = 0;
 
-        if(handler.isDown()) velY = 4;
+        if(handler.isDown()) {
+            velY = speed;
+            if (pixelCounter == 32 ) {
+                velY = 0;
+                pixelCounter = 0;
+            }
+        }
         else if(!handler.isUp()) velY = 0;
 
-        if(handler.isLeft()) velX = -4;
+        if(handler.isLeft()) {
+            velX = -speed;
+            if (pixelCounter == 32 ) {
+                velX = 0;
+                pixelCounter = 0;
+            }
+        }
         else if(!handler.isRight()) velX = 0;
 
-        if(handler.isRight()) velX = 4;
+        if(handler.isRight()) {
+            velX = speed;
+            if (pixelCounter == 32 ) {
+                speed = 0;
+                pixelCounter = 0;
+            }
+        }
         else if(!handler.isLeft()) velX = 0;
 
-        if(game.hp <= 0) {
-            handler.removeObject(this);
-        }
 
         animation.runAnimation();
 
@@ -67,14 +93,14 @@ public class Wizard extends GameObjects {
 
             if(tmp.getId() == ID.Crate) {
                 if(getBounds().intersects(tmp.getBounds())) {
-                    game.ammo +=10;
+                    //gamePanel.ammo +=10;
                     handler.removeObject(tmp);
                 }
             }
 
             if(tmp.getId() == ID.Black_Devil) {
                 if(getBounds().intersects(tmp.getBounds())) {
-                    game.hp--;
+                    //gamePanel.hp--;
                 }
             }
 
@@ -92,6 +118,6 @@ public class Wizard extends GameObjects {
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle(x,y,32,48);
+        return new Rectangle(x,y + 16 ,32,32);
     }
 }
