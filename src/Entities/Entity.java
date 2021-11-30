@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Entity {
 
-    public double worldX, worldY;
+    public int worldX, worldY;
     public int speed;
 
     public String direction;

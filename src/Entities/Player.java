@@ -2,7 +2,9 @@ package Entities;
 
 import Controller.BufferedImageLoader;
 import Controller.KeyHandler;
+import Controller.UtilityTool;
 import Main.GamePanel;
+import Tile.TileManagement;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,6 +13,7 @@ public class Player extends Entity {
 
     GamePanel gp;
     KeyHandler keyH;
+    TileManagement tileManagement;
     private BufferedImage[] playerImage = new BufferedImage[12];
     int standCounter = 0;
     boolean moving = false;
@@ -19,12 +22,13 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
 
-    public Player(GamePanel gp, KeyHandler keyH) {
+    public Player(GamePanel gp, KeyHandler keyH, TileManagement tileManagement) {
         this.gp = gp;
         this.keyH = keyH;
+        this.tileManagement = tileManagement;
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
-        screenY = gp.sceenHeight / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         solidArea = new Rectangle(1, 33, 62, 62);
 
@@ -35,13 +39,15 @@ public class Player extends Entity {
 
     public void setDefautValue() {
 
-        worldX = 64 + 64;
-        worldY = 32;
+        worldX = 64 * 2;
+        worldY = 32 * 3;
         speed = 4;
         direction = "down";
     }
 
     public void setPlayerImage() {
+
+
         BufferedImageLoader loader = new BufferedImageLoader();
         BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");
         playerImage[0] = sprite.getSubimage(0,0,32,48);
@@ -56,6 +62,15 @@ public class Player extends Entity {
         playerImage[9] = sprite.getSubimage(0,144,32,48);
         playerImage[10] = sprite.getSubimage(32,144,32,48);
         playerImage[11] = sprite.getSubimage(64,144,32,48);
+        for (int i =0; i < 12; i++) {
+            setUp(i);
+        }
+    }
+
+    public void setUp(int index) {
+
+        UtilityTool uTool = new UtilityTool();
+        playerImage[index] = uTool.scaleImage(playerImage[index], 64, 48*2);
     }
 
     public void update() {
@@ -182,8 +197,26 @@ public class Player extends Entity {
                 }
                 break;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize + gp.tileSize / 2 , null);
+
+        int x = screenX;
+        int y = screenY;
+        if (screenX > worldX) {
+            x = worldX;
+        }
+        if (screenY > worldY) {
+            y = worldY;
+        }
+        int rightOffset = gp.screenWidth - screenX;
+        if (rightOffset > tileManagement.mapCol * gp.tileSize - worldX) {
+            x = gp.screenWidth - (tileManagement.mapCol * gp.tileSize - worldX);
+        }
+        int bottomOffset = gp.screenHeight - screenY;
+        if (bottomOffset > tileManagement.mapRow * gp.tileSize - worldY) {
+            y = gp.screenHeight - (tileManagement.mapRow * gp.tileSize - worldY);
+        }
+
+        g2.drawImage(image, x, y, null);
         g2.setColor(Color.red);
-        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+        g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
     }
 }
