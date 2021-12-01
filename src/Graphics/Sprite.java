@@ -1,6 +1,7 @@
 package Graphics;
 
-import javax.imageio.ImageIO;
+import Controller.BufferedImageLoader;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -27,11 +28,11 @@ public class Sprite {
         loadSpriteArray();
     }
 
-    public Sprite(String file, String name, int w, int h) {
+    public Sprite(String file, int w, int h) {
         this.w = w;
         this.h = h;
 
-        System.out.println("Loading: " + name + "...");
+        //System.out.println("Loading: " + file + "...");
         SPRITESHEET = loadSprite(file);
 
         wSprite = SPRITESHEET.getWidth() / w;
@@ -56,11 +57,8 @@ public class Sprite {
 
     private BufferedImage loadSprite(String file) {
         BufferedImage sprite = null;
-        try {
-            sprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(file));
-        } catch (Exception e) {
-            System.out.println("ERROR: could not load file: " + file);
-        }
+        BufferedImageLoader loader = new BufferedImageLoader();
+        sprite = loader.loadImage(file);
         return sprite;
     }
 
@@ -82,6 +80,18 @@ public class Sprite {
 
     public BufferedImage[] getSpriteArray(int i) {
         return spriteArray[i];
+    }
+
+    public BufferedImage[] getSpriteArray() {
+        int count = 0;
+        BufferedImage[] image = new BufferedImage[hSprite + wSprite - 1];
+        for (int y = 0; y < hSprite; y++) {
+            for (int x = 0; x < wSprite; x++) {
+                image[count] = spriteArray[y][x];
+                count++;
+            }
+        }
+        return image;
     }
 
     public BufferedImage[][] getSpriteArray2(int i) {

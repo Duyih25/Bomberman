@@ -31,8 +31,8 @@ public class Player extends Entity {
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         solidArea = new Rectangle(1, 33, 62, 62);
-
-
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         setDefautValue();
         setPlayerImage();
     }
@@ -100,11 +100,14 @@ public class Player extends Entity {
                 collision = false;
                 gp.collisionChecker.checkTitle(this);
 
+                //check object collision
+                int objIndex = gp.collisionChecker.checkObject(this, true);
+
 
             } else {
                 standCounter++;
                 if (standCounter == 20) {
-                    spriteNum = 1;
+                    spriteNum = 0;
                     standCounter = 0;
                 }
             }
@@ -129,6 +132,9 @@ public class Player extends Entity {
             }
             spriteCounter++;
             if (spriteCounter > 10) {
+                if (spriteNum == 0) {
+                    spriteNum = 1;
+                }
                 if (spriteNum == 1) {
                     spriteNum = 2;
                 } else if (spriteNum == 2) {

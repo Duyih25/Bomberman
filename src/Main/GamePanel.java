@@ -1,10 +1,12 @@
 package Main;
 
 import Controller.KeyHandler;
+import Controller.ObjectManagement;
 import Entities.Player;
 import Graphics.Font;
-import Graphics.TileManagement;
 import Graphics.Sprite;
+import Graphics.TileManagement;
+import Object.AssetSetter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,9 +40,11 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyH, tileManagement);
     private Font font;
     Timer timer;
-    int second, minute;
+    public int second, minute;
     String ddSecond, ddMinute;
     DecimalFormat dFormat = new DecimalFormat("00");
+    public AssetSetter aSetter = new AssetSetter(this);
+    ObjectManagement objectManagement = new ObjectManagement(this, keyH);
 
     int FPS = 60;
 
@@ -54,29 +58,12 @@ public class GamePanel extends JPanel implements Runnable {
         font = new Font("../../Res/font.png", 10, 10);
 
 
-        startGameThread();
 
     }
 
-//    public void zoomInOut(int i) {
-//        int oldWorldWidth = tileSize * maxWorldCol;
-//        tileSize += i;
-//        int newWorldWidth = tileSize * maxWorldCol;
-//
-//        double multiplier = (double) newWorldWidth / oldWorldWidth;
-//
-//        double newPlayerWorldX = player.worldX * multiplier;
-//        double newPlayerWorldY = player.worldY * multiplier;
-//
-//        player.worldX = newPlayerWorldX;
-//        player.worldY = newPlayerWorldY;
-//
-//        double newPlayerAreaX = player.solidArea.width * multiplier;
-//        double newPlayerAreaY = player.solidArea.height * multiplier;
-//
-//        player.solidArea.width = (int) newPlayerAreaX;
-//        player.solidArea.height = (int) newPlayerAreaY;
-//    }
+    public void setUpGame() {
+        aSetter.setObject();
+    }
 
     public void startGameThread() {
 
@@ -136,8 +123,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     public void update() {
-
         player.update();
+        objectManagement.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -156,6 +143,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         tileManagement.draw(g2);
 
+        objectManagement.render(g2);
+
         player.draw(g2);
 
         //debug
@@ -168,7 +157,6 @@ public class GamePanel extends JPanel implements Runnable {
 
             //System.out.println("Draw Time: " + passed);
         }
-
 
         Sprite.drawArray(g2, font, ddMinute + ":" + ddSecond , (maxScreenCol - 3) * tileSize, 32 , 32, 32, 32, 0);
 

@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed = false;
+    public boolean bombPressed = false;
     GamePanel gp;
     public boolean checkDrawTime = false;
 
@@ -48,7 +49,9 @@ public class KeyHandler implements KeyListener {
                 checkDrawTime = true;
             } else
                 checkDrawTime = false;
-
+        }
+        if (code == KeyEvent.VK_SPACE) {
+            bombPressed = true;
         }
     }
 
