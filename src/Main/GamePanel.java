@@ -2,7 +2,7 @@ package Main;
 
 import Controller.KeyHandler;
 import Entities.Player;
-import Tile.TileManagement;
+import Graphics.TileManagement;
 
 import javax.swing.*;
 import java.awt.*;

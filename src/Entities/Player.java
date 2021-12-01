@@ -4,7 +4,7 @@ import Controller.BufferedImageLoader;
 import Controller.KeyHandler;
 import Controller.UtilityTool;
 import Main.GamePanel;
-import Tile.TileManagement;
+import Graphics.TileManagement;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

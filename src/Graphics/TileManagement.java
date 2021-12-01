@@ -1,4 +1,4 @@
-package Tile;
+package Graphics;
 
 import Controller.BufferedImageLoader;
 import Controller.UtilityTool;
