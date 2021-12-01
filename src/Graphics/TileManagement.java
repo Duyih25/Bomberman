@@ -27,7 +27,7 @@ public class TileManagement {
         gp.maxWorldCol = mapCol;
         gp.maxWorldRow = mapRow;
 
-        tiles = new Tile[10];
+        tiles = new Tile[20];
         mapTileNum = new int[gp.maxWorldCol + 1][gp.maxWorldRow + 1];
 
         getTileImage();
@@ -40,27 +40,34 @@ public class TileManagement {
         BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");
 
         //co
-        setUp(0, false, 96, 64, 32, 32);
+        setUp(0, false, 96, 96, 32, 32);
 
+        //wall_1
+        setUp(1, true,208, 64,32,32);
 
-        //tuong goc
+        //wall_2
+        setUp(2, true,240, 64,32,32);
 
-        setUp(1, true, 208, 64, 32, 32);
+        //wall_3
+        setUp(3, true,272, 64,32,32);
 
+        //wall_4
+        setUp(4, true,208, 96,32,32);
 
-        setUp(2, false, 160, 64, 32, 32);
+        //wall_5
+        setUp(5, true,208, 128,32,32);
 
-        //chan tuong
-        setUp(3, false, 128, 96, 32, 32);
+        //wall_6
+        setUp(6, true,240, 128,32,32);
 
-        //giua goc doc
-        setUp(4, true, 208, 96, 32, 32);
+        //wall_7
+        setUp(7, true,272, 128,32,32);
 
-        //giua goc ngang
-        setUp(5, true, 240, 64, 32, 32);
+        //wall_8
+        setUp(8, true,272, 96,32,32);
 
-        //it co
-        setUp(6, false, 96, 96, 32, 32);
+        //wall_9
+        setUp(9, true,208, 160,32,32);
     }
 
     public void setUp(int index, boolean collision, int x, int y, int w, int h) {
@@ -84,20 +91,26 @@ public class TileManagement {
             int green = (pixel >> 8) & 0xff;
             int blue = pixel & 0xff;
 
-            if (red == 186)
+            if (red == 255 && green == 128 && blue == 0)
                 mapTileNum[x][y] = 1;
-            else if (red == 0)
+            if (red == 0 && green == 0 && blue == 0)
                 mapTileNum[x][y] = 0;
-            else if (blue == 177)
+            if (red == 255 && green == 0 && blue == 0)
+                mapTileNum[x][y] = 2;
+            if (red == 170)
                 mapTileNum[x][y] = 3;
-            else if (red == 134)
+            if (red == 234 && green == 255)
                 mapTileNum[x][y] = 4;
-            else if (red == 215)
+            if (red == 136)
                 mapTileNum[x][y] = 5;
-            else if (red == 143)
+            if (red == 0 && green == 255 && blue == 0)
                 mapTileNum[x][y] = 6;
-
-
+            if (red == 0 && green == 234 && blue == 255)
+                mapTileNum[x][y] = 7;
+            if (red == 234 && green == 0 && blue == 255)
+                mapTileNum[x][y] = 8;
+            if (red == 0 && green == 0 && blue == 255)
+                mapTileNum[x][y] = 9;
             x += 1;
             if (x == image.getWidth()) {
                 x = 0;

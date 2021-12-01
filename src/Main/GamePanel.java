@@ -2,10 +2,16 @@ package Main;
 
 import Controller.KeyHandler;
 import Entities.Player;
+import Graphics.Font;
 import Graphics.TileManagement;
+import Graphics.Sprite;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+
 
 public class GamePanel extends JPanel implements Runnable {
     //SCREEN SETTINGS
@@ -13,8 +19,8 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 2;
 
     public int tileSize = orginalTileSize * scale; // 64 x 64 tile
-    public int maxScreenCol = 16;
-    public int maxScreenRow = 12;
+    public int maxScreenCol = 10;
+    public int maxScreenRow = 10;
     public int screenWidth = tileSize * maxScreenCol;
     public int screenHeight = tileSize * maxScreenRow;
 
@@ -30,7 +36,11 @@ public class GamePanel extends JPanel implements Runnable {
     TileManagement tileManagement = new TileManagement(this);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyH, tileManagement);
-
+    private Font font;
+    Timer timer;
+    int second, minute;
+    String ddSecond, ddMinute;
+    DecimalFormat dFormat = new DecimalFormat("00");
 
     int FPS = 60;
 
@@ -40,6 +50,9 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+
+        font = new Font("../../Res/font.png", 10, 10);
+
 
         startGameThread();
 
@@ -79,6 +92,25 @@ public class GamePanel extends JPanel implements Runnable {
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
+        second = 0;
+        minute = 0;
+        ddSecond = "00";
+        ddMinute = "00";
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                second++;
+                ddSecond = dFormat.format(second);
+                ddMinute = dFormat.format(minute);
+                if (second == 60) {
+                    second = 0;
+                    ddSecond = dFormat.format(second);
+                    ddMinute = dFormat.format(minute);
+                    minute++;
+                }
+            }
+        });
+        timer.start();
 
         while (gameThread != null) {
 
@@ -88,11 +120,13 @@ public class GamePanel extends JPanel implements Runnable {
 
             lastTime = currentTime;
 
+
+
             if (delta >= 1) {
 
 
                 update();
-
+                //System.out.println(second);
                 repaint();
                 delta--;
             }
@@ -130,9 +164,13 @@ public class GamePanel extends JPanel implements Runnable {
             long passed = drawEnd - drawStart;
             g2.setColor(Color.white);
             g2.drawString("Draw Time: " + passed, 10, 400);
-            System.out.println("Draw Time: " + passed);
+            //Sprite.drawArray(g2, font, "Draw Time: " + passed, 2 * tileSize, 32 , 32, 32, 32, 0);
+
+            //System.out.println("Draw Time: " + passed);
         }
 
+
+        Sprite.drawArray(g2, font, ddMinute + ":" + ddSecond , (maxScreenCol - 3) * tileSize, 32 , 32, 32, 32, 0);
 
         g2.dispose();
     }
