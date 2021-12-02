@@ -5,7 +5,7 @@ import Controller.ObjectManagement;
 import Entities.Player;
 import Graphics.Font;
 import Graphics.Sprite;
-import Graphics.TileManagement;
+import Tile.TileManagement;
 import Object.AssetSetter;
 
 import javax.swing.*;
@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     Thread gameThread;
     KeyHandler keyH = new KeyHandler(this);
-    TileManagement tileManagement = new TileManagement(this);
+    public TileManagement tileManagement = new TileManagement(this);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyH, tileManagement);
     private Font font;

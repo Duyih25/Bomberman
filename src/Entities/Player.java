@@ -4,7 +4,7 @@ import Controller.BufferedImageLoader;
 import Controller.KeyHandler;
 import Controller.UtilityTool;
 import Main.GamePanel;
-import Graphics.TileManagement;
+import Tile.TileManagement;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,6 +18,7 @@ public class Player extends Entity {
     int standCounter = 0;
     boolean moving = false;
     int pixelCounter = 0;
+    public int x,y;
 
     public final int screenX;
     public final int screenY;
@@ -30,7 +31,7 @@ public class Player extends Entity {
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
-        solidArea = new Rectangle(1, 33, 62, 62);
+        solidArea = new Rectangle(1, 33, 60, 60);
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         setDefautValue();
@@ -204,8 +205,8 @@ public class Player extends Entity {
                 break;
         }
 
-        int x = screenX;
-        int y = screenY;
+        x = screenX;
+        y = screenY;
         if (screenX > worldX) {
             x = worldX;
         }
@@ -224,5 +225,6 @@ public class Player extends Entity {
         g2.drawImage(image, x, y, null);
         g2.setColor(Color.red);
         g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
+        System.out.println(worldX + " " + worldY);
     }
 }

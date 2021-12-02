@@ -1,4 +1,4 @@
-package Graphics;
+package Tile;
 
 import Controller.BufferedImageLoader;
 import Controller.UtilityTool;
@@ -11,6 +11,7 @@ public class TileManagement {
 
     GamePanel gp;
     public Tile[] tiles;
+    public Tile[][] tilesMap;
     public int mapTileNum[][];
     public int mapCol;
     public int mapRow;
@@ -29,6 +30,8 @@ public class TileManagement {
 
         tiles = new Tile[20];
         mapTileNum = new int[gp.maxWorldCol + 1][gp.maxWorldRow + 1];
+        tilesMap = new Tile[gp.maxWorldCol + 1][gp.maxWorldRow + 1];
+
 
         getTileImage();
         loadMap(image);
@@ -81,6 +84,11 @@ public class TileManagement {
         tiles[index].image = uTool.scaleImage(tiles[index].image, gp.tileSize, gp.tileSize);
     }
 
+    public void setTiles(int index, boolean collision, boolean available) {
+        tiles[index].collision = collision;
+
+    }
+
     public void loadMap(BufferedImage image) {
         int x = 0;
         int y = 0;
@@ -91,26 +99,46 @@ public class TileManagement {
             int green = (pixel >> 8) & 0xff;
             int blue = pixel & 0xff;
 
-            if (red == 255 && green == 128 && blue == 0)
+            if (red == 255 && green == 128 && blue == 0) {
                 mapTileNum[x][y] = 1;
-            if (red == 0 && green == 0 && blue == 0)
+                tilesMap[x][y] = tiles[1];
+            }
+            if (red == 0 && green == 0 && blue == 0) {
                 mapTileNum[x][y] = 0;
-            if (red == 255 && green == 0 && blue == 0)
+                tilesMap[x][y] = tiles[0];
+            }
+            if (red == 255 && green == 0 && blue == 0) {
                 mapTileNum[x][y] = 2;
-            if (red == 170)
+                tilesMap[x][y] = tiles[2];
+            }
+            if (red == 170) {
                 mapTileNum[x][y] = 3;
-            if (red == 234 && green == 255)
+                tilesMap[x][y] = tiles[3];
+            }
+            if (red == 234 && green == 255) {
                 mapTileNum[x][y] = 4;
-            if (red == 136)
+                tilesMap[x][y] = tiles[4];
+            }
+            if (red == 136) {
                 mapTileNum[x][y] = 5;
-            if (red == 0 && green == 255 && blue == 0)
+                tilesMap[x][y] = tiles[5];
+            }
+            if (red == 0 && green == 255 && blue == 0) {
                 mapTileNum[x][y] = 6;
-            if (red == 0 && green == 234 && blue == 255)
+                tilesMap[x][y] = tiles[6];
+            }
+            if (red == 0 && green == 234 && blue == 255) {
                 mapTileNum[x][y] = 7;
-            if (red == 234 && green == 0 && blue == 255)
+                tilesMap[x][y] = tiles[7];
+            }
+            if (red == 234 && green == 0 && blue == 255) {
                 mapTileNum[x][y] = 8;
-            if (red == 0 && green == 0 && blue == 255)
+                tilesMap[x][y] = tiles[8];
+            }
+            if (red == 0 && green == 0 && blue == 255) {
                 mapTileNum[x][y] = 9;
+                tilesMap[x][y] = tiles[9];
+            }
             x += 1;
             if (x == image.getWidth()) {
                 x = 0;
@@ -156,12 +184,12 @@ public class TileManagement {
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
-                    g2.drawImage(tiles[tileNum].image, screenX, screenY , null);
+                    g2.drawImage(tilesMap[worldCol][worldRow].image, screenX, screenY , null);
             } else if(gp.player.screenX > gp.player.worldX ||
                       gp.player.screenY > gp.player.worldY ||
                       rightOffset > mapCol * gp.tileSize - gp.player.worldX ||
                       bottomOffset > mapRow * gp.tileSize -gp.player.worldY ) {
-                g2.drawImage(tiles[tileNum].image, screenX, screenY , null);
+                g2.drawImage(tilesMap[worldCol][worldRow].image, screenX, screenY , null);
 
             }
 

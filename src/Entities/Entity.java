@@ -6,6 +6,7 @@ public abstract class Entity {
 
     public int worldX, worldY;
     public int speed;
+    public int x,y;
 
     public String direction;
     public int spriteCounter = 0;
