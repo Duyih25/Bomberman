@@ -38,6 +38,7 @@ public class Player extends Entity {
         setPlayerImage();
     }
 
+
     public void setDefautValue() {
 
         worldX = 64 * 1;
@@ -103,7 +104,7 @@ public class Player extends Entity {
 
                 //check object collision
                 int objIndex = gp.collisionChecker.checkObject(this, true);
-
+                pickUpObject(objIndex);
 
             } else {
                 standCounter++;
@@ -148,6 +149,13 @@ public class Player extends Entity {
                 moving = false;
                 pixelCounter = 0;
             }
+        }
+    }
+
+    public void pickUpObject(int index) {
+        if(index != 999) {
+            String objName = gp.objectManagement.obj[index].name;
+            if(objName.equals("Crate")) gp.objectManagement.obj[index] = null;
         }
     }
 

@@ -44,9 +44,10 @@ public class GamePanel extends JPanel implements Runnable {
     String ddSecond, ddMinute;
     DecimalFormat dFormat = new DecimalFormat("00");
     public AssetSetter aSetter = new AssetSetter(this);
-    ObjectManagement objectManagement = new ObjectManagement(this, keyH);
+    public ObjectManagement objectManagement = new ObjectManagement(this, keyH);
 
     int FPS = 60;
+
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -146,6 +147,13 @@ public class GamePanel extends JPanel implements Runnable {
         objectManagement.render(g2);
 
         player.draw(g2);
+
+        //Obj
+        for(int i=0;i<objectManagement.obj.length;i++) {
+            if(objectManagement.obj[i]!=null) {
+                objectManagement.obj[i].draw(g2,this);
+            }
+        }
 
         //debug
         if (keyH.checkDrawTime == true) {

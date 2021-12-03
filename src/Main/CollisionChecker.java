@@ -68,39 +68,50 @@ public class CollisionChecker {
                     case "up":
                         if (entity.worldX == gp.objectManagement.obj[i].worldX &&
                                 entity.worldY == gp.objectManagement.obj[i].worldY + 32 &&
-                                gp.objectManagement.obj[i].collision == true) {
+                                !gp.objectManagement.obj[i].name.equals("Crate")) {
                                 entity.collision = true;
-                            }
                             if (player) {
                                 index = i;
                             }
+                            }
+                       // if(entity.solidArea.intersects(gp.objectManagement.obj[i].solidArea)) {
+
+                        //}
+
                         break;
                     case "down":
                         if (entity.worldX == gp.objectManagement.obj[i].worldX &&
-                                entity.worldY == gp.objectManagement.obj[i].worldY - 96) {
+                                entity.worldY == gp.objectManagement.obj[i].worldY - 96 && !gp.objectManagement.obj[i].name.equals("Crate")) {
                             entity.collision = true;
+                            if (player) {
+                                index = i;
+                            }
                         }
-                        if (player) {
-                            index = i;
-                        }
+                        //if(entity.solidArea.intersects(gp.objectManagement.obj[i].solidArea))System.out.println("down");
+
                         break;
                     case "left":
                         if (entity.worldX == gp.objectManagement.obj[i].worldX + 64 &&
-                                entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
+                                entity.worldY == gp.objectManagement.obj[i].worldY - 32 && !gp.objectManagement.obj[i].name.equals("Crate")) {
                             entity.collision = true;
+                            if (player) {
+                                index = i;
+                            }
                         }
-                        if (player) {
-                            index = i;
-                        }
+                       // if(entity.solidArea.intersects(gp.objectManagement.obj[i].solidArea))System.out.println("left");
+
                         break;
                     case "right":
                         if (entity.worldX == gp.objectManagement.obj[i].worldX - 64 &&
-                                entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
+                                entity.worldY == gp.objectManagement.obj[i].worldY - 32 && !gp.objectManagement.obj[i].name.equals("Crate")) {
                             entity.collision = true;
+                            if (player) {
+                                index = i;
+                            }
                         }
-                        if (player) {
-                            index = i;
-                        }
+                       // if(entity.solidArea.intersects(gp.objectManagement.obj[i].solidArea))System.out.println("right");
+
+
                         break;
                 }
                 entity.solidArea.x = entity.solidAreaDefaultX;
@@ -113,4 +124,5 @@ public class CollisionChecker {
 
         return index;
     }
+
 }

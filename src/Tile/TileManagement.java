@@ -99,6 +99,10 @@ public class TileManagement {
             int green = (pixel >> 8) & 0xff;
             int blue = pixel & 0xff;
 
+            if(red ==0 && green == 255 && blue == 255) {
+                //mapTileNum[x][y] = 1;
+                tilesMap[x][y] = tiles[0];
+            }
             if (red == 255 && green == 128 && blue == 0) {
                 mapTileNum[x][y] = 1;
                 tilesMap[x][y] = tiles[1];
