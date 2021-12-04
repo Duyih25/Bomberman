@@ -22,5 +22,5 @@ public abstract class Entity {
         this.gp = gp;
     }
 
-
+    abstract public Rectangle getBound();
 }

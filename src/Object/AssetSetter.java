@@ -1,5 +1,6 @@
 package Object;
 
+import Entities.BlackDevil;
 import Entities.Enemy;
 import Main.GamePanel;
 
@@ -18,7 +19,7 @@ public class AssetSetter {
     }
 
     public void setNPC() {
-        gp.npc[0] = new Enemy(gp);
+        gp.npc[0] = new BlackDevil(gp);
         gp.npc[0].worldX = gp.tileSize*8;
         gp.npc[0].worldY = gp.tileSize*8;
     }

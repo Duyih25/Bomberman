@@ -53,4 +53,7 @@ public class Crate extends SuperObject{
             g2.drawImage(image[0], screenX, screenY , null);
         }
     }
+    public Rectangle getBound() {
+        return null;
+    }
 }

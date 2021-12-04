@@ -74,4 +74,7 @@ public class Bomb extends SuperObject {
             //Animation animation = new Animation(10, image);
         }
     }
+    public Rectangle getBound() {
+        return null;
+    }
 }
