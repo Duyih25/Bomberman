@@ -242,6 +242,6 @@ public class Player extends Entity {
         g2.drawImage(image, x, y, null);
         g2.setColor(Color.red);
         g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
-        System.out.println(worldX + " " + worldY);
+        //System.out.println(worldX + " " + worldY);
     }
 }

@@ -22,6 +22,7 @@ public class Enemy extends Entity{
         speed = 1;
         setEnemyImage();
         collision = true;
+        solidArea = new Rectangle(1, 1, 62, 62);
     }
 
     public void setEnemyImage() {
@@ -32,7 +33,6 @@ public class Enemy extends Entity{
             EnemyImage[i] = uTool.scaleImage(sprite.getSubimage(96+i*32,0,32,32),64,64);
     }
     public void setAction() {
-
         actionLockCounter++;
         collision = false;
         gp.collisionChecker.checkTitle(this);
@@ -55,6 +55,10 @@ public class Enemy extends Entity{
             }
             actionLockCounter=0;
             spriteNum++;
+
+            //kiem tra va cham
+            collision = false;
+            gp.collisionChecker.checkTitle(this);
         }
         if(actionLockCounter==30) {
             if(spriteNum>1) spriteNum=0;
@@ -65,21 +69,26 @@ public class Enemy extends Entity{
         setAction();
         collision = false;
         gp.collisionChecker.checkTitle(this);
-        if (moving) {
+        if (moving && collision == false) {
             switch (direction) {
                 case "up":
                     worldY -= (speed);
+
                     break;
                 case "down":
                     worldY += (speed);
+
                     break;
                 case "left":
                     worldX -= (speed);
+
                     break;
                 case "right":
                     worldX += (speed);
+
                     break;
             }
+
             pixelCounter += speed;
             if (pixelCounter == 64) {
                 moving = false;
