@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
 
-    GamePanel gp;
     KeyHandler keyH;
     TileManagement tileManagement;
     private BufferedImage[] playerImage = new BufferedImage[12];
@@ -24,7 +23,7 @@ public class Player extends Entity {
     public final int screenY;
 
     public Player(GamePanel gp, KeyHandler keyH, TileManagement tileManagement) {
-        this.gp = gp;
+        super(gp);
         this.keyH = keyH;
         this.tileManagement = tileManagement;
 
@@ -102,6 +101,10 @@ public class Player extends Entity {
                 collision = false;
                 gp.collisionChecker.checkTitle(this);
 
+                // npc collision
+                int npcIndex = gp.collisionChecker.checkEntity(this,gp.npc);
+                interactNPC(npcIndex);
+
                 //check object collision
                 int objIndex = gp.collisionChecker.checkObject(this, true);
                 pickUpObject(objIndex);
@@ -156,6 +159,12 @@ public class Player extends Entity {
         if(index != 999) {
             String objName = gp.objectManagement.obj[index].name;
             if(objName.equals("Crate")) gp.objectManagement.obj[index] = null;
+        }
+    }
+
+    public void interactNPC(int i) {
+        if(i!=999) {
+            System.out.println("you are hitting npc");
         }
     }
 

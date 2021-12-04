@@ -10,9 +10,10 @@ public class ObjectManagement {
     KeyHandler keyH;
 
     public SuperObject[] obj = new SuperObject[50];
-    int currentObj = 0;
+    int currentObj = 1;
     int currentBomb = 0;
-    int maxBombNum = 50;
+    int maxBombNum = 30;
+    public int currentBullets = 5;
 
     public ObjectManagement(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -20,6 +21,24 @@ public class ObjectManagement {
     }
 
     public void update() {
+        updateBomb();
+        updateBullet();
+    }
+    public void updateBullet() {
+        if(keyH.bulletPressed && currentBullets >0) {
+            obj[currentObj] = new Bullet(gp);
+            Bullet k = (Bullet) obj[currentObj];
+            if(keyH.facingUp) k.up=true;
+            if(keyH.facingDown) k.down = true;    //Duy
+            if(keyH.facingRight) k.right = true;
+            if(keyH.facingLeft) k.left = true;
+
+            currentObj++;
+            currentBullets--;
+            keyH.bulletPressed = false;
+        }
+    }
+    public void updateBomb() {
         //DROP BOMB
         if (keyH.bombPressed && currentBomb <= maxBombNum) {
             int playerLeftWorldX = gp.player.worldX + gp.player.solidArea.x;

@@ -9,7 +9,9 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed = false;
+    public boolean facingLeft, facingRight, facingUp, facingDown = false;//Duy
     public boolean bombPressed = false;
+    public boolean bulletPressed = false;
     GamePanel gp;
     public boolean checkDrawTime = false;
 
@@ -28,15 +30,31 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_W) {
             upPressed = true;
+            facingLeft = false; //Duy
+            facingRight = false;
+            facingDown = false;
+            facingUp = true;//
         }
         if (code == KeyEvent.VK_S) {
             downPressed = true;
+            facingLeft = false;
+            facingRight = false;
+            facingDown = true;
+            facingUp = false;
         }
         if (code == KeyEvent.VK_A) {
             leftPressed = true;
+            facingLeft = true;
+            facingRight = false;
+            facingDown = false;
+            facingUp = false;
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
+            facingLeft = false;
+            facingRight = true;
+            facingDown = false;
+            facingUp = false;
         }
 //        if (code == KeyEvent.VK_UP) {
 //            gp.zoomInOut(1);
@@ -53,6 +71,11 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_SPACE) {
             bombPressed = true;
         }
+
+        if (code == KeyEvent.VK_E) {
+            bulletPressed = true;
+        }
+
     }
 
     @Override
@@ -70,6 +93,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
+        }
+        if(code == KeyEvent.VK_E) {
+            bulletPressed = false;
         }
     }
 }

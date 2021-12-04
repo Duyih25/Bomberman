@@ -2,6 +2,8 @@ package Main;
 
 import Controller.KeyHandler;
 import Controller.ObjectManagement;
+import Entities.Enemy;
+import Entities.Entity;
 import Entities.Player;
 import Graphics.Font;
 import Graphics.Sprite;
@@ -46,6 +48,8 @@ public class GamePanel extends JPanel implements Runnable {
     public AssetSetter aSetter = new AssetSetter(this);
     public ObjectManagement objectManagement = new ObjectManagement(this, keyH);
 
+    public Enemy npc[] = new Enemy[10];
+
     int FPS = 60;
 
 
@@ -64,6 +68,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setUpGame() {
         aSetter.setObject();
+        aSetter.setNPC();
     }
 
     public void startGameThread() {
@@ -126,6 +131,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         player.update();
         objectManagement.update();
+
+        for(int i=0;i<npc.length;i++) {
+            if(npc[i]!=null) {
+                npc[i].update();
+            }
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -154,6 +165,14 @@ public class GamePanel extends JPanel implements Runnable {
                 objectManagement.obj[i].draw(g2,this);
             }
         }
+
+        //npc
+        for(int i=0;i<npc.length;i++) {
+            if(npc[i]!=null) {
+                npc[i].draw(g2);
+            }
+        }
+
 
         //debug
         if (keyH.checkDrawTime == true) {

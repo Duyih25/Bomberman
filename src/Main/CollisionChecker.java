@@ -1,5 +1,6 @@
 package Main;
 
+import Entities.Enemy;
 import Entities.Entity;
 
 public class CollisionChecker {
@@ -57,8 +58,6 @@ public class CollisionChecker {
     }
     public int checkObject(Entity entity, boolean player) {
 
-
-
         int index = 999;
         for (int i = 0; i < gp.objectManagement.obj.length; i++) {
             if (gp.objectManagement.obj[i] != null) {
@@ -67,49 +66,58 @@ public class CollisionChecker {
                 switch (entity.direction) {
                     case "up":
                         if (entity.worldX == gp.objectManagement.obj[i].worldX &&
-                                entity.worldY == gp.objectManagement.obj[i].worldY + 32 &&
-                                !gp.objectManagement.obj[i].name.equals("Crate")) {
-                                entity.collision = true;
+                                entity.worldY == gp.objectManagement.obj[i].worldY + 32) {
+                            if(!gp.objectManagement.obj[i].name.equals("bullet"))entity.collision = true;
+                            if(gp.objectManagement.obj[i].name.equals("Crate")) {
+                                gp.objectManagement.currentBullets+=2;
+                            }
                             if (player) {
                                 index = i;
                             }
                             }
-                       // if(entity.solidArea.intersects(gp.objectManagement.obj[i].solidArea)) {
 
-                        //}
 
                         break;
                     case "down":
                         if (entity.worldX == gp.objectManagement.obj[i].worldX &&
-                                entity.worldY == gp.objectManagement.obj[i].worldY - 96 && !gp.objectManagement.obj[i].name.equals("Crate")) {
-                            entity.collision = true;
+                                entity.worldY == gp.objectManagement.obj[i].worldY - 96) {
+                            if(!gp.objectManagement.obj[i].name.equals("bullet")) entity.collision = true;
+                            if(gp.objectManagement.obj[i].name.equals("Crate")) {
+                                gp.objectManagement.currentBullets+=2;
+                            }
                             if (player) {
                                 index = i;
                             }
                         }
-                        //if(entity.solidArea.intersects(gp.objectManagement.obj[i].solidArea))System.out.println("down");
+
 
                         break;
                     case "left":
                         if (entity.worldX == gp.objectManagement.obj[i].worldX + 64 &&
-                                entity.worldY == gp.objectManagement.obj[i].worldY - 32 && !gp.objectManagement.obj[i].name.equals("Crate")) {
-                            entity.collision = true;
+                                entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
+                            if(!gp.objectManagement.obj[i].name.equals("bullet")) entity.collision = true;
+                            if(gp.objectManagement.obj[i].name.equals("Crate")) {
+                                gp.objectManagement.currentBullets+=2;
+                            }
                             if (player) {
                                 index = i;
                             }
                         }
-                       // if(entity.solidArea.intersects(gp.objectManagement.obj[i].solidArea))System.out.println("left");
+
 
                         break;
                     case "right":
                         if (entity.worldX == gp.objectManagement.obj[i].worldX - 64 &&
-                                entity.worldY == gp.objectManagement.obj[i].worldY - 32 && !gp.objectManagement.obj[i].name.equals("Crate")) {
-                            entity.collision = true;
+                                entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
+                            if(!gp.objectManagement.obj[i].name.equals("bullet")) entity.collision = true;
+                            if(gp.objectManagement.obj[i].name.equals("Crate")) {
+                                gp.objectManagement.currentBullets+=2;
+                            }
                             if (player) {
                                 index = i;
                             }
                         }
-                       // if(entity.solidArea.intersects(gp.objectManagement.obj[i].solidArea))System.out.println("right");
+
 
 
                         break;
@@ -123,6 +131,76 @@ public class CollisionChecker {
         }
 
         return index;
+    }
+
+    public int checkEntity(Entity entity, Enemy[] target) {
+        int index = 999;
+        for (int i = 0; i < target.length; i++) {
+            if (target[i] != null) {
+
+
+                switch (entity.direction) {
+                    case "up":
+                        if (entity.worldX == target[i].worldX &&
+                                entity.worldY == target[i].worldY + 32) {
+                            if(!gp.objectManagement.obj[i].name.equals("bullet"))entity.collision = true;
+                            index = i;
+                        }
+
+
+                        break;
+                    case "down":
+                        if (entity.worldX == target[i].worldX &&
+                                entity.worldY == target[i].worldY - 96) {
+                            index = i;
+                        }
+
+
+                        break;
+                    case "left":
+                        if (entity.worldX == target[i].worldX + 64 &&
+                                entity.worldY == target[i].worldY - 32) {
+                            index =i;
+                        }
+
+
+                        break;
+                    case "right":
+                        if (entity.worldX == target[i].worldX - 64 &&
+                                entity.worldY == target[i].worldY - 32) {
+                            index = i;
+                        }
+
+                        break;
+                }
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+               target[i].solidArea.x = target[i].solidAreaDefaultX;
+                target[i].solidArea.y = target[i].solidAreaDefaultY;
+
+            }
+        }
+
+        return index;
+    }
+
+    public void checkPlayer(Entity entity) {
+        entity.solidArea.x= entity.worldX+entity.solidArea.x;
+        entity.solidArea.y= entity.worldY+entity.solidArea.y;
+
+        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
+        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+
+        /**
+         *
+         *
+         *
+         *
+         *
+         *
+         *
+         *
+         * */
     }
 
 }
