@@ -8,10 +8,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+
 //Duy
 public class Enemy extends Entity{
+
     BufferedImage EnemyImage[] = new BufferedImage[3];
     public int actionLockCounter=0;
+    boolean moving = false;
+    int pixelCounter = 0;
     public Enemy(GamePanel gp) {
         super(gp);
         direction = "down";
@@ -38,12 +42,16 @@ public class Enemy extends Entity{
             int i = random.nextInt(2) + 1;
             if (i <= 25) {
                 direction = "up";
+                moving = true;
             } else if (i <= 50) {
                 direction = "down";
+                moving = true;
             } else if (i <= 75) {
                 direction = "right";
+                moving = true;
             } else {
                 direction = "left";
+                moving = true;
             }
             actionLockCounter=0;
             spriteNum++;
@@ -57,22 +65,27 @@ public class Enemy extends Entity{
         setAction();
         collision = false;
         gp.collisionChecker.checkTitle(this);
-
+        if (moving) {
             switch (direction) {
                 case "up":
-                    worldY -= (speed*64);
+                    worldY -= (speed);
                     break;
                 case "down":
-                    worldY += (speed*64);
+                    worldY += (speed);
                     break;
                 case "left":
-                    worldX -= (speed*64);
+                    worldX -= (speed);
                     break;
                 case "right":
-                    worldX += (speed*64);
+                    worldX += (speed);
                     break;
             }
-
+            pixelCounter += speed;
+            if (pixelCounter == 64) {
+                moving = false;
+                pixelCounter = 0;
+            }
+        }
     }
 
     public void draw(Graphics2D g2) {
