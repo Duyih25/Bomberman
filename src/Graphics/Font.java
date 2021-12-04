@@ -80,8 +80,11 @@ public class Font {
 
         public BufferedImage getFont(char letter) {
             int value = letter + 11;
-            if (value % 11 >=5 && value % 11 <= 10) {
+            if ((value % 11 >=5 && value % 11 <= 10)) {
                 value -= 11;
+            }
+            if (value == 'i' || value == 'w') {
+                value += 11;
             }
             int x = value % wLetter;
             int y = value / hLetter;

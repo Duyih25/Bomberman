@@ -166,6 +166,7 @@ public class Player extends Entity {
         if(i!=999) {
             System.out.println("you are hitting npc");
         }
+
     }
 
     public void draw(Graphics2D g2) {

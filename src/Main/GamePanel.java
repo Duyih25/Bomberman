@@ -3,12 +3,11 @@ package Main;
 import Controller.KeyHandler;
 import Controller.ObjectManagement;
 import Entities.Enemy;
-import Entities.Entity;
 import Entities.Player;
 import Graphics.Font;
 import Graphics.Sprite;
-import Tile.TileManagement;
 import Object.AssetSetter;
+import Tile.TileManagement;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,6 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
     }
+
 
 
     @Override
@@ -180,7 +180,7 @@ public class GamePanel extends JPanel implements Runnable {
             long passed = drawEnd - drawStart;
             g2.setColor(Color.white);
             g2.drawString("Draw Time: " + passed, 10, 400);
-            //Sprite.drawArray(g2, font, "Draw Time: " + passed, 2 * tileSize, 32 , 32, 32, 32, 0);
+            Sprite.drawArray(g2, font, "Draw Time: " + passed, 16, tileSize * 9 , 24, 24, 24, 0);
 
             //System.out.println("Draw Time: " + passed);
         }
