@@ -37,9 +37,9 @@ public class Enemy extends Entity{
         collision = false;
         gp.collisionChecker.checkTitle(this);
 
-        if(actionLockCounter==60) {
+        if(actionLockCounter==64) {
             Random random = new Random();
-            int i = random.nextInt(2) + 1;
+            int i = random.nextInt(100) + 1;
             if (i <= 25) {
                 direction = "up";
                 moving = true;
@@ -135,5 +135,6 @@ public class Enemy extends Entity{
         }
 
     }
+
 
 }
