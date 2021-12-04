@@ -10,7 +10,7 @@ public class ObjectManagement {
     KeyHandler keyH;
 
     public SuperObject[] obj = new SuperObject[50];
-    int currentObj = 1;
+    public int currentObj = 1;
     int currentBomb = 0;
     int maxBombNum = 30;
     public int currentBullets = 5;

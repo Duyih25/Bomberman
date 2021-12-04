@@ -2,6 +2,7 @@ package Main;
 
 import Entities.Enemy;
 import Entities.Entity;
+import Entities.Player;
 
 public class CollisionChecker {
 
@@ -67,7 +68,12 @@ public class CollisionChecker {
                     case "up":
                         if (entity.worldX == gp.objectManagement.obj[i].worldX &&
                                 entity.worldY == gp.objectManagement.obj[i].worldY + 32) {
-                            if(!gp.objectManagement.obj[i].name.equals("bullet"))entity.collision = true;
+                            if(!gp.objectManagement.obj[i].name.equals("Bullet"))entity.collision = true;
+                            else {
+                                if(entity.getClass().equals("Enemy")) {
+                                    return i;
+                                }
+                            }
                             if(gp.objectManagement.obj[i].name.equals("Crate")) {
                                 gp.objectManagement.currentBullets+=2;
                             }
@@ -81,7 +87,12 @@ public class CollisionChecker {
                     case "down":
                         if (entity.worldX == gp.objectManagement.obj[i].worldX &&
                                 entity.worldY == gp.objectManagement.obj[i].worldY - 96) {
-                            if(!gp.objectManagement.obj[i].name.equals("bullet")) entity.collision = true;
+                            if(!gp.objectManagement.obj[i].name.equals("Bullet")) entity.collision = true;
+                            else {
+                                if(entity.getClass().equals("Enemy")) {
+                                    return i;
+                                }
+                            }
                             if(gp.objectManagement.obj[i].name.equals("Crate")) {
                                 gp.objectManagement.currentBullets+=2;
                             }
@@ -95,7 +106,12 @@ public class CollisionChecker {
                     case "left":
                         if (entity.worldX == gp.objectManagement.obj[i].worldX + 64 &&
                                 entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
-                            if(!gp.objectManagement.obj[i].name.equals("bullet")) entity.collision = true;
+                            if(!gp.objectManagement.obj[i].name.equals("Bullet")) entity.collision = true;
+                            else {
+                                if(entity.getClass().equals("Enemy")) {
+                                    return i;
+                                }
+                            }
                             if(gp.objectManagement.obj[i].name.equals("Crate")) {
                                 gp.objectManagement.currentBullets+=2;
                             }
@@ -109,7 +125,12 @@ public class CollisionChecker {
                     case "right":
                         if (entity.worldX == gp.objectManagement.obj[i].worldX - 64 &&
                                 entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
-                            if(!gp.objectManagement.obj[i].name.equals("bullet")) entity.collision = true;
+                            if(!gp.objectManagement.obj[i].name.equals("Bullet")) entity.collision = true;
+                            else {
+                                if(entity.getClass().equals("Enemy")) {
+                                    return i;
+                                }
+                            }
                             if(gp.objectManagement.obj[i].name.equals("Crate")) {
                                 gp.objectManagement.currentBullets+=2;
                             }
@@ -137,37 +158,34 @@ public class CollisionChecker {
         int index = 999;
         for (int i = 0; i < target.length; i++) {
             if (target[i] != null) {
-
-
                 switch (entity.direction) {
                     case "up":
-                        if (entity.worldX == target[i].worldX &&
-                                entity.worldY == target[i].worldY + 32) {
-                            if(!gp.objectManagement.obj[i].name.equals("bullet"))entity.collision = true;
+                        if (entity.getBound().intersects(target[i].getBound())) {
+                            //if(!gp.objectManagement.obj[i].name.equals("bullet"))entity.collision = true;
                             index = i;
                         }
 
 
                         break;
                     case "down":
-                        if (entity.worldX == target[i].worldX &&
-                                entity.worldY == target[i].worldY - 96) {
+                        if (entity.getBound().intersects(target[i].getBound())) {
+                            //System.out.println("hehe");
                             index = i;
                         }
 
 
                         break;
                     case "left":
-                        if (entity.worldX == target[i].worldX + 64 &&
-                                entity.worldY == target[i].worldY - 32) {
+                        if (entity.getBound().intersects(target[i].getBound())) {
+                            //System.out.println("hehe");
                             index =i;
                         }
 
 
                         break;
                     case "right":
-                        if (entity.worldX == target[i].worldX - 64 &&
-                                entity.worldY == target[i].worldY - 32) {
+                        if (entity.getBound().intersects(target[i].getBound())) {
+                            //System.out.println("hehe");
                             index = i;
                         }
 
@@ -184,23 +202,66 @@ public class CollisionChecker {
         return index;
     }
 
-    public void checkPlayer(Entity entity) {
-        entity.solidArea.x= entity.worldX+entity.solidArea.x;
-        entity.solidArea.y= entity.worldY+entity.solidArea.y;
+    public int checkObjForEnemy(Enemy enemy) {
+        int index = 999;
+        for (int i = 0; i < gp.objectManagement.obj.length; i++) {
+            if (gp.objectManagement.obj[i] != null) {
+                switch (enemy.direction) {
+                    case "up":
+                        if (gp.objectManagement.obj[i].name.equals("Bullet") && enemy.getBound().intersects(gp.objectManagement.obj[i].getBound())) {
+                            //if(!gp.objectManagement.obj[i].name.equals("bullet"))entity.collision = true;
+                            for(int j=0;j<gp.npc.length;j++) {
+                                if(enemy==gp.npc[j]) gp.npc[j] = null;
 
-        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+                            }
+                            index = i;
+                        }
 
-        /**
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-         * */
+
+                        break;
+                    case "down":
+                        if (gp.objectManagement.obj[i].name.equals("Bullet") && enemy.getBound().intersects(gp.objectManagement.obj[i].getBound())) {
+                            index = i;
+                            for(int j=0;j<gp.npc.length;j++) {
+                                if(enemy==gp.npc[j]) gp.npc[j] = null;
+
+                            }
+                        }
+
+
+                        break;
+                    case "left":
+                        if (gp.objectManagement.obj[i].name.equals("Bullet") && enemy.getBound().intersects(gp.objectManagement.obj[i].getBound())) {
+                            index =i;
+                            for(int j=0;j<gp.npc.length;j++) {
+                                if(enemy==gp.npc[j]) gp.npc[j] = null;
+
+                            }
+
+                        }
+
+
+                        break;
+                    case "right":
+                        if (gp.objectManagement.obj[i].name.equals("Bullet") && enemy.getBound().intersects(gp.objectManagement.obj[i].getBound())) {
+                            index = i;
+                            for(int j=0;j<gp.npc.length;j++) {
+                                if(enemy==gp.npc[j]) gp.npc[j] = null;
+
+                            }
+
+                        }
+
+                        break;
+                }
+                //enemy.solidArea.x = enemy.solidAreaDefaultX;
+                //enemy.solidArea.y = enemy.solidAreaDefaultY;
+                gp.objectManagement.obj[i].solidArea.x = gp.objectManagement.obj[i].solidAreaDefaultX;
+                gp.objectManagement.obj[i].solidArea.y = gp.objectManagement.obj[i].solidAreaDefaultY;
+
+            }
+        }
+
+        return index;
     }
-
 }

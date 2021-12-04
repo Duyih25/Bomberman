@@ -164,7 +164,7 @@ public class Player extends Entity {
 
     public void interactNPC(int i) {
         if(i!=999) {
-            System.out.println("you are hitting npc");
+
         }
 
     }
@@ -244,5 +244,8 @@ public class Player extends Entity {
         g2.setColor(Color.red);
         g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
         //System.out.println(worldX + " " + worldY);
+    }
+    public Rectangle getBound() {
+        return new Rectangle(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
     }
 }

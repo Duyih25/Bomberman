@@ -17,6 +17,6 @@ public abstract class SuperObject {
 
 
     public abstract void draw(Graphics2D g2, GamePanel gp);
-
+    public abstract Rectangle getBound();
 }
 
