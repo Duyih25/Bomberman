@@ -1,8 +1,6 @@
 package Object;
 
-import Controller.UtilityTool;
 import Main.GamePanel;
-import Graphics.Sprite;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,7 +10,7 @@ import java.io.IOException;
 public class Crate extends SuperObject{
 
     public Crate() {
-
+        collision = true;
         image = new BufferedImage[1];
         name = "Crate";
         try {

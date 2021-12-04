@@ -10,7 +10,7 @@ public class ObjectManagement {
     KeyHandler keyH;
 
     public SuperObject[] obj = new SuperObject[50];
-    int currentObj = 0;
+    public int currentObj = 0;
     int currentBomb = 0;
     int maxBombNum = 50;
 
@@ -29,7 +29,7 @@ public class ObjectManagement {
             int bombTileRow = playerTopWorldY / gp.tileSize;
             //System.out.println(bombTileCol + " " + bombTileRow);
 
-            int bombTileNum = gp.tileManagement.mapTileNum[bombTileCol][bombTileCol];
+            int bombTileNum = gp.tileManagement.mapTileNum[bombTileCol][bombTileRow];
             if (gp.tileManagement.tiles[bombTileNum].available) {
                 //SET BOMB TO PLAYER POSITION
                 obj[currentObj] = new Bomb();

@@ -15,7 +15,6 @@ public abstract class SuperObject {
     public int solidAreaDefaultX = 16;
     public int solidAreaDefaultY = 16;
 
-
     public abstract void draw(Graphics2D g2, GamePanel gp);
 
 }
