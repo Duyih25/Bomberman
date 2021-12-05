@@ -7,6 +7,7 @@ import Main.GamePanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import Graphics.Sprite;
 
 
 //Duy
@@ -44,6 +45,10 @@ public class Enemy extends Entity{
                 gp.objectManagement.obj[index] = null;
             }
         }
+    }
+    public void collidePlayer(Player player) {
+        System.out.println("OK");
+
     }
     public void draw(Graphics2D g2) {
 

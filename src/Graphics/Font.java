@@ -83,9 +83,10 @@ public class Font {
             if ((value % 11 >=5 && value % 11 <= 10)) {
                 value -= 11;
             }
-            if (value == 'i' || value == 'w') {
+            if (value == 'i' || value == 'w' || value == 'u' || value == 's') {
                 value += 11;
             }
+
             int x = value % wLetter;
             int y = value / hLetter;
 

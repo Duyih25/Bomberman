@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     public TileManagement tileManagement = new TileManagement(this);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyH, tileManagement);
-    private Font font;
+    public Font font;
     Timer timer;
     public int second, minute;
     String ddSecond, ddMinute;
@@ -50,6 +50,8 @@ public class GamePanel extends JPanel implements Runnable {
     public Enemy npc[] = new Enemy[10];
 
     int FPS = 60;
+    public Graphics2D g2d;
+    public boolean lose = false;
 
 
     public GamePanel() {
@@ -123,6 +125,10 @@ public class GamePanel extends JPanel implements Runnable {
                 repaint();
                 delta--;
             }
+            if(lose) {
+                //zzzz
+                gameThread.stop();
+            }
         }
 
     }
@@ -153,6 +159,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D)g;
 
+        g2d = g2;
         tileManagement.draw(g2);
 
         objectManagement.render(g2);
@@ -187,6 +194,10 @@ public class GamePanel extends JPanel implements Runnable {
 
         Sprite.drawArray(g2, font, ddMinute + ":" + ddSecond , (maxScreenCol - 3) * tileSize, 32 , 32, 32, 32, 0);
 
+        if(lose) {
+            Sprite.drawArray(g2, font,"You" , tileSize, 5*tileSize , 32, 32, 32, 0);
+            Sprite.drawArray(g2, font,"lose" , tileSize*3, 5*tileSize , 32, 32, 32, 0);
+        }
         g2.dispose();
     }
 

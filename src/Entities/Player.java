@@ -102,8 +102,7 @@ public class Player extends Entity {
                 gp.collisionChecker.checkTitle(this);
 
                 // npc collision
-                int npcIndex = gp.collisionChecker.checkEntity(this,gp.npc);
-                interactNPC(npcIndex);
+              //  int npcIndex = gp.collisionChecker.(this,gp.npc);
 
                 //check object collision
                 int objIndex = gp.collisionChecker.checkObject(this, true);
@@ -162,12 +161,6 @@ public class Player extends Entity {
         }
     }
 
-    public void interactNPC(int i) {
-        if(i!=999) {
-
-        }
-
-    }
 
     public void draw(Graphics2D g2) {
 

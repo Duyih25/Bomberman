@@ -154,50 +154,48 @@ public class CollisionChecker {
         return index;
     }
 
-    public int checkEntity(Entity entity, Enemy[] target) {
+    public int checkEntity(Entity entity, Enemy target) {
         int index = 999;
-        for (int i = 0; i < target.length; i++) {
-            if (target[i] != null) {
+
                 switch (entity.direction) {
                     case "up":
-                        if (entity.getBound().intersects(target[i].getBound())) {
+                        if (entity.getBound().intersects(target.getBound())) {
                             //if(!gp.objectManagement.obj[i].name.equals("bullet"))entity.collision = true;
-                            index = i;
+                            index = 0;
                         }
 
 
                         break;
                     case "down":
-                        if (entity.getBound().intersects(target[i].getBound())) {
+                        if (entity.getBound().intersects(target.getBound())) {
                             //System.out.println("hehe");
-                            index = i;
+                            index = 0;
                         }
 
 
                         break;
                     case "left":
-                        if (entity.getBound().intersects(target[i].getBound())) {
+                        if (entity.getBound().intersects(target.getBound())) {
                             //System.out.println("hehe");
-                            index =i;
+                            index =0;
                         }
 
 
                         break;
                     case "right":
-                        if (entity.getBound().intersects(target[i].getBound())) {
+                        if (entity.getBound().intersects(target.getBound())) {
                             //System.out.println("hehe");
-                            index = i;
+                            index = 0;
                         }
 
                         break;
                 }
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
-               target[i].solidArea.x = target[i].solidAreaDefaultX;
-                target[i].solidArea.y = target[i].solidAreaDefaultY;
+               target.solidArea.x = target.solidAreaDefaultX;
+                target.solidArea.y = target.solidAreaDefaultY;
 
-            }
-        }
+
 
         return index;
     }

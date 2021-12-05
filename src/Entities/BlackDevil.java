@@ -80,6 +80,12 @@ public class BlackDevil extends Enemy{
             pixelCounter += speed;
             int objIndex = gp.collisionChecker.checkObjForEnemy(this);
             collideObj(objIndex);
+
+            if(gp.collisionChecker.checkEntity(gp.player, this)==0){
+                gp.lose = true;
+                collidePlayer(gp.player);
+            }
+
             if (pixelCounter == 64) {
                 moving = false;
                 pixelCounter = 0;
