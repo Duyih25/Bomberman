@@ -108,6 +108,33 @@ public class CollisionChecker {
                                 return -1;
                             }
                         }
+                    } else if (gp.objectManagement.obj[i].name.equals("Bomb")) {
+                        switch (entity.direction) {
+                            case "up":
+                                if (entity.worldX == gp.objectManagement.obj[i].worldX &&
+                                        entity.worldY == gp.objectManagement.obj[i].worldY + 32) {
+                                    entity.collision = true;
+                                }
+                                break;
+                            case "down":
+                                if (entity.worldX == gp.objectManagement.obj[i].worldX &&
+                                        entity.worldY == gp.objectManagement.obj[i].worldY - 96) {
+                                    entity.collision = true;
+                                }
+                                break;
+                            case "left":
+                                if (entity.worldX == gp.objectManagement.obj[i].worldX + 64 &&
+                                        entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
+                                    entity.collision = true;
+                                }
+                                break;
+                            case "right":
+                                if (entity.worldX == gp.objectManagement.obj[i].worldX - 64 &&
+                                        entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
+                                    entity.collision = true;
+                                }
+                                break;
+                        }
                     }
                 } else if (entity.name.equals("Crate")) {
                     if (gp.objectManagement.obj[i].name.equals("Flame")) {
