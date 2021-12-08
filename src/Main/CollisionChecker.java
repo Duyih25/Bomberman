@@ -3,6 +3,8 @@ package Main;
 import Entities.Enemy;
 import Entities.Entity;
 import Entities.Player;
+import Object.FlameSegment;
+import Object.Flame;
 
 public class CollisionChecker {
 
@@ -57,92 +59,67 @@ public class CollisionChecker {
                 break;
         }
     }
-    public int checkObject(Entity entity, boolean player) {
-
+    public int checkObject(Entity entity) {
         int index = 999;
         for (int i = 0; i < gp.objectManagement.obj.length; i++) {
             if (gp.objectManagement.obj[i] != null) {
-
-
-                switch (entity.direction) {
-                    case "up":
-                        if (entity.worldX == gp.objectManagement.obj[i].worldX &&
-                                entity.worldY == gp.objectManagement.obj[i].worldY + 32) {
-                            if(!gp.objectManagement.obj[i].name.equals("Bullet"))entity.collision = true;
-                            else {
-                                if(entity.getClass().equals("Enemy")) {
+                if (entity.name.equals("Player")) {
+                    if (gp.objectManagement.obj[i].name.equals("Crate")) {
+                        switch (entity.direction) {
+                            case "up":
+                                if (entity.worldX == gp.objectManagement.obj[i].worldX &&
+                                        entity.worldY == gp.objectManagement.obj[i].worldY + 32) {
+                                    gp.objectManagement.currentBullets += 2;
+                                    gp.objectManagement.currentBomb++;
                                     return i;
                                 }
-                            }
-                            if(gp.objectManagement.obj[i].name.equals("Crate")) {
-                                gp.objectManagement.currentBullets+=2;
-                            }
-                            if (player) {
-                                index = i;
-                            }
-                            }
-
-
-                        break;
-                    case "down":
-                        if (entity.worldX == gp.objectManagement.obj[i].worldX &&
-                                entity.worldY == gp.objectManagement.obj[i].worldY - 96) {
-                            if(!gp.objectManagement.obj[i].name.equals("Bullet")) entity.collision = true;
-                            else {
-                                if(entity.getClass().equals("Enemy")) {
+                                break;
+                            case "down":
+                                if (entity.worldX == gp.objectManagement.obj[i].worldX &&
+                                        entity.worldY == gp.objectManagement.obj[i].worldY - 96) {
+                                    gp.objectManagement.currentBullets += 2;
+                                    gp.objectManagement.currentBomb++;
                                     return i;
                                 }
-                            }
-                            if(gp.objectManagement.obj[i].name.equals("Crate")) {
-                                gp.objectManagement.currentBullets+=2;
-                            }
-                            if (player) {
-                                index = i;
-                            }
+                                break;
+                            case "left":
+                                if (entity.worldX == gp.objectManagement.obj[i].worldX + 64 &&
+                                        entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
+                                    gp.objectManagement.currentBullets += 2;
+                                    gp.objectManagement.currentBomb++;
+                                    return i;
+                                }
+                                break;
+                            case "right":
+                                if (entity.worldX == gp.objectManagement.obj[i].worldX - 64 &&
+                                        entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
+                                    gp.objectManagement.currentBullets += 2;
+                                    gp.objectManagement.currentBomb++;
+                                    return i;
+                                }
+                                break;
                         }
 
-
-                        break;
-                    case "left":
-                        if (entity.worldX == gp.objectManagement.obj[i].worldX + 64 &&
-                                entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
-                            if(!gp.objectManagement.obj[i].name.equals("Bullet")) entity.collision = true;
-                            else {
-                                if(entity.getClass().equals("Enemy")) {
-                                    return i;
-                                }
-                            }
-                            if(gp.objectManagement.obj[i].name.equals("Crate")) {
-                                gp.objectManagement.currentBullets+=2;
-                            }
-                            if (player) {
-                                index = i;
+                    } else if (gp.objectManagement.obj[i].name.equals("Flame")) {
+                        Flame check = (Flame) gp.objectManagement.obj[i];
+                        for (FlameSegment fs : check.flameSegments) {
+                            if (entity.getBound().intersects(fs.getBound())) {
+                                gp.lose = true;
+                                return -1;
                             }
                         }
-
-
-                        break;
-                    case "right":
-                        if (entity.worldX == gp.objectManagement.obj[i].worldX - 64 &&
-                                entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
-                            if(!gp.objectManagement.obj[i].name.equals("Bullet")) entity.collision = true;
-                            else {
-                                if(entity.getClass().equals("Enemy")) {
-                                    return i;
-                                }
-                            }
-                            if(gp.objectManagement.obj[i].name.equals("Crate")) {
-                                gp.objectManagement.currentBullets+=2;
-                            }
-                            if (player) {
-                                index = i;
+                    }
+                } else if (entity.name.equals("Crate")) {
+                    if (gp.objectManagement.obj[i].name.equals("Flame")) {
+                        Flame check = (Flame) gp.objectManagement.obj[i];
+                        for (FlameSegment fs : check.flameSegments) {
+                            if (entity.getBound().intersects(fs.getBound())) {
+                                return 0;
                             }
                         }
-
-
-
-                        break;
+                    }
                 }
+
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
                 gp.objectManagement.obj[i].solidArea.x = gp.objectManagement.obj[i].solidAreaDefaultX;
@@ -177,7 +154,7 @@ public class CollisionChecker {
                     case "left":
                         if (entity.getBound().intersects(target.getBound())) {
                             //System.out.println("hehe");
-                            index =0;
+                            index = 0;
                         }
 
 
@@ -204,62 +181,32 @@ public class CollisionChecker {
         int index = 999;
         for (int i = 0; i < gp.objectManagement.obj.length; i++) {
             if (gp.objectManagement.obj[i] != null) {
-                switch (enemy.direction) {
-                    case "up":
-                        if (gp.objectManagement.obj[i].name.equals("Bullet") && enemy.getBound().intersects(gp.objectManagement.obj[i].getBound())) {
-                            //if(!gp.objectManagement.obj[i].name.equals("bullet"))entity.collision = true;
-                            for(int j=0;j<gp.npc.length;j++) {
-                                if(enemy==gp.npc[j]) gp.npc[j] = null;
-
-                            }
-                            index = i;
-                        }
-
-
-                        break;
-                    case "down":
-                        if (gp.objectManagement.obj[i].name.equals("Bullet") && enemy.getBound().intersects(gp.objectManagement.obj[i].getBound())) {
-                            index = i;
-                            for(int j=0;j<gp.npc.length;j++) {
-                                if(enemy==gp.npc[j]) gp.npc[j] = null;
-
+                if (gp.objectManagement.obj[i].name.equals("Bullet") &&
+                        enemy.getBound().intersects(gp.objectManagement.obj[i].getBound())) {
+                    //if(!gp.objectManagement.obj[i].name.equals("bullet"))entity.collision = true;
+                    for (int j = 0; j < gp.npc.length; j++) {
+                        if (enemy == gp.npc[j]) gp.npc[j] = null;
+                    }
+                    index = i;
+                } else if (gp.objectManagement.obj[i].name.equals("Flame")) {
+                    Flame check = (Flame) gp.objectManagement.obj[i];
+                    for (FlameSegment fs: check.flameSegments) {
+                        if (enemy.getBound().intersects(fs.getBound())) {
+                            for (int j = 0; j < gp.npc.length; j++) {
+                                if (enemy == gp.npc[j]) {
+                                    gp.npc[j] = null;
+                                    return index;
+                                }
                             }
                         }
-
-
-                        break;
-                    case "left":
-                        if (gp.objectManagement.obj[i].name.equals("Bullet") && enemy.getBound().intersects(gp.objectManagement.obj[i].getBound())) {
-                            index =i;
-                            for(int j=0;j<gp.npc.length;j++) {
-                                if(enemy==gp.npc[j]) gp.npc[j] = null;
-
-                            }
-
-                        }
-
-
-                        break;
-                    case "right":
-                        if (gp.objectManagement.obj[i].name.equals("Bullet") && enemy.getBound().intersects(gp.objectManagement.obj[i].getBound())) {
-                            index = i;
-                            for(int j=0;j<gp.npc.length;j++) {
-                                if(enemy==gp.npc[j]) gp.npc[j] = null;
-
-                            }
-
-                        }
-
-                        break;
+                    }
                 }
                 //enemy.solidArea.x = enemy.solidAreaDefaultX;
                 //enemy.solidArea.y = enemy.solidAreaDefaultY;
                 gp.objectManagement.obj[i].solidArea.x = gp.objectManagement.obj[i].solidAreaDefaultX;
                 gp.objectManagement.obj[i].solidArea.y = gp.objectManagement.obj[i].solidAreaDefaultY;
-
             }
         }
-
         return index;
     }
 }

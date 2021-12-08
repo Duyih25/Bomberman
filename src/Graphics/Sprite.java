@@ -84,7 +84,7 @@ public class Sprite {
 
     public BufferedImage[] getSpriteArray() {
         int count = 0;
-        BufferedImage[] image = new BufferedImage[hSprite + wSprite - 1];
+        BufferedImage[] image = new BufferedImage[hSprite * wSprite];
         for (int y = 0; y < hSprite; y++) {
             for (int x = 0; x < wSprite; x++) {
                 image[count] = spriteArray[y][x];
