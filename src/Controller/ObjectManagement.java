@@ -70,6 +70,7 @@ public class ObjectManagement {
                 obj[currentObj].worldX = (gp.player.worldX + 32) / 64 * 64;
                 obj[currentObj].worldY = (gp.player.worldY + 32) / 64 * 64;
                 obj[currentObj].mapPosition = bombTileNum;
+                //obj[currentObj].collision = true;
                 currentObj++;
                 currentBomb++;
                 //gp.tileManagement.tiles[bombTileNum].available = false;
