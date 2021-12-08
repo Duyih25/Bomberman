@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int tileSize = orginalTileSize * scale; // 64 x 64 tile
     public int maxScreenCol = 10;
     public int maxScreenRow = 10;
+    public int maxBombRadius = 2;
     public int screenWidth = tileSize * maxScreenCol;
     public int screenHeight = tileSize * maxScreenRow;
 
@@ -169,7 +170,7 @@ public class GamePanel extends JPanel implements Runnable {
         //Obj
         for(int i=0;i<objectManagement.obj.length;i++) {
             if(objectManagement.obj[i]!=null) {
-                objectManagement.obj[i].draw(g2,this);
+                objectManagement.obj[i].draw(g2);
             }
         }
 

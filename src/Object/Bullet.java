@@ -5,19 +5,17 @@ import Main.GamePanel;
 import java.awt.*;
 //Duy
 public class Bullet extends SuperObject {
-    int screenX,screenY;
-    GamePanel gp;
     public boolean down,up,right,left=false;
 
     public Bullet(GamePanel gp) {
+        super(gp);
         worldX = gp.player.worldX + gp.player.solidAreaDefaultX;
         worldY = gp.player.worldY + gp.player.solidAreaDefaultX;
         name = "Bullet";
-        this.gp = gp;
     }
 
 
-    public void draw(Graphics2D g2, GamePanel gp) {
+    public void draw(Graphics2D g2) {
         if(right) worldX = worldX +4;
         if(left) worldX = worldX -4;
         if(up) worldY -= 4;

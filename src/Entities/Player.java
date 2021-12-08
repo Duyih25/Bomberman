@@ -13,7 +13,6 @@ public class Player extends Entity {
 
     KeyHandler keyH;
     TileManagement tileManagement;
-    private BufferedImage[] playerImage = new BufferedImage[12];
     int standCounter = 0;
     boolean moving = false;
     int pixelCounter = 0;
@@ -26,9 +25,12 @@ public class Player extends Entity {
         super(gp);
         this.keyH = keyH;
         this.tileManagement = tileManagement;
+        image = new BufferedImage[12];
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+
+        name = "Player";
 
         solidArea = new Rectangle(1, 33, 60, 60);
         solidAreaDefaultX = solidArea.x;
@@ -51,18 +53,18 @@ public class Player extends Entity {
 
         BufferedImageLoader loader = new BufferedImageLoader();
         BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");
-        playerImage[0] = sprite.getSubimage(0,0,32,48);
-        playerImage[1] = sprite.getSubimage(32,0,32,48);
-        playerImage[2] = sprite.getSubimage(64,0,32,48);
-        playerImage[3] = sprite.getSubimage(0,48,32,48);
-        playerImage[4] = sprite.getSubimage(32,48,32,48);
-        playerImage[5] = sprite.getSubimage(64,48,32,48);
-        playerImage[6] = sprite.getSubimage(0,96,32,48);
-        playerImage[7] = sprite.getSubimage(32,96,32,48);
-        playerImage[8] = sprite.getSubimage(64,96,32,48);
-        playerImage[9] = sprite.getSubimage(0,144,32,48);
-        playerImage[10] = sprite.getSubimage(32,144,32,48);
-        playerImage[11] = sprite.getSubimage(64,144,32,48);
+        image[0] = sprite.getSubimage(0,0,32,48);
+        image[1] = sprite.getSubimage(32,0,32,48);
+        image[2] = sprite.getSubimage(64,0,32,48);
+        image[3] = sprite.getSubimage(0,48,32,48);
+        image[4] = sprite.getSubimage(32,48,32,48);
+        image[5] = sprite.getSubimage(64,48,32,48);
+        image[6] = sprite.getSubimage(0,96,32,48);
+        image[7] = sprite.getSubimage(32,96,32,48);
+        image[8] = sprite.getSubimage(64,96,32,48);
+        image[9] = sprite.getSubimage(0,144,32,48);
+        image[10] = sprite.getSubimage(32,144,32,48);
+        image[11] = sprite.getSubimage(64,144,32,48);
         for (int i =0; i < 12; i++) {
             setUp(i);
         }
@@ -71,7 +73,7 @@ public class Player extends Entity {
     public void setUp(int index) {
 
         UtilityTool uTool = new UtilityTool();
-        playerImage[index] = uTool.scaleImage(playerImage[index], 64, 48*2);
+        image[index] = uTool.scaleImage(image[index], 64, 48*2);
     }
 
     public void update() {
@@ -105,7 +107,7 @@ public class Player extends Entity {
               //  int npcIndex = gp.collisionChecker.(this,gp.npc);
 
                 //check object collision
-                int objIndex = gp.collisionChecker.checkObject(this, true);
+                int objIndex = gp.collisionChecker.checkObject(this);
                 pickUpObject(objIndex);
 
             } else {
@@ -156,8 +158,16 @@ public class Player extends Entity {
 
     public void pickUpObject(int index) {
         if(index != 999) {
-            String objName = gp.objectManagement.obj[index].name;
-            if(objName.equals("Crate")) gp.objectManagement.obj[index] = null;
+            if (index == -1) {
+                gp.lose = true;
+            }
+            else {
+                String objName = gp.objectManagement.obj[index].name;
+                if (objName.equals("Crate")) {
+                    //System.out.println("hi");
+                    gp.objectManagement.obj[index] = null;
+                }
+            }
         }
     }
 
@@ -168,50 +178,50 @@ public class Player extends Entity {
 
         g2.fillRect(x, y, gp.titleSize, gp.titleSize);*/
 
-        BufferedImage image = null;
+        BufferedImage player_image = null;
         switch (direction) {
             case "up":
                 if (spriteNum == 0) {
-                    image = playerImage[3];
+                    player_image = image[3];
                 }
                 if (spriteNum == 1) {
-                    image = playerImage[4];
+                    player_image = image[4];
                 }
                 if (spriteNum == 2) {
-                    image = playerImage[5];
+                    player_image = image[5];
                 }
                 break;
             case "down":
                 if (spriteNum == 0) {
-                    image = playerImage[0];
+                    player_image = image[0];
                 }
                 if (spriteNum == 1) {
-                    image = playerImage[1];
+                    player_image = image[1];
                 }
                 if (spriteNum == 2) {
-                    image = playerImage[2];
+                    player_image = image[2];
                 }
                 break;
             case "left":
                 if (spriteNum == 0) {
-                    image = playerImage[11];
+                    player_image = image[11];
                 }
                 if (spriteNum == 1) {
-                    image = playerImage[10];
+                    player_image = image[10];
                 }
                 if (spriteNum == 2) {
-                    image = playerImage[9];
+                    player_image = image[9];
                 }
                 break;
             case "right":
                 if (spriteNum == 0) {
-                    image = playerImage[6];
+                    player_image = image[6];
                 }
                 if (spriteNum == 1) {
-                    image = playerImage[7];
+                    player_image = image[7];
                 }
                 if (spriteNum == 2) {
-                    image = playerImage[8];
+                    player_image = image[8];
                 }
                 break;
         }
@@ -233,7 +243,7 @@ public class Player extends Entity {
             y = gp.screenHeight - (tileManagement.mapRow * gp.tileSize - worldY);
         }
 
-        g2.drawImage(image, x, y, null);
+        g2.drawImage(player_image, x, y, null);
         g2.setColor(Color.red);
         g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
         //System.out.println(worldX + " " + worldY);

@@ -3,12 +3,15 @@ package Entities;
 import Main.GamePanel;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public abstract class Entity {
 
-    GamePanel gp;
+    public GamePanel gp;
+    public BufferedImage[] image;
     public int worldX, worldY;
     public int speed;
+    public String name;
     public int x,y;
 
     public String direction;
@@ -21,6 +24,8 @@ public abstract class Entity {
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
+
+    public abstract void draw(Graphics2D g2);
 
     abstract public Rectangle getBound();
 }
