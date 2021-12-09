@@ -150,7 +150,7 @@ public class Player extends Entity {
             }
             else {
                 String objName = gp.objectManagement.obj[index].name;
-                if (objName.equals("Crate")) {
+                if (objName.equals("Item")) {
                     //System.out.println("hi");
                     gp.objectManagement.obj[index] = null;
                 }

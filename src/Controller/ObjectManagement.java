@@ -29,8 +29,17 @@ public class ObjectManagement {
     private void updateItem() {
         for (int i = 0; i < obj.length; i++) {
             if (obj[i] != null) {
-                if (obj[i].name.equals("Crate")) {
-                    if (gp.collisionChecker.checkObject(obj[i]) == 0) {
+                int index = gp.collisionChecker.checkObject(obj[i]);
+                if (obj[i].name.equals("Item")) {
+                    System.out.println("I" + index);
+                    Item check = (Item) obj[i];
+                    if (index != 999 && index != check.flameIndex) {
+                        obj[i] = null;
+                    }
+                } else if (obj[i].name.equals("Crate")) {
+                    if (index != 999) {
+                        System.out.println("C" + index);
+                        obj[currentObj++] = new Item(gp, obj[i].worldX, obj[i].worldY, index);
                         obj[i] = null;
                     }
                 }
@@ -69,17 +78,16 @@ public class ObjectManagement {
                 obj[currentObj] = new Bomb(gp);
                 obj[currentObj].worldX = (gp.player.worldX + 32) / 64 * 64;
                 obj[currentObj].worldY = (gp.player.worldY + 32) / 64 * 64;
-                obj[currentObj].mapPosition = bombTileNum;
+                //obj[currentObj].mapPosition = bombTileNum;
                 //obj[currentObj].collision = true;
                 currentObj++;
                 currentBomb++;
                 //gp.tileManagement.tiles[bombTileNum].available = false;
-                //keyH.bombPressed = false;
+                keyH.bombPressed = false;
             }
-            //keyH.bombPressed = false;
         }
 
-        if (keyH.bombPressed) keyH.bombPressed = false;
+        //if (keyH.bombPressed) keyH.bombPressed = false;
         //System.out.println(currentBomb);
     }
 
@@ -92,6 +100,7 @@ public class ObjectManagement {
                     if (check.isExploded() && check.explosionTime == 120) {
                         //gp.tileManagement.tiles[obj[i].mapPosition].available = true;
                         obj[i] = null;
+                        //currentObj--;
                         for (Flame flame : check.flames) {
                             obj[currentObj++] = flame;
                         }
@@ -102,6 +111,7 @@ public class ObjectManagement {
                     flame.update();
                     if (flame.explosionTime <= 0) {
                         obj[i] = null;
+                        //currentObj--;
                     }
                 }
             }

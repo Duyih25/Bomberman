@@ -63,7 +63,7 @@ public class CollisionChecker {
         for (int i = 0; i < gp.objectManagement.obj.length; i++) {
             if (gp.objectManagement.obj[i] != null) {
                 if (entity.name.equals("Player")) {
-                    if (gp.objectManagement.obj[i].name.equals("Crate")) {
+                    if (gp.objectManagement.obj[i].name.equals("Item")) {
                         switch (entity.direction) {
                             case "up":
                                 if (entity.worldX == gp.objectManagement.obj[i].worldX &&
@@ -106,8 +106,10 @@ public class CollisionChecker {
                                 gp.lose = true;
                                 return -1;
                             }
+
                         }
-                    } else if (gp.objectManagement.obj[i].name.equals("Bomb")) {
+                    } else if (gp.objectManagement.obj[i].name.equals("Bomb") ||
+                            gp.objectManagement.obj[i].name.equals("Crate")) {
                         switch (entity.direction) {
                             case "up":
                                 if (entity.worldX == gp.objectManagement.obj[i].worldX &&
@@ -135,12 +137,21 @@ public class CollisionChecker {
                                 break;
                         }
                     }
+                } else if (entity.name.equals("Item")) {
+                    if (gp.objectManagement.obj[i].name.equals("Flame")) {
+                        Flame check = (Flame) gp.objectManagement.obj[i];
+                        for (FlameSegment fs : check.flameSegments) {
+                            if (entity.getBound().intersects(fs.getBound())) {
+                                return i;
+                            }
+                        }
+                    }
                 } else if (entity.name.equals("Crate")) {
                     if (gp.objectManagement.obj[i].name.equals("Flame")) {
                         Flame check = (Flame) gp.objectManagement.obj[i];
                         for (FlameSegment fs : check.flameSegments) {
                             if (entity.getBound().intersects(fs.getBound())) {
-                                return 0;
+                                return i;
                             }
                         }
                     }
