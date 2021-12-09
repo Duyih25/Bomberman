@@ -94,7 +94,7 @@ public class Sprite {
         return image;
     }
 
-    public BufferedImage[][] getSpriteArray2(int i) {
+    public BufferedImage[][] getSpriteArray2() {
         return spriteArray;
     }
 

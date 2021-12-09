@@ -28,54 +28,79 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W) {
-            upPressed = true;
-            facingLeft = false; //Duy
-            facingRight = false;
-            facingDown = false;
-            facingUp = true;//
-        }
-        if (code == KeyEvent.VK_S) {
-            downPressed = true;
-            facingLeft = false;
-            facingRight = false;
-            facingDown = true;
-            facingUp = false;
-        }
-        if (code == KeyEvent.VK_A) {
-            leftPressed = true;
-            facingLeft = true;
-            facingRight = false;
-            facingDown = false;
-            facingUp = false;
-        }
-        if (code == KeyEvent.VK_D) {
-            rightPressed = true;
-            facingLeft = false;
-            facingRight = true;
-            facingDown = false;
-            facingUp = false;
-        }
-//        if (code == KeyEvent.VK_UP) {
-//            gp.zoomInOut(1);
-//        }
-//        if (code == KeyEvent.VK_DOWN) {
-//            gp.zoomInOut(-1);
-//        }
-        if (code == KeyEvent.VK_T) {
-            if (checkDrawTime == false) {
-                checkDrawTime = true;
-            } else
-                checkDrawTime = false;
-        }
-        if (code == KeyEvent.VK_SPACE) {
-            bombPressed = true;
+        if (gp.gameState == gp.titleState) {
+            if (code == KeyEvent.VK_W) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0)
+                    gp.ui.commandNum = 2;
+            }
+            if (code == KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 2)
+                    gp.ui.commandNum = 0;
+            }
+            if (code == KeyEvent.VK_ENTER) {
+                if (gp.ui.commandNum == 0) {
+                    gp.gameState = gp.playState;
+                }
+                if (gp.ui.commandNum == 2) {
+                    System.exit(0);
+                }
+            }
         }
 
-        if (code == KeyEvent.VK_E) {
-            bulletPressed = true;
-        }
+        if (gp.gameState == gp.playState) {
+            if (code == KeyEvent.VK_W) {
+                upPressed = true;
+                facingLeft = false; //Duy
+                facingRight = false;
+                facingDown = false;
+                facingUp = true;//
+            }
+            if (code == KeyEvent.VK_S) {
+                downPressed = true;
+                facingLeft = false;
+                facingRight = false;
+                facingDown = true;
+                facingUp = false;
+            }
+            if (code == KeyEvent.VK_A) {
+                leftPressed = true;
+                facingLeft = true;
+                facingRight = false;
+                facingDown = false;
+                facingUp = false;
+            }
+            if (code == KeyEvent.VK_D) {
+                rightPressed = true;
+                facingLeft = false;
+                facingRight = true;
+                facingDown = false;
+                facingUp = false;
+            }
+            if (code == KeyEvent.VK_T) {
+                if (checkDrawTime == false) {
+                    checkDrawTime = true;
+                } else
+                    checkDrawTime = false;
+            }
+            if (code == KeyEvent.VK_SPACE) {
+                bombPressed = true;
+            }
 
+            if (code == KeyEvent.VK_E) {
+                bulletPressed = true;
+            }
+            if (code == KeyEvent.VK_P) {
+                if (gp.gameState == gp.playState) {
+                    gp.gameState = gp.pauseState;
+                    gp.timer.stop();
+                } else if (gp.gameState == gp.pauseState) {
+                    gp.gameState = gp.playState;
+                    gp.timer.start();
+                }
+            }
+        }
     }
 
     @Override

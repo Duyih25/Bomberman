@@ -2,9 +2,8 @@ package Main;
 
 import Entities.Enemy;
 import Entities.Entity;
-import Entities.Player;
-import Object.FlameSegment;
 import Object.Flame;
+import Object.FlameSegment;
 
 public class CollisionChecker {
 
@@ -143,6 +142,35 @@ public class CollisionChecker {
                             if (entity.getBound().intersects(fs.getBound())) {
                                 return 0;
                             }
+                        }
+                    }
+                } else if (entity.name.equals("BlackDevil")) {
+                    if (gp.objectManagement.obj[i].name.equals("Bomb")) {
+                        switch (entity.direction) {
+                            case "up":
+                                if (entity.worldX == gp.objectManagement.obj[i].worldX &&
+                                        entity.worldY == gp.objectManagement.obj[i].worldY + 32) {
+                                    entity.collision = true;
+                                }
+                                break;
+                            case "down":
+                                if (entity.worldX == gp.objectManagement.obj[i].worldX &&
+                                        entity.worldY == gp.objectManagement.obj[i].worldY - 96) {
+                                    entity.collision = true;
+                                }
+                                break;
+                            case "left":
+                                if (entity.worldX == gp.objectManagement.obj[i].worldX + 64 &&
+                                        entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
+                                    entity.collision = true;
+                                }
+                                break;
+                            case "right":
+                                if (entity.worldX == gp.objectManagement.obj[i].worldX - 64 &&
+                                        entity.worldY == gp.objectManagement.obj[i].worldY - 32) {
+                                    entity.collision = true;
+                                }
+                                break;
                         }
                     }
                 }

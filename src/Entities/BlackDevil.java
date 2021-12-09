@@ -14,6 +14,7 @@ public class BlackDevil extends Enemy{
     }
 
     public void setEnemyImage() {
+        name = "BlackDEvil";
         UtilityTool uTool = new UtilityTool();
         BufferedImageLoader loader = new BufferedImageLoader();
         BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");
@@ -47,6 +48,9 @@ public class BlackDevil extends Enemy{
             //kiem tra va cham
             collision = false;
             gp.collisionChecker.checkTitle(this);
+
+            //check object collision
+            int objIndex = gp.collisionChecker.checkObject(this);
         }
         if(actionLockCounter==30) {
             if(spriteNum>1) spriteNum=0;

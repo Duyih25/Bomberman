@@ -4,8 +4,6 @@ import Controller.KeyHandler;
 import Controller.ObjectManagement;
 import Entities.Enemy;
 import Entities.Player;
-import Graphics.Font;
-import Graphics.Sprite;
 import Object.AssetSetter;
 import Tile.TileManagement;
 
@@ -34,19 +32,24 @@ public class GamePanel extends JPanel implements Runnable {
     public final int worldWidth  = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
+    //GameState
+    public int gameState = 0;
+    public final int playState = 1;
+    public final int pauseState = 2;
+    public final int titleState = 0;
 
     Thread gameThread;
     KeyHandler keyH = new KeyHandler(this);
     public TileManagement tileManagement = new TileManagement(this);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyH, tileManagement);
-    public Font font;
-    Timer timer;
+    public Timer timer;
     public int second, minute;
     String ddSecond, ddMinute;
     DecimalFormat dFormat = new DecimalFormat("00");
     public AssetSetter aSetter = new AssetSetter(this);
     public ObjectManagement objectManagement = new ObjectManagement(this, keyH);
+    public UI ui = new UI (this);
 
     public Enemy npc[] = new Enemy[10];
 
@@ -62,15 +65,12 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyH);
         this.setFocusable(true);
 
-        font = new Font("../../Res/font.png", 10, 10);
-
-
-
     }
 
     public void setUpGame() {
         aSetter.setObject();
         aSetter.setNPC();
+        gameState = titleState;
     }
 
     public void startGameThread() {
@@ -128,7 +128,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
             if(lose) {
                 //zzzz
-                gameThread.stop();
+                //gameThread.stop();
             }
         }
 
@@ -136,13 +136,18 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     public void update() {
-        player.update();
-        objectManagement.update();
+        if(gameState == playState) {
+            player.update();
+            objectManagement.update();
 
-        for(int i=0;i<npc.length;i++) {
-            if(npc[i]!=null) {
-                npc[i].update();
+            for(int i=0;i<npc.length;i++) {
+                if(npc[i]!=null) {
+                    npc[i].update();
+                }
             }
+        }
+        if (gameState == pauseState) {
+
         }
     }
 
@@ -159,27 +164,37 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
-
         g2d = g2;
-        tileManagement.draw(g2);
 
-        objectManagement.render(g2);
+        //Tiltle Screen
+        if (gameState == titleState) {
+            ui.draw(g2);
+        } //OTHERS
+        else {
+            tileManagement.draw(g2);
 
-        player.draw(g2);
+            objectManagement.render(g2);
 
-        //Obj
-        for(int i=0;i<objectManagement.obj.length;i++) {
-            if(objectManagement.obj[i]!=null) {
-                objectManagement.obj[i].draw(g2);
+            player.draw(g2);
+
+            //Obj
+            for(int i=0;i<objectManagement.obj.length;i++) {
+                if(objectManagement.obj[i]!=null) {
+                    objectManagement.obj[i].draw(g2);
+                }
             }
+
+            //npc
+            for(int i=0;i<npc.length;i++) {
+                if(npc[i]!=null) {
+                    npc[i].draw(g2);
+                }
+            }
+
+            ui.draw(g2);
+
         }
 
-        //npc
-        for(int i=0;i<npc.length;i++) {
-            if(npc[i]!=null) {
-                npc[i].draw(g2);
-            }
-        }
 
 
         //debug
@@ -188,17 +203,18 @@ public class GamePanel extends JPanel implements Runnable {
             long passed = drawEnd - drawStart;
             g2.setColor(Color.white);
             g2.drawString("Draw Time: " + passed, 10, 400);
-            Sprite.drawArray(g2, font, "Draw Time: " + passed, 16, tileSize * 9 , 24, 24, 24, 0);
+            //Sprite.drawArray(g2, font, "Draw Time: " + passed, 16, tileSize * 9 , 24, 24, 24, 0);
 
             //System.out.println("Draw Time: " + passed);
         }
 
-        Sprite.drawArray(g2, font, ddMinute + ":" + ddSecond , (maxScreenCol - 3) * tileSize, 32 , 32, 32, 32, 0);
+        //Sprite.drawArray(g2, font, ddMinute + ":" + ddSecond , (maxScreenCol - 3) * tileSize, 32 , 32, 32, 32, 0);
 
-        if(lose) {
-            Sprite.drawArray(g2, font,"You" , tileSize, 5*tileSize , 32, 32, 32, 0);
-            Sprite.drawArray(g2, font,"lose" , tileSize*3, 5*tileSize , 32, 32, 32, 0);
-        }
+//        if(lose) {
+//            Sprite.drawArray(g2, font,"You" , tileSize, 5*tileSize , 32, 32, 32, 0);
+//            Sprite.drawArray(g2, font,"lose" , tileSize*3, 5*tileSize , 32, 32, 32, 0);
+//        }
+
         g2.dispose();
     }
 

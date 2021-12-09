@@ -1,8 +1,8 @@
 package Entities;
 
-import Controller.BufferedImageLoader;
 import Controller.KeyHandler;
 import Controller.UtilityTool;
+import Graphics.Sprite;
 import Main.GamePanel;
 import Tile.TileManagement;
 
@@ -20,12 +20,12 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
+    BufferedImage playerImage[][];
 
     public Player(GamePanel gp, KeyHandler keyH, TileManagement tileManagement) {
         super(gp);
         this.keyH = keyH;
         this.tileManagement = tileManagement;
-        image = new BufferedImage[12];
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
@@ -50,31 +50,18 @@ public class Player extends Entity {
 
     public void setPlayerImage() {
 
+        Sprite sprite = new Sprite("../../Res/bomber_sprite.png", 32, 48);
+        playerImage = sprite.getSpriteArray2();
 
-        BufferedImageLoader loader = new BufferedImageLoader();
-        BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");
-        image[0] = sprite.getSubimage(0,0,32,48);
-        image[1] = sprite.getSubimage(32,0,32,48);
-        image[2] = sprite.getSubimage(64,0,32,48);
-        image[3] = sprite.getSubimage(0,48,32,48);
-        image[4] = sprite.getSubimage(32,48,32,48);
-        image[5] = sprite.getSubimage(64,48,32,48);
-        image[6] = sprite.getSubimage(0,96,32,48);
-        image[7] = sprite.getSubimage(32,96,32,48);
-        image[8] = sprite.getSubimage(64,96,32,48);
-        image[9] = sprite.getSubimage(0,144,32,48);
-        image[10] = sprite.getSubimage(32,144,32,48);
-        image[11] = sprite.getSubimage(64,144,32,48);
-        for (int i =0; i < 12; i++) {
-            setUp(i);
+        UtilityTool uTool = new UtilityTool();
+
+        for (int i = 0; i < playerImage.length; i++) {
+            for (int j = 0; j < playerImage[0].length; j++) {
+                playerImage[i][j] = uTool.scaleImage(playerImage[i][j], 64, 48 * 2);
+            }
         }
     }
 
-    public void setUp(int index) {
-
-        UtilityTool uTool = new UtilityTool();
-        image[index] = uTool.scaleImage(image[index], 64, 48*2);
-    }
 
     public void update() {
 
@@ -182,46 +169,46 @@ public class Player extends Entity {
         switch (direction) {
             case "up":
                 if (spriteNum == 0) {
-                    player_image = image[3];
+                    player_image = playerImage[1][1];
                 }
                 if (spriteNum == 1) {
-                    player_image = image[4];
+                    player_image = playerImage[1][0];
                 }
                 if (spriteNum == 2) {
-                    player_image = image[5];
+                    player_image = playerImage[1][2];
                 }
                 break;
             case "down":
                 if (spriteNum == 0) {
-                    player_image = image[0];
+                    player_image = playerImage[0][1];
                 }
                 if (spriteNum == 1) {
-                    player_image = image[1];
+                    player_image = playerImage[0][0];
                 }
                 if (spriteNum == 2) {
-                    player_image = image[2];
+                    player_image = playerImage[0][2];
                 }
                 break;
             case "left":
                 if (spriteNum == 0) {
-                    player_image = image[11];
+                    player_image = playerImage[3][0];
                 }
                 if (spriteNum == 1) {
-                    player_image = image[10];
+                    player_image = playerImage[3][1];
                 }
                 if (spriteNum == 2) {
-                    player_image = image[9];
+                    player_image = playerImage[3][2];
                 }
                 break;
             case "right":
                 if (spriteNum == 0) {
-                    player_image = image[6];
+                    player_image = playerImage[2][0];
                 }
                 if (spriteNum == 1) {
-                    player_image = image[7];
+                    player_image = playerImage[2][1];
                 }
                 if (spriteNum == 2) {
-                    player_image = image[8];
+                    player_image = playerImage[2][2];
                 }
                 break;
         }
