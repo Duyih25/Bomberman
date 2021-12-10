@@ -8,8 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SpeedItem extends Item {
-
-
+    // ID: 3
     public SpeedItem(GamePanel gp, int x, int y) {
         super(gp, x, y);
 
