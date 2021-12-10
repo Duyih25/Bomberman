@@ -21,6 +21,28 @@ public class RedDevil extends Enemy {
             EnemyImage[i] = uTool.scaleImage(sprite.getSubimage(96+i*32,0,32,32),64,64);
     }
     public void setAction() {
+        actionLockCounter++;
+        if(actionLockCounter%30==0) {
+            spriteNum++;
+            if(spriteNum>=3) spriteNum=0;
+        }
+        if(actionLockCounter==1) {
+            direction = "left";
+        }
+        else if(actionLockCounter==128) {
+            direction= "right";
+        }
+        else if(actionLockCounter==384) {
+            direction = "left";
+        }
+        else if(actionLockCounter==512) {
+            direction = "left";
+            actionLockCounter=0;
+        }
+        moving = true;
+        collision = false;
+        gp.collisionChecker.checkTitle(this);
+
 
     }
 
@@ -30,7 +52,6 @@ public class RedDevil extends Enemy {
         gp.collisionChecker.checkTitle(this);
         if (moving && collision == false) {
             switch (direction) {
-
                 case "left":
                     worldX -= (speed);
 
@@ -68,13 +89,13 @@ public class RedDevil extends Enemy {
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         if (spriteNum == 0) {
-            image = EnemyImage[1];
+            image = EnemyImage[0];
         }
         if (spriteNum == 1) {
-            image = EnemyImage[2];
+            image = EnemyImage[1];
         }
         if (spriteNum == 2) {
-            image = EnemyImage[0];
+            image = EnemyImage[2];
         }
         screenX = worldX - gp.player.worldX + gp.player.screenX;
         screenY = worldY - gp.player.worldY + gp.player.screenY;

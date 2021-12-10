@@ -2,6 +2,7 @@ package Object;
 
 import Entities.BlackDevil;
 import Entities.Enemy;
+import Entities.RedDevil;
 import Main.GamePanel;
 
 public class AssetSetter {
@@ -22,5 +23,8 @@ public class AssetSetter {
         gp.npc[0] = new BlackDevil(gp);
         gp.npc[0].worldX = gp.tileSize*8;
         gp.npc[0].worldY = gp.tileSize*8;
+        gp.npc[1] = new RedDevil(gp);
+        gp.npc[1].worldX = gp.tileSize*6;
+        gp.npc[1].worldY = gp.tileSize*6;
     }
 }
