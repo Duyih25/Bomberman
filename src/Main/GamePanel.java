@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int tileSize = orginalTileSize * scale; // 64 x 64 tile
     public int maxScreenCol = 10;
     public int maxScreenRow = 10;
-    public int maxBombRadius = 2;
+
     public int screenWidth = tileSize * maxScreenCol;
     public int screenHeight = tileSize * maxScreenRow;
 
@@ -129,7 +129,7 @@ public class GamePanel extends JPanel implements Runnable {
             if(lose) {
                 //zzzz
                 System.out.println("End game!");
-                //gameThread.stop();
+                gameThread.stop();
             }
         }
 
