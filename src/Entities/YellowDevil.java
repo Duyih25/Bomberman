@@ -14,6 +14,7 @@ public class YellowDevil extends Enemy {
     }
 
     public void setEnemyImage() {
+        name = "YellowDevil";
         UtilityTool uTool = new UtilityTool();
         BufferedImageLoader loader = new BufferedImageLoader();
         BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");
@@ -63,12 +64,12 @@ public class YellowDevil extends Enemy {
 
     }
     public void collideObj(int index) {
-        if(index != 999) {
-            String objName = gp.objectManagement.obj[index].name;
-            if(objName.equals("Bullet")) {
-                gp.objectManagement.obj[index] = null;
-            }
-        }
+      //  if(index != 999) {
+       //     String objName = gp.objectManagement.obj[index].name;
+     //       if(objName.equals("Bullet")) {
+     //           gp.objectManagement.obj[index] = null;
+        //    }
+      //  }
     }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
