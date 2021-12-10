@@ -1,9 +1,8 @@
 package Object;
 
 import Controller.UtilityTool;
-import Main.GamePanel;
-import Graphics.Animation;
 import Graphics.Sprite;
+import Main.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -30,7 +29,7 @@ public class FlameSegment extends SuperObject {
 
     public void update() {
         spriteCounter++;
-        if (spriteCounter > 20) {
+        if (spriteCounter > 10) {
             spriteNum++;
             spriteCounter = 0;
         }
