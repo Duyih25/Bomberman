@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 public class Flame extends SuperObject {
     private int maxRadius;
-    public int explosionTime = 100;
+    public int explosionTime = 60;
     private int tempX, tempY;
     public boolean isCollidingNearBomb = false;
     public FlameSegment[] flameSegments = new FlameSegment[0];

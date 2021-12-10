@@ -18,5 +18,10 @@ public abstract class SuperObject extends Entity {
         solidArea = new Rectangle(16, 16, 32, 32);
     }
 
+    public void setSolidAreaDefault() {
+        this.solidArea.x = solidAreaDefaultX;
+        this.solidArea.y = solidAreaDefaultY;
+    }
+
 }
 

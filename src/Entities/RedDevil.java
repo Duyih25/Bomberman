@@ -80,9 +80,9 @@ public class RedDevil extends Enemy {
     }
     public void collideObj(int index) {
         if(index != 999) {
-            String objName = gp.objectManagement.obj[index].name;
+            String objName = gp.objectManagement.obj.get(index).name;
             if(objName.equals("Bullet")) {
-                gp.objectManagement.obj[index] = null;
+                gp.objectManagement.obj.remove(index);
             }
         }
     }
