@@ -13,9 +13,9 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        gp.objectManagement.obj[0] = new Crate(gp);
-        gp.objectManagement.obj[0].worldX= 10*gp.tileSize;
-        gp.objectManagement.obj[0].worldY= 10*gp.tileSize;
+        gp.objectManagement.obj.add(new Block(gp));
+        gp.objectManagement.obj.get(gp.objectManagement.obj.size() - 1).worldX= 10*gp.tileSize;
+        gp.objectManagement.obj.get(gp.objectManagement.obj.size() - 1).worldY= 10*gp.tileSize;
     }
 
     public void setNPC() {

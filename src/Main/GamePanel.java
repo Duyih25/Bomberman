@@ -128,7 +128,8 @@ public class GamePanel extends JPanel implements Runnable {
             }
             if(lose) {
                 //zzzz
-                gameThread.stop();
+                System.out.println("End game!");
+                //gameThread.stop();
             }
         }
 
@@ -178,11 +179,9 @@ public class GamePanel extends JPanel implements Runnable {
             player.draw(g2);
 
             //Obj
-            for(int i=0;i<objectManagement.obj.length;i++) {
-                if(objectManagement.obj[i]!=null) {
-                    objectManagement.obj[i].draw(g2);
-                }
-            }
+//            for(int i=0;i<objectManagement.obj.size();i++) {
+//                    objectManagement.obj.get(i).draw(g2);
+//            }
 
             //npc
             for(int i=0;i<npc.length;i++) {

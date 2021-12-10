@@ -9,14 +9,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Item extends SuperObject {
-    public int flameIndex;
+    public int waitingTime = 29;
 
-    public Item(GamePanel gp, int x, int y, int flameIndex) {
+    public Item(GamePanel gp, int x, int y) {
         super(gp);
         this.worldX = x;
         this.worldY = y;
         this.name = "Item";
-        this.flameIndex = flameIndex;
 
         image = new BufferedImage[3];
 

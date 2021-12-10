@@ -4,16 +4,19 @@ import Main.GamePanel;
 import Object.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ObjectManagement {
     GamePanel gp;
     KeyHandler keyH;
 
-    public SuperObject[] obj = new SuperObject[50];
+    public ArrayList<SuperObject> obj = new ArrayList<>();
     public int currentObj = 1;
     public int currentBomb = 0;
     public int maxBombNum = 3;
     public int currentBullets = 5;
+    public Bomb previousBomb = null;
+    public ArrayList<Item> waitingItem = new ArrayList<>();
 
     public ObjectManagement(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -27,21 +30,27 @@ public class ObjectManagement {
     }
 
     private void updateItem() {
-        for (int i = 0; i < obj.length; i++) {
-            if (obj[i] != null) {
-                int index = gp.collisionChecker.checkObject(obj[i]);
-                if (obj[i].name.equals("Item")) {
-                    System.out.println("I" + index);
-                    Item check = (Item) obj[i];
-                    if (index != 999 && index != check.flameIndex) {
-                        obj[i] = null;
-                    }
-                } else if (obj[i].name.equals("Crate")) {
-                    if (index != 999) {
-                        System.out.println("C" + index);
-                        obj[currentObj++] = new Item(gp, obj[i].worldX, obj[i].worldY, index);
-                        obj[i] = null;
-                    }
+        for (int i = 0; i < waitingItem.size(); i++) {
+            if (waitingItem.get(i).waitingTime > 0) waitingItem.get(i).waitingTime--;
+            else {
+                obj.add(waitingItem.get(i));
+                waitingItem.remove(i);
+            }
+        }
+
+        for (int i = 0; i < obj.size(); i++) {
+            int index = gp.collisionChecker.checkObject(obj.get(i));
+            if (obj.get(i).name.equals("Item") || obj.get(i).name.equals("Crate")) {
+                //System.out.println("I" + index);
+                Item check = (Item) obj.get(i);
+                if (index != 999) {
+                    obj.remove(i);
+                }
+            } else if (obj.get(i).name.equals("Block")) {
+                if (index != 999) {
+                    System.out.println("B" + index);
+                    waitingItem.add(new Item(gp, obj.get(i).worldX, obj.get(i).worldY));
+                    obj.remove(i);
                 }
             }
         }
@@ -49,14 +58,13 @@ public class ObjectManagement {
 
     private void updateBullet() {
         if(keyH.bulletPressed && currentBullets >0) {
-            obj[currentObj] = new Bullet(gp);
-            Bullet k = (Bullet) obj[currentObj];
+            obj.add(new Bullet(gp));
+            Bullet k = (Bullet) obj.get(obj.size() - 1);
             if(keyH.facingUp) k.up=true;
             if(keyH.facingDown) k.down = true;    //Duy
             if(keyH.facingRight) k.right = true;
             if(keyH.facingLeft) k.left = true;
 
-            currentObj++;
             currentBullets--;
             keyH.bulletPressed = false;
         }
@@ -73,68 +81,73 @@ public class ObjectManagement {
             //System.out.println(bombTileCol + " " + bombTileRow);
 
             int bombTileNum = gp.tileManagement.mapTileNum[bombTileCol][bombTileRow];
-            if (gp.tileManagement.tiles[bombTileNum].available) {
+            if (previousBomb == null || previousBomb.worldX != (gp.player.worldX + 32) / 64 * 64 ||
+                    previousBomb.worldY != (gp.player.worldY + 32) / 64 * 64) {
                 //SET BOMB TO PLAYER POSITION
-                obj[currentObj] = new Bomb(gp);
-                obj[currentObj].worldX = (gp.player.worldX + 32) / 64 * 64;
-                obj[currentObj].worldY = (gp.player.worldY + 32) / 64 * 64;
+                obj.add(new Bomb(gp));
+                obj.get(obj.size() - 1).worldX = (gp.player.worldX + 32) / 64 * 64;
+                obj.get(obj.size() - 1).worldY = (gp.player.worldY + 32) / 64 * 64;
                 //obj[currentObj].mapPosition = bombTileNum;
                 //obj[currentObj].collision = true;
-                currentObj++;
                 currentBomb++;
+                previousBomb = (Bomb) obj.get(obj.size() - 1);
                 //gp.tileManagement.tiles[bombTileNum].available = false;
-                keyH.bombPressed = false;
+                //keyH.bombPressed = false;
             }
         }
 
-        //if (keyH.bombPressed) keyH.bombPressed = false;
+        if (keyH.bombPressed) keyH.bombPressed = false;
         //System.out.println(currentBomb);
     }
 
     private void updateExistingBombs() {
-        for (int i = 0; i < obj.length; i++) {
-            if (obj[i] != null) {
-                if (obj[i].name.equals("Bomb")) {
-                    Bomb check = (Bomb) obj[i];
-                    check.update();
-                    if (check.isExploded() && check.explosionTime == 120) {
-                        //gp.tileManagement.tiles[obj[i].mapPosition].available = true;
-                        obj[i] = null;
-                        //currentObj--;
-                        for (Flame flame : check.flames) {
-                            obj[currentObj++] = flame;
-                        }
-                        currentBomb--;
+        for (int i = 0; i < obj.size(); i++) {
+            if (obj.get(i).name.equals("Bomb")) {
+                Bomb check = (Bomb) obj.get(i);
+                check.update();
+                if (check.isExploded() && check.explosionTime == 120) {
+                    //gp.tileManagement.tiles[obj[i].mapPosition].available = true;
+                    obj.remove(i);
+                    for (Flame flame : check.flames) {
+                        obj.add(flame);
                     }
-                } else if (obj[i].name.equals("Flame")) {
-                    Flame flame = (Flame) obj[i];
-                    flame.update();
-                    if (flame.explosionTime <= 0) {
-                        obj[i] = null;
-                        //currentObj--;
+                    currentBomb--;
+                }
+            } else if (obj.get(i).name.equals("Flame")) {
+                Flame flame = (Flame) obj.get(i);
+                flame.update();
+                for (FlameSegment fs : flame.flameSegments) {
+                    if (gp.player.getBound().intersects(fs.getBound())) {
+                        gp.lose = true;
                     }
+                }
+                if (flame.explosionTime <= 0) {
+                    obj.remove(i);
                 }
             }
         }
     }
 
     public boolean checkNearBomb(int x, int y) {
-        for (int i = 0; i < obj.length; i++) {
-            if (obj[i] != null) {
-                if (obj[i].name.equals("Bomb") && obj[i].worldX == x && obj[i].worldY == y) {
-                    Bomb check = (Bomb) obj[i];
-                    check.countdown = 0;
-                    return true;
-                }
+        for (int i = 0; i < obj.size(); i++) {
+            if (obj.get(i).name.equals("Bomb") &&
+                    obj.get(i).worldX == x && obj.get(i).worldY == y) {
+                Bomb check = (Bomb) obj.get(i);
+                check.countdown = 0;
+                return true;
             }
         }
         return false;
     }
 
     public void render(Graphics2D g2) {
-        for (int i = 0; i < obj.length; i++) {
-            if (obj[i] != null)
-                obj[i].draw(g2);
+        for (int i = 0; i < obj.size(); i++) {
+            if (!obj.get(i).name.equals("Item"))
+                obj.get(i).draw(g2);
+        }
+        for (int i = 0; i < obj.size(); i++) {
+            if (obj.get(i).name.equals("Item"))
+                obj.get(i).draw(g2);
         }
     }
 }
