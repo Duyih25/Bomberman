@@ -84,53 +84,52 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        double drawInterval = 1000000000 / FPS;
-        double delta = 0;
-        long lastTime = System.nanoTime();
-        long currentTime;
-        second = 0;
-        minute = 0;
-        ddSecond = "00";
-        ddMinute = "00";
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                second++;
-                ddSecond = dFormat.format(second);
-                ddMinute = dFormat.format(minute);
-                if (second == 60) {
-                    second = 0;
+            double drawInterval = 1000000000 / FPS;
+            double delta = 0;
+            long lastTime = System.nanoTime();
+            long currentTime;
+            second = 0;
+            minute = 0;
+            ddSecond = "00";
+            ddMinute = "00";
+            timer = new Timer(1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    second++;
                     ddSecond = dFormat.format(second);
                     ddMinute = dFormat.format(minute);
-                    minute++;
+                    if (second == 60) {
+                        second = 0;
+                        ddSecond = dFormat.format(second);
+                        ddMinute = dFormat.format(minute);
+                        minute++;
+                    }
+                }
+            });
+            timer.start();
+
+            while (gameThread != null) {
+
+                currentTime = System.nanoTime();
+
+                delta += (currentTime - lastTime) / drawInterval;
+
+                lastTime = currentTime;
+
+
+                if (delta >= 1) {
+
+
+                    update();
+                    //System.out.println(second);
+                    repaint();
+                    delta--;
+                }
+                if (lose) {
+                    //zzzz
+                    gameThread.stop();
                 }
             }
-        });
-        timer.start();
-
-        while (gameThread != null) {
-
-            currentTime = System.nanoTime();
-
-            delta += (currentTime - lastTime) / drawInterval;
-
-            lastTime = currentTime;
-
-
-
-            if (delta >= 1) {
-
-
-                update();
-                //System.out.println(second);
-                repaint();
-                delta--;
-            }
-            if(lose) {
-                //zzzz
-                gameThread.stop();
-            }
-        }
 
     }
 
@@ -210,10 +209,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         //Sprite.drawArray(g2, font, ddMinute + ":" + ddSecond , (maxScreenCol - 3) * tileSize, 32 , 32, 32, 32, 0);
 
-//        if(lose) {
-//            Sprite.drawArray(g2, font,"You" , tileSize, 5*tileSize , 32, 32, 32, 0);
-//            Sprite.drawArray(g2, font,"lose" , tileSize*3, 5*tileSize , 32, 32, 32, 0);
-//        }
+
 
         g2.dispose();
     }
