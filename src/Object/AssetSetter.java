@@ -1,7 +1,6 @@
 package Object;
 
 import Entities.BlackDevil;
-import Entities.Enemy;
 import Entities.RedDevil;
 import Main.GamePanel;
 
@@ -17,6 +16,11 @@ public class AssetSetter {
         gp.objectManagement.obj.add(new Block(gp));
         gp.objectManagement.obj.get(gp.objectManagement.obj.size() - 1).worldX= 10*gp.tileSize;
         gp.objectManagement.obj.get(gp.objectManagement.obj.size() - 1).worldY= 10*gp.tileSize;
+
+        //them tam item bomb
+        gp.objectManagement.obj.add(new BombItem(gp, 6*64, 6*64));
+        gp.objectManagement.obj.add(new SpeedItem(gp, 7*64, 6*64));
+        gp.objectManagement.obj.add(new BombItem(gp, 8*64, 6*64));
     }
 
     public void setNPC() {

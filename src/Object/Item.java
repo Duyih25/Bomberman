@@ -1,33 +1,19 @@
 package Object;
 
-import Controller.BufferedImageLoader;
-import Controller.UtilityTool;
 import Main.GamePanel;
-import Graphics.Sprite;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Item extends SuperObject {
     public int waitingTime = 29;
+    public int flameIndex;
+    public int itemFuntcion;
 
     public Item(GamePanel gp, int x, int y) {
         super(gp);
         this.worldX = x;
         this.worldY = y;
         this.name = "Item";
-
-        image = new BufferedImage[3];
-
-        BufferedImageLoader loader = new BufferedImageLoader();
-        image[0] = loader.loadImage("../../Res/powerup_bombs.png");
-        image[1] = loader.loadImage("../../Res/powerup_flames.png");
-        image[2] = loader.loadImage("../../Res/powerup_speed.png");
-
-        UtilityTool uTool = new UtilityTool();
-        for (int i = 0; i < image.length; i++) {
-            image[i] = uTool.scaleImage(image[i], 64, 64);
-        }
     }
 
 
