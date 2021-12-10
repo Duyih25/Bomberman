@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class FlameItem extends Item {
-
+    // ID: 2
     public FlameItem(GamePanel gp, int x, int y) {
         super(gp, x, y);
 
