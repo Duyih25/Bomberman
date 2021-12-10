@@ -43,6 +43,18 @@ public class UI {
     public void drawPauseScreen() {
         String text = "PAU^E";
         Sprite.drawArray(g2, font, text , 3 * gp.tileSize, 3 * gp.tileSize , 64, 64, 64, 0);
+        if (commandNum == 0) {
+            Sprite.drawArray(g2,font, ">", 3 * gp.tileSize + 32, 6 * gp.tileSize, 32, 32, 32, 0);
+        }
+        Sprite.drawArray(g2, font, "]E^UME" , 4 * gp.tileSize, 6 * gp.tileSize , 32, 32, 32, 0);
+        if (commandNum == 1) {
+            Sprite.drawArray(g2,font, ">", 3 * gp.tileSize + 32, 7 * gp.tileSize, 32, 32, 32, 0);
+        }
+        Sprite.drawArray(g2, font, "]E^TA]T" , 4 * gp.tileSize, 7 * gp.tileSize , 32, 32, 32, 0);
+        if (commandNum == 2) {
+            Sprite.drawArray(g2,font, ">", 3 * gp.tileSize + 32, 8 * gp.tileSize, 32, 32, 32, 0);
+        }
+        Sprite.drawArray(g2, font, "MENU" , 4 * gp.tileSize, 8 * gp.tileSize , 32, 32, 32, 0);
 
     }
 

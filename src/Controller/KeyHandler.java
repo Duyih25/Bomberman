@@ -12,6 +12,7 @@ public class KeyHandler implements KeyListener {
     public boolean facingLeft, facingRight, facingUp, facingDown = false;//Duy
     public boolean bombPressed = false;
     public boolean bulletPressed = false;
+    public boolean restartPressed = false;
     GamePanel gp;
     public boolean checkDrawTime = false;
 
@@ -100,6 +101,29 @@ public class KeyHandler implements KeyListener {
                     gp.timer.start();
                 }
             }
+        }
+
+        if (gp.gameState == gp.pauseState) {
+
+            if (code == KeyEvent.VK_W) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0)
+                    gp.ui.commandNum = 2;
+            }
+            if (code == KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 2)
+                    gp.ui.commandNum = 0;
+            }
+            if (code == KeyEvent.VK_ENTER) {
+                if (gp.ui.commandNum == 0) {
+                    restartPressed = true;
+                }
+                if (gp.ui.commandNum == 2) {
+                    gp.gameState = gp.titleState;
+                }
+            }
+
         }
     }
 
