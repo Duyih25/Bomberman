@@ -8,6 +8,7 @@ import Tile.TileManagement;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayDeque;
 
 public class Player extends Entity {
 
@@ -149,10 +150,11 @@ public class Player extends Entity {
                 gp.lose = true;
             }
             else {
-                String objName = gp.objectManagement.obj[index].name;
+                String objName = gp.objectManagement.obj.get(index).name;
                 if (objName.equals("Item")) {
                     //System.out.println("hi");
-                    gp.objectManagement.obj[index] = null;
+                    gp.objectManagement.obj.remove(index);
+
                 }
             }
         }

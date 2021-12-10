@@ -10,8 +10,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 //Duy
 public class Crate extends SuperObject {
-    public int waitingTime = 150;
-
     public Crate(GamePanel gp) {
         super(gp);
         image = new BufferedImage[1];
@@ -22,7 +20,6 @@ public class Crate extends SuperObject {
         catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
