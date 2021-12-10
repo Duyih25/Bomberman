@@ -56,7 +56,7 @@ public class Bomb extends SuperObject {
         if(countdown > 0) {
             countdown--;
             spriteCounter++;
-            if (spriteCounter > 30) {
+            if (spriteCounter > 15) {
                 if (spriteNum == 0) {
                     spriteNum = 1;
                 } else if (spriteNum == 1) {

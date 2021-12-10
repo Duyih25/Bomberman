@@ -17,6 +17,7 @@ public class ObjectManagement {
     public int currentBullets = 5;
     public Bomb previousBomb = null;
     public ArrayList<Item> waitingItem = new ArrayList<>();
+    public ArrayList<Block> blockList = new ArrayList<>();
 
     public ObjectManagement(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -49,9 +50,18 @@ public class ObjectManagement {
             } else if (obj.get(i).name.equals("Block")) {
                 if (index != 999) {
                     System.out.println("B" + index);
-                    waitingItem.add(new Item(gp, obj.get(i).worldX, obj.get(i).worldY));
+                    //waitingItem.add(new Item(gp, obj.get(i).worldX, obj.get(i).worldY));
                     obj.remove(i);
                 }
+            }
+        }
+
+        //ListBlock
+        for (int i = 0; i < blockList.size(); i++) {
+            int index = gp.collisionChecker.checkObject(blockList.get(i));
+            if (index != 999) {
+                System.out.println("B" + index);
+                blockList.remove(i);
             }
         }
     }
@@ -93,6 +103,9 @@ public class ObjectManagement {
                 previousBomb = (Bomb) obj.get(obj.size() - 1);
                 //gp.tileManagement.tiles[bombTileNum].available = false;
                 //keyH.bombPressed = false;
+
+//                System.out.println(previousBomb.worldX);
+//                System.out.println(previousBomb.worldY);
             }
         }
 
@@ -118,6 +131,7 @@ public class ObjectManagement {
                 flame.update();
                 for (FlameSegment fs : flame.flameSegments) {
                     if (gp.player.getBound().intersects(fs.getBound())) {
+                        System.out.println("error bomb");
                         gp.lose = true;
                     }
                 }
@@ -149,5 +163,10 @@ public class ObjectManagement {
             if (obj.get(i).name.equals("Item"))
                 obj.get(i).draw(g2);
         }
+
+        for (int i = 0; i < blockList.size(); i++) {
+                blockList.get(i).draw(g2);
+        }
+
     }
 }
