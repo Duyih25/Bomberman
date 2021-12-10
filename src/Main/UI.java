@@ -34,6 +34,10 @@ public class UI {
         if (gp.gameState == gp.pauseState) {
                 drawPauseScreen();
         }
+//        if(gp.lose) {
+//            Sprite.drawArray(g2, font,"You" , gp.tileSize, 5*gp.tileSize , 32, 32, 32, 0);
+//            Sprite.drawArray(g2, font,"lose" , gp.tileSize*3, 5*gp.tileSize , 32, 32, 32, 0);
+//        }
     }
 
     public void drawPauseScreen() {
@@ -65,10 +69,13 @@ public class UI {
         if (commandNum == 1) {
             Sprite.drawArray(g2,font, ">", 3 * gp.tileSize - 32, 7 * gp.tileSize, 32, 32, 32, 0);
         }
+
         Sprite.drawArray(g2, font, "QUIT" , 3 * gp.tileSize, 8 * gp.tileSize , 32, 32, 32, 0);
+
         if (commandNum == 2) {
             Sprite.drawArray(g2,font, ">", 3 * gp.tileSize - 32, 8 * gp.tileSize, 32, 32, 32, 0);
         }
+
 
     }
 }

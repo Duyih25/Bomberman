@@ -5,6 +5,7 @@ import Object.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ObjectManagement {
     GamePanel gp;
@@ -14,6 +15,7 @@ public class ObjectManagement {
     public int currentObj = 1;
     public int currentBomb = 0;
     public int maxBombNum = 3;
+    public int maxBombRadius = 1;
     public int currentBullets = 5;
     public Bomb previousBomb = null;
     public ArrayList<Item> waitingItem = new ArrayList<>();
@@ -50,7 +52,20 @@ public class ObjectManagement {
             } else if (obj.get(i).name.equals("Block")) {
                 if (index != 999) {
                     System.out.println("B" + index);
+
                     //waitingItem.add(new Item(gp, obj.get(i).worldX, obj.get(i).worldY));
+
+                    Random random = new Random();
+                    int func = random.nextInt(3) + 1;
+                    if (func == 1) {
+                        waitingItem.add(new BombItem(gp, obj.get(i).worldX, obj.get(i).worldY));
+                    } else if (func == 2) {
+                        waitingItem.add(new FlameItem(gp, obj.get(i).worldX, obj.get(i).worldY));
+                    } else {
+                        waitingItem.add(new SpeedItem(gp, obj.get(i).worldX, obj.get(i).worldY));
+                    }
+
+
                     obj.remove(i);
                 }
             }
