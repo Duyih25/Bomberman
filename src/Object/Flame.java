@@ -72,6 +72,7 @@ public class Flame extends SuperObject {
             gp.collisionChecker.checkTitle(this);
             gp.collisionChecker.checkBlock(this);
             if(collision) break;
+
             worldX = x;
             worldY = y;
 
