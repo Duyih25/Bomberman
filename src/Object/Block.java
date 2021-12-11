@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-//Duy
+
 public class Block extends SuperObject {
         public Block(GamePanel gp) {
                 super(gp);

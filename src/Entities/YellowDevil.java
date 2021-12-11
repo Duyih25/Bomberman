@@ -52,7 +52,7 @@ public class YellowDevil extends Enemy {
             collideObj(objIndex);
 
             if(gp.collisionChecker.checkEntity(gp.player, this)==0){
-                gp.lose = true;
+                //gp.lose = true;
                 collidePlayer(gp.player);
             }
 

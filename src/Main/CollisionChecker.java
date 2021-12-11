@@ -8,6 +8,7 @@ import Object.BombItem;
 import Object.FlameItem;
 import Object.SpeedItem;
 import Object.FlameSegment;
+import Object.CrateItem;
 
 public class CollisionChecker {
 
@@ -83,6 +84,9 @@ public class CollisionChecker {
                                     } else if (item instanceof SpeedItem) {
                                         gp.player.speed += 4;
                                     }
+                                    else if(item instanceof CrateItem) {
+                                        gp.objectManagement.currentBullets+=2;
+                                    }
                                 }
                                 return i;
                             }
@@ -100,6 +104,9 @@ public class CollisionChecker {
                                         gp.objectManagement.maxBombRadius++;
                                     } else if (item instanceof SpeedItem) {
                                         gp.player.speed += 4;
+                                    }
+                                    else if(item instanceof CrateItem) {
+                                        gp.objectManagement.currentBullets+=2;
                                     }
                                 }
                                 return i;
@@ -119,6 +126,9 @@ public class CollisionChecker {
                                     } else if (item instanceof SpeedItem) {
                                         gp.player.speed += 4;
                                     }
+                                    else if(item instanceof CrateItem) {
+                                        gp.objectManagement.currentBullets+=2;
+                                    }
                                 }
                                 return i;
                             }
@@ -136,6 +146,9 @@ public class CollisionChecker {
                                         gp.objectManagement.maxBombRadius++;
                                     } else if (item instanceof SpeedItem) {
                                         gp.player.speed += 4;
+                                    }
+                                    else if(item instanceof CrateItem) {
+                                        gp.objectManagement.currentBullets+=2;
                                     }
                                 }
                                 return i;
@@ -257,7 +270,7 @@ public class CollisionChecker {
                         break;
                     case "down":
                         if (entity.getBound().intersects(target.getBound())) {
-                            //System.out.println("hehe");
+                            System.out.println("hehe");
                             index = 0;
                         }
 
@@ -273,7 +286,6 @@ public class CollisionChecker {
                         break;
                     case "right":
                         if (entity.getBound().intersects(target.getBound())) {
-                            //System.out.println("hehe");
                             index = 0;
                         }
 

@@ -16,10 +16,10 @@ public class Bullet extends SuperObject {
 
 
     public void draw(Graphics2D g2) {
-        if(right) worldX = worldX +4;
-        if(left) worldX = worldX -4;
-        if(up) worldY -= 4;
-        if(down) worldY +=4;
+        if(right) worldX = worldX +6;
+        if(left) worldX = worldX -6;
+        if(up) worldY -= 6;
+        if(down) worldY +=6;
         screenX = worldX - gp.player.worldX + gp.player.screenX;
         screenY = worldY - gp.player.worldY + gp.player.screenY;
 
