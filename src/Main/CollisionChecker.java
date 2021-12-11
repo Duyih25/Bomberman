@@ -4,6 +4,7 @@ import Entities.Enemy;
 import Entities.Entity;
 import Object.Flame;
 import Object.Item;
+import Object.Block;
 import Object.BombItem;
 import Object.FlameItem;
 import Object.SpeedItem;
@@ -62,7 +63,37 @@ public class CollisionChecker {
                 }
                 break;
         }
+        for (Block block: gp.objectManagement.blockList) {
+            switch (entity.direction) {
+                case "up":
+                    if (entity.worldX == block.worldX && entity.worldY == block.worldY + 32) {
+                        entity.collision = true;
+                        //System.out.println("collide block up");
+                    }
+                    break;
+                case "down":
+                    if (entity.worldX == block.worldX && entity.worldY == block.worldY - 96) {
+                        entity.collision = true;
+                        //System.out.println("collide block down");
+                    }
+                    break;
+                case "left":
+                    if (entity.worldX == block.worldX + 64 && entity.worldY == block.worldY - 32) {
+                        entity.collision = true;
+                        //System.out.println("collide block left");
+                    }
+                    break;
+                case "right":
+                    if (entity.worldX == block.worldX - 64 && entity.worldY == block.worldY - 32) {
+                        entity.collision = true;
+                        //System.out.println("collide block right");
+                    }
+                    break;
+            }
+        }
+
     }
+
     public int checkObject(Entity entity) {
         int index = 999;
         for (int i = 0; i < gp.objectManagement.obj.size(); i++) {
@@ -166,8 +197,7 @@ public class CollisionChecker {
 //                            }
 //
 //                        }
-                    } else if (gp.objectManagement.obj.get(i).name.equals("Bomb") ||
-                            gp.objectManagement.obj.get(i).name.equals("Block")) {
+                    } else if (gp.objectManagement.obj.get(i).name.equals("Bomb")) {
                         switch (entity.direction) {
                             case "up":
                                 if (entity.worldX == gp.objectManagement.obj.get(i).worldX &&
@@ -293,7 +323,7 @@ public class CollisionChecker {
                 }
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
-               target.solidArea.x = target.solidAreaDefaultX;
+                target.solidArea.x = target.solidAreaDefaultX;
                 target.solidArea.y = target.solidAreaDefaultY;
 
 
@@ -331,5 +361,44 @@ public class CollisionChecker {
 //            gp.objectManagement.obj[i].solidArea.y = gp.objectManagement.obj[i].solidAreaDefaultY;
         }
         return index;
+    }
+
+    public void checkBlock(Entity entity) {
+        for (int i = 0; i < gp.objectManagement.blockList.size(); i++) {
+            if (entity.name == "Flame") {
+                if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
+                        entity.worldY == gp.objectManagement.blockList.get(i).worldY) {
+                    entity.collision = false;
+                }
+            }
+        if (entity.name == "Player" || entity.name == "Enemy") {
+            switch (entity.direction) {
+                case "up":
+                    if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
+                            entity.worldY == gp.objectManagement.blockList.get(i).worldY + 32) {
+                        entity.collision = true;
+                    }
+                    break;
+                case "down":
+                    if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
+                            entity.worldY == gp.objectManagement.blockList.get(i).worldY - 96) {
+                        entity.collision = true;
+                    }
+                    break;
+                case "left":
+                    if (entity.worldX == gp.objectManagement.blockList.get(i).worldX + 64 &&
+                            entity.worldY == gp.objectManagement.blockList.get(i).worldY - 32) {
+                        entity.collision = true;
+                    }
+                    break;
+                case "right":
+                    if (entity.worldX == gp.objectManagement.blockList.get(i).worldX - 64 &&
+                            entity.worldY == gp.objectManagement.blockList.get(i).worldY - 32) {
+                        entity.collision = true;
+                    }
+                    break;
+                }
+            }
+        }
     }
 }

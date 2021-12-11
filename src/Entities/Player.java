@@ -89,9 +89,9 @@ public class Player extends Entity {
                 //kiem tra va cham
                 collision = false;
                 gp.collisionChecker.checkTitle(this);
-
+                gp.collisionChecker.checkBlock(this);
                 // npc collision
-              //  int npcIndex = gp.collisionChecker.(this,gp.npc);
+                //  int npcIndex = gp.collisionChecker.(this,gp.npc);
 
                 //check object collision
                 int objIndex = gp.collisionChecker.checkObject(this);
@@ -146,10 +146,10 @@ public class Player extends Entity {
 
     public void pickUpObject(int index) {
         if(index != 999) {
-                String objName = gp.objectManagement.obj.get(index).name;
-                if (objName.equals("Item")) {
-                    //System.out.println("hi");
-                    gp.objectManagement.obj.remove(index);
+            String objName = gp.objectManagement.obj.get(index).name;
+            if (objName.equals("Item")) {
+                //System.out.println("hi");
+                gp.objectManagement.obj.remove(index);
 
             }
         }

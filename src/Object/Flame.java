@@ -63,13 +63,16 @@ public class Flame extends SuperObject {
                 case "up": y -= 64; break;
                 case "left": x -= 64; break;
             }
+
             if (gp.objectManagement.checkNearBomb(x, y)) {
                 isCollidingNearBomb = true;
                 break;
             }
             collision = false;
             gp.collisionChecker.checkTitle(this);
+            gp.collisionChecker.checkBlock(this);
             if(collision) break;
+
             worldX = x;
             worldY = y;
 

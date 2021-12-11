@@ -49,38 +49,41 @@ public class ObjectManagement {
                 if (index != 999) {
                     obj.remove(i);
                 }
-            } else if (obj.get(i).name.equals("Block")) {
-                if (index != 999) {
-                    System.out.println("B" + index);
 
-                    //waitingItem.add(new Item(gp, obj.get(i).worldX, obj.get(i).worldY));
-
-                    Random random = new Random();
-                    int func = random.nextInt(4) + 1;
-                    if (func == 1) {
-                        waitingItem.add(new BombItem(gp, obj.get(i).worldX, obj.get(i).worldY));
-                    } else if (func == 2) {
-                        waitingItem.add(new FlameItem(gp, obj.get(i).worldX, obj.get(i).worldY));
-                    } else if (func==3){
-                        waitingItem.add(new SpeedItem(gp, obj.get(i).worldX, obj.get(i).worldY));
-                    }
-                    else {
-                        waitingItem.add(new CrateItem(gp, obj.get(i).worldX, obj.get(i).worldY));
-                    }
-
-
-                    obj.remove(i);
-                }
             }
         }
 
         //ListBlock
         for (int i = 0; i < blockList.size(); i++) {
+            Block check = blockList.get(i);
             int index = gp.collisionChecker.checkObject(blockList.get(i));
-            if (index != 999) {
-                System.out.println("B" + index);
-                blockList.remove(i);
+            blockList.get(i).update();
+            if (check.destroyed) {
+                if (check.destroyingTime > 0) {
+                    check.destroyingTime--;
+                } else blockList.remove(i);
             }
+            if (index != 999 && !check.destroyed) {
+                System.out.println("B" + index);
+
+                Random random = new Random();
+                int func = random.nextInt(4) + 1;
+                if (func == 1) {
+                    waitingItem.add(new BombItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                } else if (func == 2) {
+                    waitingItem.add(new FlameItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                } else if (func==3){
+                    waitingItem.add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                }
+                else {
+                    waitingItem.add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                }
+                blockList.remove(i);
+              check.destroyed = true;
+                check.spriteNum = 3;
+
+            }
+
         }
     }
 
@@ -143,6 +146,8 @@ public class ObjectManagement {
                         obj.add(flame);
                     }
                     currentBomb--;
+                    if (currentBomb == 0) previousBomb = null;
+
                 }
             } else if (obj.get(i).name.equals("Flame")) {
                 Flame flame = (Flame) obj.get(i);
@@ -155,6 +160,7 @@ public class ObjectManagement {
                 }
                 if (flame.explosionTime <= 0) {
                     obj.remove(i);
+                    if (currentBomb == 0) previousBomb = null;
                 }
             }
         }
@@ -173,6 +179,10 @@ public class ObjectManagement {
     }
 
     public void render(Graphics2D g2) {
+        for (int i = 0; i < blockList.size(); i++) {
+            blockList.get(i).draw(g2);
+        }
+
         for (int i = 0; i < obj.size(); i++) {
             if (!obj.get(i).name.equals("Item"))
                 obj.get(i).draw(g2);
@@ -182,9 +192,6 @@ public class ObjectManagement {
                 obj.get(i).draw(g2);
         }
 
-        for (int i = 0; i < blockList.size(); i++) {
-                blockList.get(i).draw(g2);
-        }
 
     }
 }

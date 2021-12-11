@@ -47,7 +47,7 @@ public class BlackDevil extends Enemy{
             //kiem tra va cham
             collision = false;
             gp.collisionChecker.checkTitle(this);
-
+            gp.collisionChecker.checkBlock(this);
             //check object collision
             int objIndex = gp.collisionChecker.checkObject(this);
         }
@@ -59,6 +59,7 @@ public class BlackDevil extends Enemy{
     public void update() {
         setAction();
         collision = false;
+        gp.collisionChecker.checkBlock(this);
         gp.collisionChecker.checkTitle(this);
         int objIndex = gp.collisionChecker.checkObject(this);
 
