@@ -26,33 +26,35 @@ public class YellowDevil extends Enemy {
     public void setAction() {
         actionLockCounter++;
         collision = false;
-        //if (actionLockCounter == 64) {
 
-            if (worldX > gp.player.worldX) {
-                direction = "left";
-                moving = true;
-            }
-            else if (worldX < gp.player.worldX) {
-                direction = "right";
-                moving = true;
-            }
+        if (worldX > gp.player.worldX) {
+            direction = "left";
+            moving = true;
+        }
+        else if (worldX < gp.player.worldX) {
+            direction = "right";
+            moving = true;
+        }
 
-            if (worldY -32< gp.player.worldY) {
-                    direction = "down";
-                    moving = true;
-            }
-            if (worldY -32> gp.player.worldY) {
-                    direction = "up";
-                    moving = true;
-            }
-            //if(worldX*worldX + worldY * worldY - (gp.player.worldX * gp.player.worldX + gp.player.worldY* gp.player.worldY) <100){
-          //     extraSpeed = 2;
-      // }
 
-                //kiem tra va cham
-                collision = false;
-                //check object collision
-                int objIndex = gp.collisionChecker.checkObject(this);
+        if (worldY -31< gp.player.worldY) {
+            direction = "down";
+            moving = true;
+        }
+        if (worldY -31> gp.player.worldY) {
+            direction = "up";
+            moving = true;
+        }
+        if(Math.abs((gp.player.worldX * gp.player.worldX + gp.player.worldY* gp.player.worldY) - worldX*worldX - (worldY) * (worldY)) < 64*64*50){
+            if(worldY%2==0) extraSpeed =2;
+            else extraSpeed = 1;
+        }
+        else extraSpeed = 0;
+
+        //kiem tra va cham
+        //collision = false;
+        //check object collision
+        int objIndex = gp.collisionChecker.checkObject(this);
 
 
         if (actionLockCounter % 30==0) {
@@ -95,14 +97,10 @@ public class YellowDevil extends Enemy {
 
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
                 gp.lose = true;
-                //System.out.println("error black");
                 collidePlayer(gp.player);
             }
         }
-        if (collision) {
-//            System.out.println(worldX);
-//            System.out.println(worldY);
-        }
+
 
     }
     public void collideObj(int index) {
