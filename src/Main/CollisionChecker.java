@@ -219,25 +219,25 @@ public class CollisionChecker {
                     switch (entity.direction) {
                         case "up":
                             if (entity.worldX == gp.objectManagement.obj.get(i).worldX &&
-                                    entity.worldY == gp.objectManagement.obj.get(i).worldY + 32) {
+                                    entity.worldY == gp.objectManagement.obj.get(i).worldY + 64) {
                                 entity.collision = true;
                             }
                             break;
                             case "down":
                                 if (entity.worldX == gp.objectManagement.obj.get(i).worldX &&
-                                        entity.worldY == gp.objectManagement.obj.get(i).worldY - 96) {
+                                        entity.worldY == gp.objectManagement.obj.get(i).worldY - 64) {
                                     entity.collision = true;
                                 }
                                 break;
                             case "left":
                                 if (entity.worldX == gp.objectManagement.obj.get(i).worldX + 64 &&
-                                        entity.worldY == gp.objectManagement.obj.get(i).worldY - 32) {
+                                        entity.worldY == gp.objectManagement.obj.get(i).worldY) {
                                     entity.collision = true;
                                 }
                                 break;
                             case "right":
                                 if (entity.worldX == gp.objectManagement.obj.get(i).worldX - 64 &&
-                                        entity.worldY == gp.objectManagement.obj.get(i).worldY - 32) {
+                                        entity.worldY == gp.objectManagement.obj.get(i).worldY) {
                                     entity.collision = true;
                                 }
                                 break;
