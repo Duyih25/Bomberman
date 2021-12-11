@@ -16,6 +16,7 @@ public abstract class Enemy extends Entity{
     int screenX,screenY;
     public Enemy(GamePanel gp) {
         super(gp);
+        name = "Enemy";
         direction = "down";
         speed = 1;
         setEnemyImage();

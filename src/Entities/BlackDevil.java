@@ -14,7 +14,6 @@ public class BlackDevil extends Enemy{
     }
 
     public void setEnemyImage() {
-        name = "BlackDevil";
         UtilityTool uTool = new UtilityTool();
         BufferedImageLoader loader = new BufferedImageLoader();
         BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");
@@ -28,7 +27,7 @@ public class BlackDevil extends Enemy{
 
         if(actionLockCounter == 64) {
             Random random = new Random();
-            int i = random.nextInt(100) + 1;
+            int i = random.nextInt(1) + 1;
             if (i <= 25) {
                 direction = "up";
                 moving = true;
@@ -98,8 +97,14 @@ public class BlackDevil extends Enemy{
             }
         }
         if (collision) {
-//            System.out.println(worldX);
-//            System.out.println(worldY);
+            objIndex = gp.collisionChecker.checkObjForEnemy(this);
+            collideObj(objIndex);
+            gp.collisionChecker.checkTitle(this);
+            if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
+                gp.lose = true;
+                System.out.println("error black");
+                collidePlayer(gp.player);
+            }
         }
 
     }
