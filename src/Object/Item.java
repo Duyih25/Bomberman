@@ -5,7 +5,7 @@ import Main.GamePanel;
 import java.awt.*;
 
 public class Item extends SuperObject {
-    public int waitingTime = 19;
+    public int waitingTime = 22;
 
     public Item(GamePanel gp, int x, int y) {
         super(gp);
@@ -56,6 +56,6 @@ public class Item extends SuperObject {
 
     public Rectangle getBound() {
         //return null;
-        return new Rectangle(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+        return new Rectangle(worldX, worldY, solidArea.width, solidArea.height);
     }
 }

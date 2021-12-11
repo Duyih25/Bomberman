@@ -240,6 +240,6 @@ public class FlameSegment extends SuperObject {
 
     @Override
     public Rectangle getBound() {
-        return new Rectangle(screenX, screenY, solidArea.width *2 - 16, solidArea.height * 2 - 16);
+        return new Rectangle(worldX, worldY, solidArea.width *2 - 16, solidArea.height * 2 - 16);
     }
 }
