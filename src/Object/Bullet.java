@@ -56,6 +56,6 @@ public class Bullet extends SuperObject {
         }
     }
     public Rectangle getBound() {
-        return new Rectangle(screenX+24, screenY+48, 16, 16);
+        return new Rectangle(worldX, worldY, 16, 16);
     }
 }

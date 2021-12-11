@@ -119,8 +119,8 @@ public class ObjectManagement {
                 //gp.tileManagement.tiles[bombTileNum].available = false;
                 //keyH.bombPressed = false;
 
-//                System.out.println(previousBomb.worldX);
-//                System.out.println(previousBomb.worldY);
+                System.out.println(previousBomb.worldX);
+                System.out.println(previousBomb.worldY);
             }
         }
 

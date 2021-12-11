@@ -63,6 +63,6 @@ public class Block extends SuperObject {
         }
         public Rectangle getBound() {
                 //return null;
-                return new Rectangle(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+                return new Rectangle(worldX, worldY, solidArea.width, solidArea.height);
         }
 }
