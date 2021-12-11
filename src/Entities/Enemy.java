@@ -43,7 +43,7 @@ public abstract class Enemy extends Entity{
 
     }
     public Rectangle getBound() {
-        return new Rectangle(worldX , worldY , 62, 62);
+        return new Rectangle(worldX + 1 , worldY + 1 , 62, 62);
     }
 
 

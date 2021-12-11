@@ -1,11 +1,8 @@
 package Object;
 
-import Controller.UtilityTool;
-import Entities.Entity;
 import Main.GamePanel;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Flame extends SuperObject {
     private int maxRadius;
@@ -97,6 +94,6 @@ public class Flame extends SuperObject {
 
     @Override
     public Rectangle getBound() {
-        return null;
+        return new Rectangle(worldX, worldY, solidArea.width , solidArea.height);
     }
 }

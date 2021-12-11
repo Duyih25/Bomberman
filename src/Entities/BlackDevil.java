@@ -84,6 +84,10 @@ public class BlackDevil extends Enemy{
             }
 
             pixelCounter += speed;
+            if (pixelCounter == 64) {
+                moving = false;
+                pixelCounter = 0;
+            }
             objIndex = gp.collisionChecker.checkObjForEnemy(this);
             collideObj(objIndex);
 
@@ -92,14 +96,12 @@ public class BlackDevil extends Enemy{
                 System.out.println("error black");
                 collidePlayer(gp.player);
             }
-
-            if (pixelCounter == 64) {
-                moving = false;
-                pixelCounter = 0;
-            }
         }
-//        System.out.println(worldX);
-//        System.out.println(worldY);
+        if (collision) {
+//            System.out.println(worldX);
+//            System.out.println(worldY);
+        }
+
     }
     public void collideObj(int index) {
         if(index != 999) {
