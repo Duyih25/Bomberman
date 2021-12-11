@@ -20,7 +20,7 @@ public class AssetSetter {
         //them tam item bomb
         gp.objectManagement.obj.add(new BombItem(gp, 6*64, 6*64));
         gp.objectManagement.obj.add(new SpeedItem(gp, 7*64, 6*64));
-        gp.objectManagement.obj.add(new BombItem(gp, 8*64, 6*64));
+        gp.objectManagement.obj.add(new FlameItem(gp, 8*64, 6*64));
     }
 
     public void setNPC() {

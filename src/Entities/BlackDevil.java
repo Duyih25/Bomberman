@@ -151,4 +151,8 @@ public class BlackDevil extends Enemy{
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
     }
+
+    public Rectangle getBound() {
+        return new Rectangle(screenX + solidArea.x, screenY + solidArea.y, 64, 64);
+    }
 }

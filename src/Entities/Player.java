@@ -146,16 +146,10 @@ public class Player extends Entity {
 
     public void pickUpObject(int index) {
         if(index != 999) {
-            if (index == -1) {
-                gp.lose = true;
-            }
-            else {
-                String objName = gp.objectManagement.obj.get(index).name;
-                if (objName.equals("Item")) {
-                    //System.out.println("hi");
-                    gp.objectManagement.obj.remove(index);
-
-                }
+            String objName = gp.objectManagement.obj.get(index).name;
+            if (objName.equals("Item")) {
+                //System.out.println("hi");
+                gp.objectManagement.obj.remove(index);
             }
         }
     }

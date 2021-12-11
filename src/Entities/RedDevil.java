@@ -67,7 +67,7 @@ public class RedDevil extends Enemy {
             collideObj(objIndex);
 
             if(gp.collisionChecker.checkEntity(gp.player, this)==0){
-                gp.lose = true;
+                //gp.lose = true;
                 collidePlayer(gp.player);
             }
 
@@ -131,6 +131,10 @@ public class RedDevil extends Enemy {
             g2.setColor(Color.red);
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
+    }
+
+    public Rectangle getBound() {
+        return new Rectangle(screenX + solidArea.x, screenY + solidArea.y, 64, 64);
     }
 
 }
