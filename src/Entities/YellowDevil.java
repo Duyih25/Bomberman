@@ -6,7 +6,6 @@ import Main.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 public class YellowDevil extends Enemy {
 
@@ -49,9 +48,6 @@ public class YellowDevil extends Enemy {
             //if(worldX*worldX + worldY * worldY - (gp.player.worldX * gp.player.worldX + gp.player.worldY* gp.player.worldY) <100){
           //     extraSpeed = 2;
       // }
-
-
-
 
                 //kiem tra va cham
                 collision = false;

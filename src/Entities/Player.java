@@ -89,7 +89,7 @@ public class Player extends Entity {
                 //kiem tra va cham
                 collision = false;
                 gp.collisionChecker.checkTitle(this);
-
+                gp.collisionChecker.checkBlock(this);
                 // npc collision
               //  int npcIndex = gp.collisionChecker.(this,gp.npc);
 
