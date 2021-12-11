@@ -4,22 +4,24 @@ import Controller.UtilityTool;
 import Main.GamePanel;
 import Graphics.Sprite;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 //Duy
 public class Block extends SuperObject {
-        public Block(GamePanel gp) {
+        public Block(GamePanel gp, int x, int y) {
                 super(gp);
-                image = new BufferedImage[1];
+                collision = true;
+                image = new BufferedImage[10];
                 name = "Block";
-                try {
-                        image[0] = ImageIO.read(getClass().getResourceAsStream("../../Res/level2.png"));
+                UtilityTool uTool = new UtilityTool();
+                Sprite sprite = new Sprite("../../Res/Block_sprite.png", 32, 32);
+                image = sprite.getSpriteArray(0);
+                for (int i = 0; i < 4; i++) {
+                        image[i] = uTool.scaleImage(image[i], 64, 64);
                 }
-                catch (IOException e) {
-                        e.printStackTrace();
-                }
+
+                worldX = x;
+                worldY = y;
         }
 
         @Override

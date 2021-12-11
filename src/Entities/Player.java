@@ -8,7 +8,6 @@ import Tile.TileManagement;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayDeque;
 
 public class Player extends Entity {
 
@@ -92,7 +91,7 @@ public class Player extends Entity {
                 gp.collisionChecker.checkTitle(this);
 
                 // npc collision
-              //  int npcIndex = gp.collisionChecker.(this,gp.npc);
+                //  int npcIndex = gp.collisionChecker.(this,gp.npc);
 
                 //check object collision
                 int objIndex = gp.collisionChecker.checkObject(this);
@@ -142,6 +141,7 @@ public class Player extends Entity {
                 pixelCounter = 0;
             }
         }
+        //System.out.println(worldY);
     }
 
     public void pickUpObject(int index) {
@@ -150,6 +150,7 @@ public class Player extends Entity {
             if (objName.equals("Item")) {
                 //System.out.println("hi");
                 gp.objectManagement.obj.remove(index);
+
             }
         }
     }
@@ -232,6 +233,6 @@ public class Player extends Entity {
         //System.out.println(worldX + " " + worldY);
     }
     public Rectangle getBound() {
-        return new Rectangle(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
+        return new Rectangle(worldX + 1 , worldY + 33 , 62, 62);
     }
 }

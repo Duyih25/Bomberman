@@ -107,7 +107,7 @@ public class TileManagement {
                 mapTileNum[x][y] = 1;
                 tilesMap[x][y] = tiles[1];
             }
-            if (red == 0 && green == 0 && blue == 0) {
+            if ((red == 0 && green == 0 && blue == 0) || (red == 255 && green == 255 && blue == 255)) {
                 mapTileNum[x][y] = 0;
                 tilesMap[x][y] = tiles[0];
             }

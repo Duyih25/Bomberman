@@ -26,7 +26,7 @@ public class BlackDevil extends Enemy{
         collision = false;
         gp.collisionChecker.checkTitle(this);
 
-        if(actionLockCounter==64) {
+        if(actionLockCounter == 64) {
             Random random = new Random();
             int i = random.nextInt(100) + 1;
             if (i <= 25) {
@@ -61,6 +61,8 @@ public class BlackDevil extends Enemy{
         setAction();
         collision = false;
         gp.collisionChecker.checkTitle(this);
+        int objIndex = gp.collisionChecker.checkObject(this);
+
         if (moving && collision == false) {
             switch (direction) {
                 case "up":
@@ -82,11 +84,12 @@ public class BlackDevil extends Enemy{
             }
 
             pixelCounter += speed;
-            int objIndex = gp.collisionChecker.checkObjForEnemy(this);
+            objIndex = gp.collisionChecker.checkObjForEnemy(this);
             collideObj(objIndex);
 
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
                 gp.lose = true;
+                System.out.println("error black");
                 collidePlayer(gp.player);
             }
 
@@ -95,7 +98,8 @@ public class BlackDevil extends Enemy{
                 pixelCounter = 0;
             }
         }
-
+//        System.out.println(worldX);
+//        System.out.println(worldY);
     }
     public void collideObj(int index) {
         if(index != 999) {
@@ -150,9 +154,5 @@ public class BlackDevil extends Enemy{
             g2.setColor(Color.red);
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
-    }
-
-    public Rectangle getBound() {
-        return new Rectangle(screenX + solidArea.x, screenY + solidArea.y, 64, 64);
     }
 }

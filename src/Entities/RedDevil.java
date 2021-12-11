@@ -6,7 +6,6 @@ import Main.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 public class RedDevil extends Enemy {
 
@@ -36,7 +35,7 @@ public class RedDevil extends Enemy {
             direction = "left";
         }
         else if(actionLockCounter==512) {
-            direction = "left";
+            direction = "right";
             actionLockCounter=0;
         }
         moving = true;
@@ -67,7 +66,8 @@ public class RedDevil extends Enemy {
             collideObj(objIndex);
 
             if(gp.collisionChecker.checkEntity(gp.player, this)==0){
-                //gp.lose = true;
+                System.out.println("error red");
+                gp.lose = true;
                 collidePlayer(gp.player);
             }
 
@@ -76,7 +76,8 @@ public class RedDevil extends Enemy {
                 pixelCounter = 0;
             }
         }
-
+//        System.out.println(worldX);
+//        System.out.println(worldY);
     }
     public void collideObj(int index) {
         if(index != 999) {
@@ -131,10 +132,6 @@ public class RedDevil extends Enemy {
             g2.setColor(Color.red);
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
-    }
-
-    public Rectangle getBound() {
-        return new Rectangle(screenX + solidArea.x, screenY + solidArea.y, 64, 64);
     }
 
 }

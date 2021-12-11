@@ -1,13 +1,9 @@
 package Entities;
 
-import Controller.BufferedImageLoader;
-import Controller.UtilityTool;
 import Main.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
-import Graphics.Sprite;
 
 
 //Duy
@@ -54,7 +50,7 @@ public class Enemy extends Entity{
 
     }
     public Rectangle getBound() {
-        return new Rectangle(screenX + solidArea.x, screenY + solidArea.y, 64, 64);
+        return new Rectangle(worldX , worldY , 62, 62);
     }
 
 
