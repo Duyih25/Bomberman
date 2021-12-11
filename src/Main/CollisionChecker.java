@@ -63,6 +63,7 @@ public class CollisionChecker {
                 break;
         }
     }
+
     public int checkObject(Entity entity) {
         int index = 999;
         for (int i = 0; i < gp.objectManagement.obj.size(); i++) {
@@ -331,5 +332,14 @@ public class CollisionChecker {
 //            gp.objectManagement.obj[i].solidArea.y = gp.objectManagement.obj[i].solidAreaDefaultY;
         }
         return index;
+    }
+
+    public void checkBlock(Entity entity) {
+        for (int i = 0; i < gp.objectManagement.blockList.size(); i++) {
+            if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
+                    entity.worldY == gp.objectManagement.blockList.get(i).worldY) {
+                entity.collision = true;
+            }
+        }
     }
 }
