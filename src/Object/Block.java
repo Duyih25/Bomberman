@@ -51,6 +51,11 @@ public class Block extends SuperObject {
                         worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
                         g2.drawImage(image[0], screenX, screenY , null);
+                } else if(gp.player.screenX > gp.player.worldX ||
+                        gp.player.screenY > gp.player.worldY ||
+                        rightOffset > gp.maxWorldCol * gp.tileSize - gp.player.worldX ||
+                        bottomOffset > gp.maxWorldRow * gp.tileSize -gp.player.worldY ) {
+                        g2.drawImage(image[0], screenX, screenY, null);
                 }
                 g2.setColor(Color.white);
                 g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
