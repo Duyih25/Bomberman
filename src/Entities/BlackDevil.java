@@ -14,7 +14,6 @@ public class BlackDevil extends Enemy{
     }
 
     public void setEnemyImage() {
-        name = "BlackDevil";
         UtilityTool uTool = new UtilityTool();
         BufferedImageLoader loader = new BufferedImageLoader();
         BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");
@@ -28,7 +27,7 @@ public class BlackDevil extends Enemy{
 
         if(actionLockCounter == 64) {
             Random random = new Random();
-            int i = random.nextInt(100) + 1;
+            int i = random.nextInt(1) + 1;
             if (i <= 25) {
                 direction = "up";
                 moving = true;
@@ -48,7 +47,7 @@ public class BlackDevil extends Enemy{
             //kiem tra va cham
             collision = false;
             gp.collisionChecker.checkTitle(this);
-
+            gp.collisionChecker.checkBlock(this);
             //check object collision
             int objIndex = gp.collisionChecker.checkObject(this);
         }
@@ -60,6 +59,7 @@ public class BlackDevil extends Enemy{
     public void update() {
         setAction();
         collision = false;
+        gp.collisionChecker.checkBlock(this);
         gp.collisionChecker.checkTitle(this);
         int objIndex = gp.collisionChecker.checkObject(this);
 
@@ -84,6 +84,10 @@ public class BlackDevil extends Enemy{
             }
 
             pixelCounter += speed;
+            if (pixelCounter == 64) {
+                moving = false;
+                pixelCounter = 0;
+            }
             objIndex = gp.collisionChecker.checkObjForEnemy(this);
             collideObj(objIndex);
 
@@ -92,14 +96,18 @@ public class BlackDevil extends Enemy{
                 System.out.println("error black");
                 collidePlayer(gp.player);
             }
-
-            if (pixelCounter == 64) {
-                moving = false;
-                pixelCounter = 0;
+        }
+        if (collision) {
+            objIndex = gp.collisionChecker.checkObjForEnemy(this);
+            collideObj(objIndex);
+            gp.collisionChecker.checkTitle(this);
+            if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
+                gp.lose = true;
+                System.out.println("error black");
+                collidePlayer(gp.player);
             }
         }
-//        System.out.println(worldX);
-//        System.out.println(worldY);
+
     }
     public void collideObj(int index) {
         if(index != 999) {

@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 
 //Duy
-public class Enemy extends Entity{
+public abstract class Enemy extends Entity{
 
     BufferedImage EnemyImage[] = new BufferedImage[3];
     public int actionLockCounter=0;
@@ -16,6 +16,7 @@ public class Enemy extends Entity{
     int screenX,screenY;
     public Enemy(GamePanel gp) {
         super(gp);
+        name = "Enemy";
         direction = "down";
         speed = 1;
         setEnemyImage();
@@ -23,16 +24,9 @@ public class Enemy extends Entity{
         solidArea = new Rectangle(1, 1, 62, 62);
     }
 
-    public void setEnemyImage() {
-
-    }
-    public void setAction() {
-
-    }
-
-    public void update() {
-
-    }
+    public abstract void setEnemyImage();
+    public abstract void setAction();
+    public abstract void update();
 
     public void collideObj(int index) {
         if(index != 999) {
@@ -43,14 +37,14 @@ public class Enemy extends Entity{
         }
     }
     public void collidePlayer(Player player) {
-        System.out.println("OK");
+        System.out.println("hihihi");
 
     }
     public void draw(Graphics2D g2) {
 
     }
     public Rectangle getBound() {
-        return new Rectangle(worldX , worldY , 62, 62);
+        return new Rectangle(worldX + 1 , worldY + 1 , 62, 62);
     }
 
 

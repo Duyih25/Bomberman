@@ -41,14 +41,16 @@ public class RedDevil extends Enemy {
         moving = true;
         collision = false;
         gp.collisionChecker.checkTitle(this);
-
+        gp.collisionChecker.checkBlock(this);
 
     }
 
     public void update() {
         setAction();
         collision = false;
+        gp.collisionChecker.checkBlock(this);
         gp.collisionChecker.checkTitle(this);
+        int objIndex = gp.collisionChecker.checkObject(this);
         if (moving && collision == false) {
             switch (direction) {
                 case "left":
@@ -62,7 +64,7 @@ public class RedDevil extends Enemy {
             }
 
             pixelCounter += speed;
-            int objIndex = gp.collisionChecker.checkObjForEnemy(this);
+            objIndex = gp.collisionChecker.checkObjForEnemy(this);
             collideObj(objIndex);
 
             if(gp.collisionChecker.checkEntity(gp.player, this)==0){
@@ -74,6 +76,17 @@ public class RedDevil extends Enemy {
             if (pixelCounter == 64) {
                 moving = false;
                 pixelCounter = 0;
+            }
+        }
+
+        if (collision) {
+            objIndex = gp.collisionChecker.checkObjForEnemy(this);
+            collideObj(objIndex);
+            gp.collisionChecker.checkTitle(this);
+            if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
+                gp.lose = true;
+                System.out.println("error black");
+                collidePlayer(gp.player);
             }
         }
 //        System.out.println(worldX);

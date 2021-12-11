@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 
 public class YellowDevil extends Enemy {
 
+    int extraSpeed = 0;
     public YellowDevil(GamePanel gp) {
         super(gp);
     }
@@ -18,69 +19,110 @@ public class YellowDevil extends Enemy {
         UtilityTool uTool = new UtilityTool();
         BufferedImageLoader loader = new BufferedImageLoader();
         BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");
-        for(int i=0;i<3;i++)
-            EnemyImage[i] = uTool.scaleImage(sprite.getSubimage(96+i*32,0,32,32),64,64);
+        for (int i = 0; i < 3; i++)
+            EnemyImage[i] = uTool.scaleImage(sprite.getSubimage(96 + i * 32, 0, 32, 32), 64, 64);
     }
+
     public void setAction() {
         actionLockCounter++;
-        if(actionLockCounter%30==0) {
+        collision = false;
+        //if (actionLockCounter == 64) {
+
+            if (worldX > gp.player.worldX) {
+                direction = "left";
+                moving = true;
+            }
+            else if (worldX < gp.player.worldX) {
+                direction = "right";
+                moving = true;
+            }
+
+            if (worldY -32< gp.player.worldY) {
+                    direction = "down";
+                    moving = true;
+            }
+            if (worldY -32> gp.player.worldY) {
+                    direction = "up";
+                    moving = true;
+            }
+            //if(worldX*worldX + worldY * worldY - (gp.player.worldX * gp.player.worldX + gp.player.worldY* gp.player.worldY) <100){
+          //     extraSpeed = 2;
+      // }
+
+                //kiem tra va cham
+                collision = false;
+                //check object collision
+                int objIndex = gp.collisionChecker.checkObject(this);
+
+
+        if (actionLockCounter % 30==0) {
+            if (spriteNum > 1) spriteNum = 0;
             spriteNum++;
-            if(spriteNum>=3) spriteNum=0;
         }
-
-        moving = true;
     }
-
     public void update() {
         setAction();
         collision = false;
-        gp.collisionChecker.checkTitle(this);
+        int objIndex = gp.collisionChecker.checkObject(this);
+
         if (moving && collision == false) {
             switch (direction) {
+                case "up":
+                    worldY -= (speed + extraSpeed);
+
+                    break;
+                case "down":
+                    worldY += (speed + extraSpeed);
+
+                    break;
                 case "left":
-                    worldX -= (speed);
+                    worldX -= (speed + extraSpeed);
 
                     break;
                 case "right":
-                    worldX += (speed);
+                    worldX += (speed + extraSpeed);
 
                     break;
             }
 
-            pixelCounter += speed;
-            int objIndex = gp.collisionChecker.checkObjForEnemy(this);
-            collideObj(objIndex);
-
-            if(gp.collisionChecker.checkEntity(gp.player, this)==0){
-                gp.lose = true;
-                collidePlayer(gp.player);
-            }
-
+            pixelCounter += (speed+extraSpeed);
             if (pixelCounter == 64) {
                 moving = false;
                 pixelCounter = 0;
             }
+            objIndex = gp.collisionChecker.checkObjForEnemy(this);
+            collideObj(objIndex);
+
+            if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
+                gp.lose = true;
+                //System.out.println("error black");
+                collidePlayer(gp.player);
+            }
+        }
+        if (collision) {
+//            System.out.println(worldX);
+//            System.out.println(worldY);
         }
 
     }
     public void collideObj(int index) {
-      //  if(index != 999) {
-       //     String objName = gp.objectManagement.obj[index].name;
-     //       if(objName.equals("Bullet")) {
-     //           gp.objectManagement.obj[index] = null;
-        //    }
-      //  }
+        if(index != 999) {
+            String objName = gp.objectManagement.obj.get(index).name;
+            if(objName.equals("Bullet")) {
+                gp.objectManagement.obj.remove(index);
+            }
+        }
     }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         if (spriteNum == 0) {
-            image = EnemyImage[0];
-        }
-        if (spriteNum == 1) {
             image = EnemyImage[1];
         }
-        if (spriteNum == 2) {
+        if (spriteNum == 1) {
             image = EnemyImage[2];
+        }
+        if (spriteNum == 2) {
+            image = EnemyImage[0];
         }
         screenX = worldX - gp.player.worldX + gp.player.screenX;
         screenY = worldY - gp.player.worldY + gp.player.screenY;
@@ -117,4 +159,6 @@ public class YellowDevil extends Enemy {
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
     }
+
 }
+

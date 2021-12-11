@@ -128,7 +128,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
             if(lose) {
                 //zzzz
-                //System.out.println("End game!");
+                System.out.println("End game!");
                 gameThread.stop();
             }
         }

@@ -9,6 +9,7 @@ import Object.BombItem;
 import Object.FlameItem;
 import Object.SpeedItem;
 import Object.FlameSegment;
+import Object.CrateItem;
 
 public class CollisionChecker {
 
@@ -114,6 +115,9 @@ public class CollisionChecker {
                                     } else if (item instanceof SpeedItem) {
                                         gp.player.speed += 4;
                                     }
+                                    else if(item instanceof CrateItem) {
+                                        gp.objectManagement.currentBullets+=2;
+                                    }
                                 }
                                 return i;
                             }
@@ -131,6 +135,9 @@ public class CollisionChecker {
                                         gp.objectManagement.maxBombRadius++;
                                     } else if (item instanceof SpeedItem) {
                                         gp.player.speed += 4;
+                                    }
+                                    else if(item instanceof CrateItem) {
+                                        gp.objectManagement.currentBullets+=2;
                                     }
                                 }
                                 return i;
@@ -150,6 +157,9 @@ public class CollisionChecker {
                                     } else if (item instanceof SpeedItem) {
                                         gp.player.speed += 4;
                                     }
+                                    else if(item instanceof CrateItem) {
+                                        gp.objectManagement.currentBullets+=2;
+                                    }
                                 }
                                 return i;
                             }
@@ -167,6 +177,9 @@ public class CollisionChecker {
                                         gp.objectManagement.maxBombRadius++;
                                     } else if (item instanceof SpeedItem) {
                                         gp.player.speed += 4;
+                                    }
+                                    else if(item instanceof CrateItem) {
+                                        gp.objectManagement.currentBullets+=2;
                                     }
                                 }
                                 return i;
@@ -230,7 +243,7 @@ public class CollisionChecker {
                         }
                     }
                 }
-            } else if (entity.name.equals("BlackDevil")) {
+            } else if (entity instanceof Enemy) {
                 if (gp.objectManagement.obj.get(i).name.equals("Bomb") ||
                         gp.objectManagement.obj.get(i).name.equals("Block")) {
                     switch (entity.direction) {
@@ -287,7 +300,7 @@ public class CollisionChecker {
                         break;
                     case "down":
                         if (entity.getBound().intersects(target.getBound())) {
-                            //System.out.println("hehe");
+                            System.out.println("hehe");
                             index = 0;
                         }
 
@@ -303,7 +316,6 @@ public class CollisionChecker {
                         break;
                     case "right":
                         if (entity.getBound().intersects(target.getBound())) {
-                            //System.out.println("hehe");
                             index = 0;
                         }
 
@@ -349,5 +361,44 @@ public class CollisionChecker {
 //            gp.objectManagement.obj[i].solidArea.y = gp.objectManagement.obj[i].solidAreaDefaultY;
         }
         return index;
+    }
+
+    public void checkBlock(Entity entity) {
+        for (int i = 0; i < gp.objectManagement.blockList.size(); i++) {
+            if (entity.name == "Flame") {
+                if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
+                        entity.worldY == gp.objectManagement.blockList.get(i).worldY) {
+                    entity.collision = false;
+                }
+            }
+        if (entity.name == "Player" || entity.name == "Enemy") {
+            switch (entity.direction) {
+                case "up":
+                    if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
+                            entity.worldY == gp.objectManagement.blockList.get(i).worldY + 32) {
+                        entity.collision = true;
+                    }
+                    break;
+                case "down":
+                    if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
+                            entity.worldY == gp.objectManagement.blockList.get(i).worldY - 96) {
+                        entity.collision = true;
+                    }
+                    break;
+                case "left":
+                    if (entity.worldX == gp.objectManagement.blockList.get(i).worldX + 64 &&
+                            entity.worldY == gp.objectManagement.blockList.get(i).worldY - 32) {
+                        entity.collision = true;
+                    }
+                    break;
+                case "right":
+                    if (entity.worldX == gp.objectManagement.blockList.get(i).worldX - 64 &&
+                            entity.worldY == gp.objectManagement.blockList.get(i).worldY - 32) {
+                        entity.collision = true;
+                    }
+                    break;
+                }
+            }
+        }
     }
 }

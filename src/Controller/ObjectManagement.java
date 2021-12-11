@@ -16,7 +16,7 @@ public class ObjectManagement {
     public int currentBomb = 0;
     public int maxBombNum = 3;
     public int maxBombRadius = 1;
-    public int currentBullets = 5;
+    public int currentBullets = 0;
     public Bomb previousBomb = null;
     public ArrayList<Item> waitingItem = new ArrayList<>();
     public ArrayList<Block> blockList = new ArrayList<>();
@@ -49,6 +49,7 @@ public class ObjectManagement {
                 if (index != 999) {
                     obj.remove(i);
                 }
+
             }
         }
 
@@ -64,17 +65,23 @@ public class ObjectManagement {
             }
             if (index != 999 && !check.destroyed) {
                 System.out.println("B" + index);
+
                 Random random = new Random();
-                int func = random.nextInt(3) + 1;
+                int func = random.nextInt(4) + 1;
                 if (func == 1) {
-                    waitingItem.add(new BombItem(gp, check.worldX, check.worldY));
+                    waitingItem.add(new BombItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                 } else if (func == 2) {
-                    waitingItem.add(new FlameItem(gp, check.worldX, check.worldY));
-                } else {
-                    waitingItem.add(new SpeedItem(gp, check.worldX, check.worldY));
+                    waitingItem.add(new FlameItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                } else if (func==3){
+                    waitingItem.add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                 }
-                check.destroyed = true;
+                else {
+                    waitingItem.add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                }
+                blockList.remove(i);
+              check.destroyed = true;
                 check.spriteNum = 3;
+
             }
 
         }
@@ -118,8 +125,8 @@ public class ObjectManagement {
                 //gp.tileManagement.tiles[bombTileNum].available = false;
                 //keyH.bombPressed = false;
 
-//                System.out.println(previousBomb.worldX);
-//                System.out.println(previousBomb.worldY);
+                System.out.println(previousBomb.worldX);
+                System.out.println(previousBomb.worldY);
             }
         }
 
@@ -140,6 +147,7 @@ public class ObjectManagement {
                     }
                     currentBomb--;
                     if (currentBomb == 0) previousBomb = null;
+
                 }
             } else if (obj.get(i).name.equals("Flame")) {
                 Flame flame = (Flame) obj.get(i);
@@ -152,6 +160,7 @@ public class ObjectManagement {
                 }
                 if (flame.explosionTime <= 0) {
                     obj.remove(i);
+                    if (currentBomb == 0) previousBomb = null;
                 }
             }
         }
