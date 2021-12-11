@@ -239,9 +239,14 @@ public class CollisionChecker {
                     Flame check = (Flame) gp.objectManagement.obj.get(i);
                     for (FlameSegment fs : check.flameSegments) {
                         if (entity.getBound().intersects(fs.getBound())) {
+                           
                             return i;
                         }
                     }
+                }
+                if(gp.objectManagement.obj.get(i).name.equals("Bullet")
+                        && gp.objectManagement.obj.get(i).getBound().intersects(entity.getBound())){
+                    return i;
                 }
             } else if (entity instanceof Enemy) {
                 if (gp.objectManagement.obj.get(i).name.equals("Bomb") ||

@@ -57,6 +57,7 @@ public class ObjectManagement {
         for (int i = 0; i < blockList.size(); i++) {
             Block check = blockList.get(i);
             int index = gp.collisionChecker.checkObject(blockList.get(i));
+            collideObj(index);
             blockList.get(i).update();
             if (check.destroyed) {
                 if (check.destroyingTime > 0) {
@@ -84,6 +85,14 @@ public class ObjectManagement {
 
             }
 
+        }
+    }
+    public void collideObj(int index) {
+        if(index != 999) {
+            String objName = gp.objectManagement.obj.get(index).name;
+            if(objName.equals("Bullet")) {
+                gp.objectManagement.obj.remove(index);
+            }
         }
     }
 
