@@ -77,6 +77,17 @@ public class RedDevil extends Enemy {
                 pixelCounter = 0;
             }
         }
+
+        if (collision) {
+            objIndex = gp.collisionChecker.checkObjForEnemy(this);
+            collideObj(objIndex);
+            gp.collisionChecker.checkTitle(this);
+            if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
+                gp.lose = true;
+                System.out.println("error black");
+                collidePlayer(gp.player);
+            }
+        }
 //        System.out.println(worldX);
 //        System.out.println(worldY);
     }
