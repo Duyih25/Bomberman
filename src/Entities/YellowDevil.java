@@ -10,6 +10,7 @@ import java.util.Random;
 
 public class YellowDevil extends Enemy {
 
+    int extraSpeed = 0;
     public YellowDevil(GamePanel gp) {
         super(gp);
     }
@@ -26,68 +27,69 @@ public class YellowDevil extends Enemy {
     public void setAction() {
         actionLockCounter++;
         collision = false;
-        gp.collisionChecker.checkTitle(this);
-
         //if (actionLockCounter == 64) {
 
             if (worldX > gp.player.worldX) {
                 direction = "left";
                 moving = true;
             }
-            if (worldX < gp.player.worldX) {
+            else if (worldX < gp.player.worldX) {
                 direction = "right";
                 moving = true;
             }
-            if (worldY < gp.player.worldY) {
+
+            if (worldY -32< gp.player.worldY) {
                     direction = "down";
                     moving = true;
             }
-            if (worldY > gp.player.worldY) {
+            if (worldY -32> gp.player.worldY) {
                     direction = "up";
                     moving = true;
             }
-                actionLockCounter = 0;
-                spriteNum++;
+            //if(worldX*worldX + worldY * worldY - (gp.player.worldX * gp.player.worldX + gp.player.worldY* gp.player.worldY) <100){
+          //     extraSpeed = 2;
+      // }
+
+
+
 
                 //kiem tra va cham
                 collision = false;
-                gp.collisionChecker.checkTitle(this);
-
                 //check object collision
                 int objIndex = gp.collisionChecker.checkObject(this);
-            //}
 
-        if (actionLockCounter == 30) {
+
+        if (actionLockCounter % 30==0) {
             if (spriteNum > 1) spriteNum = 0;
+            spriteNum++;
         }
     }
     public void update() {
         setAction();
         collision = false;
-        gp.collisionChecker.checkTitle(this);
         int objIndex = gp.collisionChecker.checkObject(this);
 
         if (moving && collision == false) {
             switch (direction) {
                 case "up":
-                    worldY -= (speed);
+                    worldY -= (speed + extraSpeed);
 
                     break;
                 case "down":
-                    worldY += (speed);
+                    worldY += (speed + extraSpeed);
 
                     break;
                 case "left":
-                    worldX -= (speed);
+                    worldX -= (speed + extraSpeed);
 
                     break;
                 case "right":
-                    worldX += (speed);
+                    worldX += (speed + extraSpeed);
 
                     break;
             }
 
-            pixelCounter += speed;
+            pixelCounter += (speed+extraSpeed);
             if (pixelCounter == 64) {
                 moving = false;
                 pixelCounter = 0;
@@ -97,7 +99,7 @@ public class YellowDevil extends Enemy {
 
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
                 gp.lose = true;
-                System.out.println("error black");
+                //System.out.println("error black");
                 collidePlayer(gp.player);
             }
         }
