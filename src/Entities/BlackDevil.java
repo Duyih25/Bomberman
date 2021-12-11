@@ -14,7 +14,6 @@ public class BlackDevil extends Enemy{
     }
 
     public void setEnemyImage() {
-        name = "BlackDevil";
         UtilityTool uTool = new UtilityTool();
         BufferedImageLoader loader = new BufferedImageLoader();
         BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");

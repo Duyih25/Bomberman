@@ -49,6 +49,7 @@ public class RedDevil extends Enemy {
         setAction();
         collision = false;
         gp.collisionChecker.checkTitle(this);
+        int objIndex = gp.collisionChecker.checkObject(this);
         if (moving && collision == false) {
             switch (direction) {
                 case "left":
@@ -62,7 +63,7 @@ public class RedDevil extends Enemy {
             }
 
             pixelCounter += speed;
-            int objIndex = gp.collisionChecker.checkObjForEnemy(this);
+            objIndex = gp.collisionChecker.checkObjForEnemy(this);
             collideObj(objIndex);
 
             if(gp.collisionChecker.checkEntity(gp.player, this)==0){

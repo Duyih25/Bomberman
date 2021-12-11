@@ -200,7 +200,7 @@ public class CollisionChecker {
                         }
                     }
                 }
-            } else if (entity.name.equals("BlackDevil")) {
+            } else if (entity instanceof Enemy) {
                 if (gp.objectManagement.obj.get(i).name.equals("Bomb") ||
                         gp.objectManagement.obj.get(i).name.equals("Block")) {
                     switch (entity.direction) {
