@@ -6,12 +6,7 @@ import Graphics.Sprite;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-<<<<<<< HEAD
-import java.io.IOException;
-
-=======
 //Duy
->>>>>>> d60a7a63dc6859c3f25cd38cd58077e0b20c7f0a
 public class Block extends SuperObject {
         public Block(GamePanel gp, int x, int y) {
                 super(gp);
