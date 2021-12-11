@@ -19,45 +19,48 @@ public class YellowDevil extends Enemy {
         UtilityTool uTool = new UtilityTool();
         BufferedImageLoader loader = new BufferedImageLoader();
         BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");
-        for(int i=0;i<3;i++)
-            EnemyImage[i] = uTool.scaleImage(sprite.getSubimage(96+i*32,0,32,32),64,64);
+        for (int i = 0; i < 3; i++)
+            EnemyImage[i] = uTool.scaleImage(sprite.getSubimage(96 + i * 32, 0, 32, 32), 64, 64);
     }
+
     public void setAction() {
         actionLockCounter++;
         collision = false;
         gp.collisionChecker.checkTitle(this);
 
-        if(actionLockCounter == 64) {
-            Random random = new Random();
-            int i = random.nextInt(100) + 1;
-            if (i <= 25) {
-                direction = "up";
-                moving = true;
-            } else if (i <= 50) {
-                direction = "down";
-                moving = true;
-            } else if (i <= 75) {
-                direction = "right";
-                moving = true;
-            } else {
+        //if (actionLockCounter == 64) {
+
+            if (worldX > gp.player.worldX) {
                 direction = "left";
                 moving = true;
             }
-            actionLockCounter=0;
-            spriteNum++;
+            if (worldX < gp.player.worldX) {
+                direction = "right";
+                moving = true;
+            }
+            if (worldY < gp.player.worldY) {
+                    direction = "down";
+                    moving = true;
+            }
+            if (worldY > gp.player.worldY) {
+                    direction = "up";
+                    moving = true;
+            }
+                actionLockCounter = 0;
+                spriteNum++;
 
-            //kiem tra va cham
-            collision = false;
-            gp.collisionChecker.checkTitle(this);
+                //kiem tra va cham
+                collision = false;
+                gp.collisionChecker.checkTitle(this);
 
-            //check object collision
-            int objIndex = gp.collisionChecker.checkObject(this);
-        }
-        if(actionLockCounter==30) {
-            if(spriteNum>1) spriteNum=0;
+                //check object collision
+                int objIndex = gp.collisionChecker.checkObject(this);
+            //}
+
+        if (actionLockCounter == 30) {
+            if (spriteNum > 1) spriteNum = 0;
         }
     }
-
     public void update() {
         setAction();
         collision = false;
@@ -85,6 +88,10 @@ public class YellowDevil extends Enemy {
             }
 
             pixelCounter += speed;
+            if (pixelCounter == 64) {
+                moving = false;
+                pixelCounter = 0;
+            }
             objIndex = gp.collisionChecker.checkObjForEnemy(this);
             collideObj(objIndex);
 
@@ -93,14 +100,12 @@ public class YellowDevil extends Enemy {
                 System.out.println("error black");
                 collidePlayer(gp.player);
             }
-
-            if (pixelCounter == 64) {
-                moving = false;
-                pixelCounter = 0;
-            }
         }
-//        System.out.println(worldX);
-//        System.out.println(worldY);
+        if (collision) {
+//            System.out.println(worldX);
+//            System.out.println(worldY);
+        }
+
     }
     public void collideObj(int index) {
         if(index != 999) {
@@ -156,4 +161,6 @@ public class YellowDevil extends Enemy {
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
     }
+
 }
+
