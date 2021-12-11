@@ -44,18 +44,18 @@ public class Bullet extends SuperObject {
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
             g2.setColor(Color.yellow);
-            g2.fillOval(screenX+24, screenY+48, 16, 16);
+            g2.fillOval(screenX+24, screenY+48, 32, 32);
             //Animation animation = new Animation(10, image);
         } else if(gp.player.screenX > gp.player.worldX ||
                 gp.player.screenY > gp.player.worldY ||
                 rightOffset > gp.maxWorldCol * gp.tileSize - gp.player.worldX ||
                 bottomOffset > gp.maxWorldRow * gp.tileSize -gp.player.worldY ) {
             g2.setColor(Color.yellow);
-            g2.fillOval(screenX+24, screenY+48, 16, 16);
+            g2.fillOval(screenX+24, screenY+48, 32, 32);
             //Animation animation = new Animation(10, image);
         }
     }
     public Rectangle getBound() {
-        return new Rectangle(worldX, worldY, 16, 16);
+        return new Rectangle(worldX+16, worldY+16, 32, 32);
     }
 }

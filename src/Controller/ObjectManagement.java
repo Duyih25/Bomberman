@@ -16,7 +16,7 @@ public class ObjectManagement {
     public int currentBomb = 0;
     public int maxBombNum = 3;
     public int maxBombRadius = 1;
-    public int currentBullets = 0;
+    public int currentBullets = 10;
     public Bomb previousBomb = null;
     public ArrayList<Item> waitingItem = new ArrayList<>();
     public ArrayList<Block> blockList = new ArrayList<>();
