@@ -27,7 +27,7 @@ public class BlackDevil extends Enemy{
 
         if(actionLockCounter == 64) {
             Random random = new Random();
-            int i = random.nextInt(1) + 1;
+            int i = random.nextInt(100) + 1;
             if (i <= 25) {
                 direction = "up";
                 moving = true;
