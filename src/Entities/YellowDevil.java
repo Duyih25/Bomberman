@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 
 public class YellowDevil extends Enemy {
 
+    boolean caught=false;
     int extraSpeed = 0;
     public YellowDevil(GamePanel gp) {
         super(gp);
@@ -30,22 +31,34 @@ public class YellowDevil extends Enemy {
         if (worldX > gp.player.worldX) {
             direction = "left";
             moving = true;
+            speed=1;
+            caught = false;
         }
         else if (worldX < gp.player.worldX) {
             direction = "right";
             moving = true;
+            caught = false;
         }
+
 
 
         if (worldY -31< gp.player.worldY) {
             direction = "down";
             moving = true;
+            caught = false;
         }
         if (worldY -31> gp.player.worldY) {
             direction = "up";
             moving = true;
+            caught = false;
         }
-        if(Math.abs((gp.player.worldX * gp.player.worldX + gp.player.worldY* gp.player.worldY) - worldX*worldX - (worldY) * (worldY)) < 64*64*50){
+        if(Math.abs(worldX-gp.player.worldX)<2 && Math.abs(worldY-31 -gp.player.worldY)<2) {
+            direction = "stable";
+            caught = true;
+        }
+        int x = gp.player.worldX -  worldX;
+        int y = gp.player.worldY -  worldY;
+        if(Math.abs(x*x + y*y)< 64*64*16){
             if(worldY%2==0) extraSpeed =2;
             else extraSpeed = 1;
         }
@@ -70,20 +83,23 @@ public class YellowDevil extends Enemy {
         if (moving && collision == false) {
             switch (direction) {
                 case "up":
-                    worldY -= (speed + extraSpeed);
+                    if(caught==false) worldY -= (speed + extraSpeed);
 
                     break;
                 case "down":
-                    worldY += (speed + extraSpeed);
+                    if(caught==false) worldY += (speed + extraSpeed);
 
                     break;
                 case "left":
-                    worldX -= (speed + extraSpeed);
+                    if(caught==false) worldX -= (speed + extraSpeed);
 
                     break;
                 case "right":
-                    worldX += (speed + extraSpeed);
+                    if(caught==false) worldX += (speed + extraSpeed);
 
+                    break;
+                case "stable":
+                    speed=1;
                     break;
             }
 
