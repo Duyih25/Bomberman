@@ -12,6 +12,7 @@ public abstract class Enemy extends Entity{
     BufferedImage EnemyImage[] = new BufferedImage[10];
     public int actionLockCounter=0;
     boolean moving = false;
+    boolean collidingPlayer = false;
     int pixelCounter = 0;
     int screenX,screenY;
     public Enemy(GamePanel gp) {
@@ -37,6 +38,12 @@ public abstract class Enemy extends Entity{
         }
     }
     public void collidePlayer(Player player) {
+        if (player.playerLives > 1) {
+            if (player.relievingTime == 70) {
+                player.playerLives--;
+                player.relievingTime--;
+            }
+        } else gp.lose = true;
         System.out.println("hihihi");
 
     }

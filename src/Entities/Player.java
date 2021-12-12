@@ -16,10 +16,14 @@ public class Player extends Entity {
     int standCounter = 0;
     boolean moving = false;
     int pixelCounter = 0;
+    int relievingTime = 70;
     public int x,y;
 
     public final int screenX;
     public final int screenY;
+
+    public int playerLives = 3;
+
     BufferedImage playerImage[][];
 
     public Player(GamePanel gp, KeyHandler keyH, TileManagement tileManagement) {
@@ -64,6 +68,11 @@ public class Player extends Entity {
 
 
     public void update() {
+        if (relievingTime < 70) {
+            if (relievingTime > 0) relievingTime--;
+            else relievingTime = 70;
+        }
+
 
         if (moving == false) {
 
@@ -105,7 +114,7 @@ public class Player extends Entity {
                 }
             }
         }
-        if (moving) {
+        if (moving && relievingTime == 70) {
             //false
             if (collision == false) {
                 switch (direction) {
@@ -140,6 +149,12 @@ public class Player extends Entity {
                 moving = false;
                 pixelCounter = 0;
             }
+        }
+        if (relievingTime != 70) {
+            keyH.upPressed = false;
+            keyH.downPressed = false;
+            keyH.leftPressed = false;
+            keyH.rightPressed = false;
         }
         //System.out.println(worldY);
     }

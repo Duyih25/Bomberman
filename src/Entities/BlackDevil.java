@@ -92,9 +92,15 @@ public class BlackDevil extends Enemy{
             collideObj(objIndex);
 
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
-                gp.lose = true;
+                //gp.lose = true;
                 System.out.println("error black");
-                collidePlayer(gp.player);
+                if (!collidingPlayer) {
+                    collidePlayer(gp.player);
+                    collidingPlayer = true;
+                }
+            }
+            else {
+                collidingPlayer = false;
             }
         }
         if (collision) {

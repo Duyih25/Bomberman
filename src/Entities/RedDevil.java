@@ -69,8 +69,13 @@ public class RedDevil extends Enemy {
 
             if(gp.collisionChecker.checkEntity(gp.player, this)==0){
                 System.out.println("error red");
-                gp.lose = true;
-                collidePlayer(gp.player);
+                //gp.lose = true;
+                if (!collidingPlayer) {
+                    collidePlayer(gp.player);
+                    collidingPlayer = true;
+                }
+            } else {
+                collidingPlayer = false;
             }
 
             if (pixelCounter == 64) {
