@@ -44,7 +44,7 @@ public abstract class Enemy extends Entity{
                 player.relievingTime--;
             }
         } else gp.lose = true;
-        System.out.println("hihihi");
+        System.out.println(player.playerLives);
 
     }
     public void draw(Graphics2D g2) {

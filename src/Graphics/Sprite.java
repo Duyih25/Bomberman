@@ -32,8 +32,18 @@ public class Sprite {
         this.w = w;
         this.h = h;
 
-        //System.out.println("Loading: " + file + "...");
         SPRITESHEET = loadSprite(file);
+
+        wSprite = SPRITESHEET.getWidth() / w;
+        hSprite = SPRITESHEET.getHeight() / h;
+        loadSpriteArray();
+    }
+
+    public Sprite(BufferedImage image, int w, int h) {
+        this.w = w;
+        this.h = h;
+
+        SPRITESHEET = image;
 
         wSprite = SPRITESHEET.getWidth() / w;
         hSprite = SPRITESHEET.getHeight() / h;

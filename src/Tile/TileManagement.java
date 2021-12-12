@@ -16,11 +16,8 @@ public class TileManagement {
     public int mapCol;
     public int mapRow;
 
-    public TileManagement(GamePanel gp) {
+    public TileManagement(GamePanel gp, BufferedImage image) {
         this.gp = gp;
-
-        BufferedImageLoader loader = new BufferedImageLoader();
-        BufferedImage image = loader.loadImage("../../Res/wizard.png");
 
         mapCol = image.getWidth();
         mapRow = image.getHeight();

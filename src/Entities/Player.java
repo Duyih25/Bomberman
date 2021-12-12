@@ -16,7 +16,7 @@ public class Player extends Entity {
     int standCounter = 0;
     boolean moving = false;
     int pixelCounter = 0;
-    int relievingTime = 70;
+    public int relievingTime = 70;
     public int x,y;
 
     public final int screenX;
@@ -26,7 +26,7 @@ public class Player extends Entity {
 
     BufferedImage playerImage[][];
 
-    public Player(GamePanel gp, KeyHandler keyH, TileManagement tileManagement) {
+    public Player(GamePanel gp, KeyHandler keyH, TileManagement tileManagement, BufferedImage spriteSheet) {
         super(gp);
         this.keyH = keyH;
         this.tileManagement = tileManagement;
@@ -35,26 +35,27 @@ public class Player extends Entity {
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         name = "Player";
-
+        Sprite sprite = new Sprite(spriteSheet, 32, 48);
         solidArea = new Rectangle(1, 33, 60, 60);
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         setDefautValue();
-        setPlayerImage();
+        setPlayerImage(sprite);
     }
 
 
     public void setDefautValue() {
-
+        moving = false;
+        pixelCounter = 0;
         worldX = 64 * 1;
         worldY = 32 * 1;
         speed = 4;
         direction = "down";
+        playerLives = 3;
     }
 
-    public void setPlayerImage() {
+    public void setPlayerImage(Sprite sprite) {
 
-        Sprite sprite = new Sprite("../../Res/bomber_sprite.png", 32, 48);
         playerImage = sprite.getSpriteArray2();
 
         UtilityTool uTool = new UtilityTool();
@@ -114,7 +115,7 @@ public class Player extends Entity {
                 }
             }
         }
-        if (moving && relievingTime == 70) {
+        if (moving) {
             //false
             if (collision == false) {
                 switch (direction) {
@@ -150,12 +151,12 @@ public class Player extends Entity {
                 pixelCounter = 0;
             }
         }
-        if (relievingTime != 70) {
-            keyH.upPressed = false;
-            keyH.downPressed = false;
-            keyH.leftPressed = false;
-            keyH.rightPressed = false;
-        }
+//        if (relievingTime != 70) {
+//            keyH.upPressed = false;
+//            keyH.downPressed = false;
+//            keyH.leftPressed = false;
+//            keyH.rightPressed = false;
+//        }
         //System.out.println(worldY);
     }
 

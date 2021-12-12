@@ -1,6 +1,5 @@
 package Object;
 
-import Controller.BufferedImageLoader;
 import Entities.BlackDevil;
 import Entities.RedDevil;
 import Entities.YellowDevil;
@@ -16,10 +15,8 @@ public class AssetSetter {
         this.gp = gp;
     }
 
-    public void setObject() {
+    public void setObject(BufferedImage image) {
         int x = 0,y = 0;
-        BufferedImageLoader loader = new BufferedImageLoader();
-        BufferedImage image = loader.loadImage("../../Res/wizard.png");
         while (x < image.getWidth() && y < image.getHeight()) {
 
             int pixel = image.getRGB(x,y);
@@ -51,7 +48,7 @@ public class AssetSetter {
         gp.npc[1].worldX = gp.tileSize*6;
         gp.npc[1].worldY = gp.tileSize*6;
         gp.npc[2] = new YellowDevil(gp);
-        gp.npc[2].worldX = gp.tileSize*3;
-        gp.npc[2].worldY = gp.tileSize*3;
+        gp.npc[2].worldX = gp.tileSize*13;
+        gp.npc[2].worldY = gp.tileSize*13;
     }
 }
