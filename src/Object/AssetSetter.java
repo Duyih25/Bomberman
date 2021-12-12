@@ -50,8 +50,8 @@ public class AssetSetter {
         gp.npc[1] = new RedDevil(gp);
         gp.npc[1].worldX = gp.tileSize*6;
         gp.npc[1].worldY = gp.tileSize*6;
-//        gp.npc[2] = new YellowDevil(gp);
-//        gp.npc[2].worldX = gp.tileSize*3;
-//        gp.npc[2].worldY = gp.tileSize*3;
+        gp.npc[2] = new YellowDevil(gp);
+        gp.npc[2].worldX = gp.tileSize*3;
+        gp.npc[2].worldY = gp.tileSize*3;
     }
 }

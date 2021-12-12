@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 //Duy
 public abstract class Enemy extends Entity{
 
-    BufferedImage EnemyImage[] = new BufferedImage[3];
+    BufferedImage EnemyImage[] = new BufferedImage[10];
     public int actionLockCounter=0;
     boolean moving = false;
     int pixelCounter = 0;
@@ -44,7 +44,7 @@ public abstract class Enemy extends Entity{
 
     }
     public Rectangle getBound() {
-        return new Rectangle(worldX + 1 , worldY + 1 , 50, 50);
+        return new Rectangle(worldX + 16 , worldY + 16 , 40, 40);
     }
 
 
