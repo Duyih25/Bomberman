@@ -108,7 +108,6 @@ public class CollisionChecker {
                                     gp.objectManagement.currentBullets+=2;
                                 } else if(item instanceof Portal) {
                                     gp.win = true;
-                                    gp.currentLevel++;
                                     System.out.println("true");
                                 }
                                 return i;

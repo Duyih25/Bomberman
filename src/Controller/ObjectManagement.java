@@ -76,13 +76,12 @@ public class ObjectManagement {
                         waitingItem.add(new FlameItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                     } else if (func==3){
                         waitingItem.add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                    }
-                    else {
+                    } else if (func==4) {
                         waitingItem.add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                     }
                 }
                 blockList.remove(i);
-              check.destroyed = true;
+                check.destroyed = true;
                 check.spriteNum = 3;
 
             }

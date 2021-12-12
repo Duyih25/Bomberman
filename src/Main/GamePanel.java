@@ -163,6 +163,7 @@ public class GamePanel extends JPanel implements Runnable {
                 timer.stop();
             }
             if(win) {
+                currentLevel +=1;
                 gameState = winState;
                 timer.stop();
             }

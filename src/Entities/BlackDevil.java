@@ -51,7 +51,7 @@ public class BlackDevil extends Enemy{
             //check object collision
             int objIndex = gp.collisionChecker.checkObject(this);
         }
-        if(actionLockCounter==30) {
+        if(actionLockCounter==32) {
             if(spriteNum>1) spriteNum=0;
         }
     }
