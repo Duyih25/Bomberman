@@ -56,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     public Graphics2D g2d;
     public boolean lose = false;
+    Sound sound = new Sound();
 
 
     public GamePanel() {
@@ -71,6 +72,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject();
         aSetter.setNPC();
         gameState = titleState;
+        playMusic(0);
     }
 
     public void startGameThread() {
@@ -216,6 +218,22 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2.dispose();
     }
+    public void playMusic(int i){
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+
+
+    public void playStop(int i){
+        sound.stop();
+    }
+
+    public void playSE(int i){
+        sound.setFile(i);
+        sound.play();
+    }
+
 
 
 }
