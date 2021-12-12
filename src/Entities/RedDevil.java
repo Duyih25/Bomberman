@@ -15,9 +15,9 @@ public class RedDevil extends Enemy {
     public void setEnemyImage() {
         UtilityTool uTool = new UtilityTool();
         BufferedImageLoader loader = new BufferedImageLoader();
-        BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");
-        for(int i=0;i<3;i++)
-            EnemyImage[i] = uTool.scaleImage(sprite.getSubimage(96+i*32,0,32,32),64,64);
+        BufferedImage sprite = loader.loadImage("../../Res/red.png");
+        for(int i=0;i<4;i++)
+            EnemyImage[i] = uTool.scaleImage(sprite.getSubimage(i*16,0,16,16),64,64);
     }
     public void setAction() {
         actionLockCounter++;
