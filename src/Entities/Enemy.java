@@ -22,7 +22,7 @@ public abstract class Enemy extends Entity{
         speed = 1;
         setEnemyImage();
         collision = true;
-        solidArea = new Rectangle(1, 1, 62, 62);
+        solidArea = new Rectangle(16, 16, 48, 48);
     }
 
     public abstract void setEnemyImage();

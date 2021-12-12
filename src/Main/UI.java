@@ -38,6 +38,10 @@ public class UI {
         if (gp.gameState == gp.loseState) {
             drawLoseScreen();
         }
+
+        if (gp.gameState == gp.winState) {
+            drawWinState();
+        }
     }
 
     public void drawPauseScreen() {
@@ -107,5 +111,22 @@ public class UI {
             }
             Sprite.drawArray(g2, font, "MENU" , 3 * gp.tileSize, 8 * gp.tileSize , 32, 32, 32, 0);
         }
+    }
+
+    public void drawWinState() {
+        g2.setColor(Color.black);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        Sprite.drawArray(g2, font,"You" , gp.tileSize, 3*gp.tileSize , 64, 64, 64, 0);
+        Sprite.drawArray(g2, font,"Won" , gp.tileSize*5, 3*gp.tileSize , 64, 64, 64, 0);
+
+        if (commandNum == 0) {
+            Sprite.drawArray(g2,font, ">", 2 * gp.tileSize + 32, 7 * gp.tileSize, 32, 32, 32, 0);
+        }
+        Sprite.drawArray(g2, font, "NEXT LEVEL" , 3 * gp.tileSize, 7 * gp.tileSize , 32, 32, 32, 0);
+        if (commandNum == 1) {
+            Sprite.drawArray(g2,font, ">", 2 * gp.tileSize + 32, 8 * gp.tileSize, 32, 32, 32, 0);
+        }
+        Sprite.drawArray(g2, font, "MENU" , 3 * gp.tileSize, 8 * gp.tileSize , 32, 32, 32, 0);
     }
 }

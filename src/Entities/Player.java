@@ -5,6 +5,7 @@ import Controller.UtilityTool;
 import Graphics.Sprite;
 import Main.GamePanel;
 import Tile.TileManagement;
+import Object.Portal;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -75,7 +76,7 @@ public class Player extends Entity {
         }
 
 
-        if (moving == false) {
+        if (!moving) {
 
             if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
 
@@ -164,9 +165,12 @@ public class Player extends Entity {
         if(index != 999) {
             String objName = gp.objectManagement.obj.get(index).name;
             if (objName.equals("Item")) {
+                if (gp.objectManagement.obj.get(index) instanceof Portal) {
+                    gp.win = true;
+                    System.out.println("true");
+                }
                 //System.out.println("hi");
                 gp.objectManagement.obj.remove(index);
-
             }
         }
     }

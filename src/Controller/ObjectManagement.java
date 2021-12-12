@@ -65,18 +65,21 @@ public class ObjectManagement {
             }
             if (index != 999 && !check.destroyed) {
                 System.out.println("B" + index);
-
-                Random random = new Random();
-                int func = random.nextInt(4) + 1;
-                if (func == 1) {
-                    waitingItem.add(new BombItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                } else if (func == 2) {
-                    waitingItem.add(new FlameItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                } else if (func==3){
-                    waitingItem.add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                }
-                else {
-                    waitingItem.add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                if (blockList.get(i).portal) {
+                    waitingItem.add(new Portal(gp, blockList.get(i).worldX, blockList.get(i).worldY)); //them portal
+                } else {
+                    Random random = new Random();
+                    int func = random.nextInt(4) + 1;
+                    if (func == 1) {
+                        waitingItem.add(new BombItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                    } else if (func == 2) {
+                        waitingItem.add(new FlameItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                    } else if (func==3){
+                        waitingItem.add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                    }
+                    else {
+                        waitingItem.add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                    }
                 }
                 blockList.remove(i);
               check.destroyed = true;

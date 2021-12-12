@@ -7,14 +7,14 @@ import Main.GamePanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class CrateItem extends Item{
-    public CrateItem(GamePanel gp, int x, int y) {
+public class Portal extends Item {
+    public Portal(GamePanel gp, int x, int y) {
         super(gp, x, y);
 
         image = new BufferedImage[1];
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        image[0] = loader.loadImage("../../Res/portal.png");
+        image[0] = loader.loadImage("../../Res/crate.png");
 
         UtilityTool uTool = new UtilityTool();
         image[0] = uTool.scaleImage(image[0], 64, 64);
@@ -28,4 +28,5 @@ public class CrateItem extends Item{
     public Rectangle getBound() {
         return super.getBound();
     }
+
 }

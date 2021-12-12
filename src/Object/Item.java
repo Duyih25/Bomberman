@@ -49,8 +49,8 @@ public class Item extends SuperObject {
                 bottomOffset > gp.maxWorldRow * gp.tileSize -gp.player.worldY ) {
             g2.drawImage(image[0], screenX, screenY, null);
         }
-        g2.setColor(Color.white);
-        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+        //g2.setColor(Color.white);
+        //g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         //Animation animation = new Animation(10, image);
     }
 

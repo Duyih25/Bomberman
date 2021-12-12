@@ -10,8 +10,9 @@ import java.awt.image.BufferedImage;
 public class Block extends SuperObject {
         public boolean destroyed = false;
         public int destroyingTime = 50;
+        public boolean portal = false;
 
-        public Block(GamePanel gp, int x, int y) {
+        public Block(GamePanel gp, int x, int y, boolean portal) {
                 super(gp);
                 collision = true;
                 image = new BufferedImage[10];
@@ -23,6 +24,7 @@ public class Block extends SuperObject {
                         image[i] = uTool.scaleImage(image[i], 64, 64);
                 }
 
+                this.portal = portal;
                 worldX = x;
                 worldY = y;
         }
@@ -96,8 +98,8 @@ public class Block extends SuperObject {
                         bottomOffset > gp.maxWorldRow * gp.tileSize -gp.player.worldY ) {
                 g2.drawImage(block_image, screenX, screenY , null);
         }
-                g2.setColor(Color.white);
-                g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+                //g2.setColor(Color.white);
+                //g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
                 //Animation animation = new Animation(10, image);
         }
         public Rectangle getBound() {

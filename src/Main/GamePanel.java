@@ -40,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int titleState = 0;
     public final int loseState = 3;
+    public final int winState = 4;
 
     //Level
     public int currentLevel = 1;
@@ -47,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     //Game component
     BufferedImageLoader loader = new BufferedImageLoader();
     BufferedImage mapLevel1 = loader.loadImage("../../Res/level1/level1.png");
+    BufferedImage mapLevel2 = loader.loadImage("../../Res/level2/level2.png");
     BufferedImage playerS = loader.loadImage("../../Res/bomber_sprite.png");
 
     Thread gameThread;
@@ -67,6 +69,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     public Graphics2D g2d;
     public boolean lose = false;
+    public boolean win = false;
     Sound sound = new Sound();
 
 
@@ -159,11 +162,18 @@ public class GamePanel extends JPanel implements Runnable {
                 gameState = loseState;
                 timer.stop();
             }
+            if(win) {
+                gameState = winState;
+                timer.stop();
+            }
         }
         if (gameState == pauseState) {
 
         }
-        if (gameState == pauseState) {
+        if (gameState == loseState) {
+
+        }
+        if (gameState == winState) {
 
         }
     }
@@ -184,7 +194,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2d = g2;
 
         //Tiltle Screen
-        if (gameState == titleState || gameState == loseState) {
+        if (gameState == titleState || gameState == loseState || gameState == winState) {
             ui.draw(g2);
         } //OTHERS
         else {
@@ -252,7 +262,16 @@ public class GamePanel extends JPanel implements Runnable {
         objectManagement.blockList.clear();
         npc = new Enemy[10];
         aSetter.setNPC();
-        aSetter.setObject(mapLevel1);
+        switch (currentLevel) {
+            case 1:
+                aSetter.setObject(mapLevel1);
+                tileManagement = new TileManagement(this, mapLevel1);
+                break;
+            case 2:
+                aSetter.setObject(mapLevel2);
+                tileManagement = new TileManagement(this, mapLevel2);
+                break;
+        }
         objectManagement.maxBombNum = 3;
         objectManagement.maxBombRadius = 1;
         player.setDefautValue();

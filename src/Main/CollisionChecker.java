@@ -2,14 +2,7 @@ package Main;
 
 import Entities.Enemy;
 import Entities.Entity;
-import Object.Flame;
-import Object.Item;
-import Object.Block;
-import Object.BombItem;
-import Object.FlameItem;
-import Object.SpeedItem;
-import Object.FlameSegment;
-import Object.CrateItem;
+import Object.*;
 
 public class CollisionChecker {
 
@@ -111,9 +104,12 @@ public class CollisionChecker {
                                     gp.objectManagement.maxBombRadius++;
                                 } else if (item instanceof SpeedItem) {
                                     gp.player.speed += 4;
-                                }
-                                else if(item instanceof CrateItem) {
+                                } else if(item instanceof CrateItem) {
                                     gp.objectManagement.currentBullets+=2;
+                                } else if(item instanceof Portal) {
+                                    gp.win = true;
+                                    gp.currentLevel++;
+                                    System.out.println("true");
                                 }
                                 return i;
                             }
@@ -391,7 +387,7 @@ public class CollisionChecker {
                     break;
                 }
             }
-            if (entity.name.equals("Enemy")) {
+            if (entity instanceof Enemy) {
                 switch (entity.direction) {
                     case "up":
                         if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&

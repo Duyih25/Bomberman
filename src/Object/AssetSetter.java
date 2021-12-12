@@ -25,7 +25,10 @@ public class AssetSetter {
             int blue = pixel & 0xff;
 
             if (red == 255 && green == 255 && blue == 255) {
-                gp.objectManagement.blockList.add(new Block(gp, x * 64, y * 64));
+                gp.objectManagement.blockList.add(new Block(gp, x * 64, y * 64, false));
+            } else if (red == 204 && green == 204 && blue == 204) {
+                gp.objectManagement.blockList.add(new Block(gp, x * 64, y * 64, true));
+
             }
             x += 1;
             if (x == image.getWidth()) {
