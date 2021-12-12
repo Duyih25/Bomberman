@@ -292,7 +292,7 @@ public class CollisionChecker {
                         break;
                     case "down":
                         if (entity.getBound().intersects(target.getBound())) {
-                            System.out.println("hehe");
+                            //System.out.println("hehe");
                             index = 0;
                         }
 
@@ -363,7 +363,7 @@ public class CollisionChecker {
                     entity.collision = true;
                 }
             }
-        if (entity.name.equals("Player") || entity.name.equals("Enemy")) {
+        if (entity.name.equals("Player")) {
             switch (entity.direction) {
                 case "up":
                     if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
@@ -389,6 +389,34 @@ public class CollisionChecker {
                         entity.collision = true;
                     }
                     break;
+                }
+            }
+            if (entity.name.equals("Enemy")) {
+                switch (entity.direction) {
+                    case "up":
+                        if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
+                                entity.worldY == gp.objectManagement.blockList.get(i).worldY + 64) {
+                            entity.collision = true;
+                        }
+                        break;
+                    case "down":
+                        if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
+                                entity.worldY == gp.objectManagement.blockList.get(i).worldY - 64) {
+                            entity.collision = true;
+                        }
+                        break;
+                    case "left":
+                        if (entity.worldX == gp.objectManagement.blockList.get(i).worldX + 64 &&
+                                entity.worldY == gp.objectManagement.blockList.get(i).worldY ) {
+                            entity.collision = true;
+                        }
+                        break;
+                    case "right":
+                        if (entity.worldX == gp.objectManagement.blockList.get(i).worldX - 64 &&
+                                entity.worldY == gp.objectManagement.blockList.get(i).worldY ) {
+                            entity.collision = true;
+                        }
+                        break;
                 }
             }
         }

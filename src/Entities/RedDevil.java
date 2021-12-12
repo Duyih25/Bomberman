@@ -68,7 +68,7 @@ public class RedDevil extends Enemy {
             collideObj(objIndex);
 
             if(gp.collisionChecker.checkEntity(gp.player, this)==0){
-                System.out.println("error red");
+                //System.out.println("error red");
                 //gp.lose = true;
                 if (!collidingPlayer) {
                     collidePlayer(gp.player);
@@ -88,9 +88,10 @@ public class RedDevil extends Enemy {
             objIndex = gp.collisionChecker.checkObjForEnemy(this);
             collideObj(objIndex);
             gp.collisionChecker.checkTitle(this);
+            gp.collisionChecker.checkBlock(this);
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
                 gp.lose = true;
-                System.out.println("error black");
+                //System.out.println("error black");
                 collidePlayer(gp.player);
             }
         }

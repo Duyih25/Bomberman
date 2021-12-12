@@ -1,5 +1,6 @@
 package Main;
 
+import Controller.BufferedImageLoader;
 import Controller.KeyHandler;
 import Controller.ObjectManagement;
 import Entities.Enemy;
@@ -11,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 
 
@@ -37,12 +39,21 @@ public class GamePanel extends JPanel implements Runnable {
     public final int playState = 1;
     public final int pauseState = 2;
     public final int titleState = 0;
+    public final int loseState = 3;
+
+    //Level
+    public int currentLevel = 1;
+
+    //Game component
+    BufferedImageLoader loader = new BufferedImageLoader();
+    BufferedImage mapLevel1 = loader.loadImage("../../Res/level1/level1.png");
+    BufferedImage playerS = loader.loadImage("../../Res/bomber_sprite.png");
 
     Thread gameThread;
     KeyHandler keyH = new KeyHandler(this);
-    public TileManagement tileManagement = new TileManagement(this);
+    public TileManagement tileManagement = new TileManagement(this, mapLevel1);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
-    public Player player = new Player(this, keyH, tileManagement);
+    public Player player = new Player(this, keyH, tileManagement, playerS);
     public Timer timer;
     public int second, minute;
     String ddSecond, ddMinute;
@@ -69,7 +80,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setUpGame() {
-        aSetter.setObject();
+        aSetter.setObject(mapLevel1);
         aSetter.setNPC();
         gameState = titleState;
         playMusic(0);
@@ -108,7 +119,7 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         });
-        timer.start();
+
 
         while (gameThread != null) {
 
@@ -128,11 +139,7 @@ public class GamePanel extends JPanel implements Runnable {
                 repaint();
                 delta--;
             }
-            if(lose) {
-                //zzzz
-                System.out.println("End game!");
-                gameThread.stop();
-            }
+
         }
 
     }
@@ -148,6 +155,13 @@ public class GamePanel extends JPanel implements Runnable {
                     npc[i].update();
                 }
             }
+            if(lose) {
+                gameState = loseState;
+                timer.stop();
+            }
+        }
+        if (gameState == pauseState) {
+
         }
         if (gameState == pauseState) {
 
@@ -170,7 +184,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2d = g2;
 
         //Tiltle Screen
-        if (gameState == titleState) {
+        if (gameState == titleState || gameState == loseState) {
             ui.draw(g2);
         } //OTHERS
         else {
@@ -193,7 +207,6 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             ui.draw(g2);
-
         }
 
 
@@ -234,6 +247,23 @@ public class GamePanel extends JPanel implements Runnable {
         sound.play();
     }
 
+    public void restartGame(int currentLevel) {
+        objectManagement.obj.clear();
+        objectManagement.blockList.clear();
+        npc = new Enemy[10];
+        aSetter.setNPC();
+        aSetter.setObject(mapLevel1);
+        objectManagement.maxBombNum = 3;
+        objectManagement.maxBombRadius = 1;
+        player.setDefautValue();
+        gameState = playState;
+        keyH.restartPressed = false;
+        second = 0;
+        minute = 0;
+        timer.start();
+    }
 
-
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
 }

@@ -45,7 +45,7 @@ public class KeyHandler implements KeyListener {
                 gp.playSE(1);
                 gp.playMusic(2);
                 if (gp.ui.commandNum == 0) {
-                    gp.gameState = gp.playState;
+                    gp.restartGame(1);
                 }
                 if (gp.ui.commandNum == 2) {
                     System.exit(0);
@@ -120,13 +120,47 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNum == 0) {
+                    if (gp.gameState == gp.playState) {
+                        gp.gameState = gp.pauseState;
+                        gp.timer.stop();
+                    } else if (gp.gameState == gp.pauseState) {
+                        gp.gameState = gp.playState;
+                        gp.timer.start();
+                    }
+                }
+                if (gp.ui.commandNum == 1) {
                     restartPressed = true;
+                    gp.restartGame(gp.getCurrentLevel());
                 }
                 if (gp.ui.commandNum == 2) {
                     gp.gameState = gp.titleState;
                 }
             }
 
+        }
+
+        if (gp.gameState == gp.loseState) {
+            if (code == KeyEvent.VK_W) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0)
+                    gp.ui.commandNum = 1;
+            }
+            if (code == KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 1)
+                    gp.ui.commandNum = 0;
+            }
+            if (code == KeyEvent.VK_ENTER) {
+                if (gp.ui.commandNum == 0) {
+                    restartPressed = true;
+                    gp.lose = false;
+                    gp.restartGame(gp.getCurrentLevel());
+                }
+                if (gp.ui.commandNum == 1) {
+                    gp.gameState = gp.titleState;
+                    gp.lose = false;
+                }
+            }
         }
     }
 

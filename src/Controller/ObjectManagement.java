@@ -12,7 +12,6 @@ public class ObjectManagement {
     KeyHandler keyH;
 
     public ArrayList<SuperObject> obj = new ArrayList<>();
-    public int currentObj = 1;
     public int currentBomb = 0;
     public int maxBombNum = 3;
     public int maxBombRadius = 1;
@@ -163,8 +162,13 @@ public class ObjectManagement {
                 flame.update();
                 for (FlameSegment fs : flame.flameSegments) {
                     if (gp.player.getBound().intersects(fs.getBound())) {
-                        System.out.println("error bomb");
-                        gp.lose = true;
+                        if (gp.player.playerLives > 0) {
+                            if (gp.player.relievingTime == 70) {
+                                gp.player.playerLives--;
+                                gp.player.relievingTime--;
+                            }
+                        } else gp.lose = true;
+                        System.out.println(gp.player.playerLives);
                     }
                 }
                 if (flame.explosionTime <= 0) {
@@ -200,7 +204,6 @@ public class ObjectManagement {
             if (obj.get(i).name.equals("Item"))
                 obj.get(i).draw(g2);
         }
-
 
     }
 }
