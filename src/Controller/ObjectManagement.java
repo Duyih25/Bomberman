@@ -43,7 +43,7 @@ public class ObjectManagement {
 
         for (int i = 0; i < obj.size(); i++) {
             int index = gp.collisionChecker.checkObject(obj.get(i));
-            if (obj.get(i).name.equals("Item") || obj.get(i).name.equals("Crate")) {
+            if (obj.get(i).name.equals("Item")) {
                 //System.out.println("I" + index);
                 Item check = (Item) obj.get(i);
                 if (index != 999) {
