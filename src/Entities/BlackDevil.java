@@ -24,6 +24,7 @@ public class BlackDevil extends Enemy{
         actionLockCounter++;
         collision = false;
         gp.collisionChecker.checkTitle(this);
+        gp.collisionChecker.checkBlock(this);
 
         if(actionLockCounter == 64) {
             Random random = new Random();
@@ -51,7 +52,7 @@ public class BlackDevil extends Enemy{
             //check object collision
             int objIndex = gp.collisionChecker.checkObject(this);
         }
-        if(actionLockCounter==32) {
+        if(actionLockCounter == 32) {
             if(spriteNum>1) spriteNum=0;
         }
     }
@@ -87,6 +88,7 @@ public class BlackDevil extends Enemy{
             if (pixelCounter == 64) {
                 moving = false;
                 pixelCounter = 0;
+                //setAction();
             }
             objIndex = gp.collisionChecker.checkObjForEnemy(this);
             collideObj(objIndex);

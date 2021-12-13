@@ -13,10 +13,12 @@ public class UI {
     Graphics2D g2;
     public Font font;
     public int commandNum = 0;
+    BufferedImage hud;
 
-    public UI(GamePanel gp) {
+    public UI(GamePanel gp, BufferedImage hud) {
         this.gp = gp;
         font = new Font("../../Res/font.png", 10, 10);
+        this.hud = hud;
     }
 
     public void draw(Graphics2D g2) {
@@ -28,7 +30,9 @@ public class UI {
         }
         //play state
         if (gp.gameState == gp.playState) {
-            Sprite.drawArray(g2, font, gp.ddMinute + ":" + gp.ddSecond , (gp.maxScreenCol - 3) * gp.tileSize, 32 , 32, 32, 32, 0);
+            g2.drawImage(hud, 64 * 10, 0, null);
+            Sprite.drawArray(g2, font, gp.ddMinute + ":" + gp.ddSecond , gp.maxScreenCol  * gp.tileSize + 32, 32 , 32, 32, 32, 0);
+            Sprite.drawArray(g2, font, "X" + gp.player.playerLives + "" , (gp.maxScreenCol + 2)  * gp.tileSize, 64 * 2 - 32 , 64, 64, 64, 0);
         }
         //Pause state
         if (gp.gameState == gp.pauseState) {
@@ -73,7 +77,7 @@ public class UI {
         BufferedImage image;
         BufferedImageLoader loader = new BufferedImageLoader();
         image = loader.loadImage("../../Res/2.png");
-        image = utool.scaleImage(image, gp.screenWidth, gp.screenHeight);
+        image = utool.scaleImage(image, gp.screenWidth + 64 * 4, gp.screenHeight);
         g2.drawImage(image, 0, 0, null);
 
         //Menu

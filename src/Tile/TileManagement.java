@@ -1,6 +1,5 @@
 package Tile;
 
-import Controller.BufferedImageLoader;
 import Controller.UtilityTool;
 import Main.GamePanel;
 
@@ -15,8 +14,9 @@ public class TileManagement {
     public int mapTileNum[][];
     public int mapCol;
     public int mapRow;
+    BufferedImage sprite;
 
-    public TileManagement(GamePanel gp, BufferedImage image) {
+    public TileManagement(GamePanel gp, BufferedImage image, BufferedImage sprite) {
         this.gp = gp;
 
         mapCol = image.getWidth();
@@ -29,7 +29,7 @@ public class TileManagement {
         mapTileNum = new int[gp.maxWorldCol + 1][gp.maxWorldRow + 1];
         tilesMap = new Tile[gp.maxWorldCol + 1][gp.maxWorldRow + 1];
 
-
+        this.sprite = sprite;
         getTileImage();
         loadMap(image);
     }
@@ -38,42 +38,41 @@ public class TileManagement {
 
 
         //co
-        setUp(0, false, 96, 96, 32, 32);
+        setUp(0, false, 32, 32, 32, 32);
 
         //wall_1
-        setUp(1, true,208, 64,32,32);
+        setUp(1, true,0, 0,32,32);
 
         //wall_2
-        setUp(2, true,240, 64,32,32);
+        setUp(2, true,32, 0,32,32);
 
         //wall_3
-        setUp(3, true,272, 64,32,32);
+        setUp(3, true,64, 0,32,32);
 
         //wall_4
-        setUp(4, true,208, 96,32,32);
+        setUp(4, true,0, 32,32,32);
 
         //wall_5
-        setUp(5, true,208, 128,32,32);
+        setUp(5, true,0, 64,32,32);
 
         //wall_6
-        setUp(6, true,240, 128,32,32);
+        setUp(6, true,32, 64,32,32);
 
         //wall_7
-        setUp(7, true,272, 128,32,32);
+        setUp(7, true,64, 64,32,32);
 
         //wall_8
-        setUp(8, true,272, 96,32,32);
+        setUp(8, true,64, 32,32,32);
 
         //wall_9
-        setUp(9, true,208, 160,32,32);
+        setUp(9, true,0, 96,32,32);
     }
 
     public void setUp(int index, boolean collision, int x, int y, int w, int h) {
 
         UtilityTool uTool = new UtilityTool();
         tiles[index] = new Tile();
-        BufferedImageLoader loader = new BufferedImageLoader();
-        BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");
+
         tiles[index].image = sprite.getSubimage(x, y, w, h);
         tiles[index].collision = collision;
         tiles[index].image = uTool.scaleImage(tiles[index].image, gp.tileSize, gp.tileSize);
@@ -94,7 +93,7 @@ public class TileManagement {
             int green = (pixel >> 8) & 0xff;
             int blue = pixel & 0xff;
 
-            if(red ==0 && green == 255 && blue == 255) {
+            if ((red ==0 && green == 255 && blue == 255) || (red == 195 && green == 92 && blue == 92) || (red == 174 && green == 187 && blue == 23)) {
                 //mapTileNum[x][y] = 1;
                 tilesMap[x][y] = tiles[0];
             }

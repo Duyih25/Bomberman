@@ -14,7 +14,7 @@ public class Portal extends Item {
         image = new BufferedImage[1];
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        image[0] = loader.loadImage("../../Res/crate.png");
+        image[0] = loader.loadImage("../../Res/portal.png");
 
         UtilityTool uTool = new UtilityTool();
         image[0] = uTool.scaleImage(image[0], 64, 64);
