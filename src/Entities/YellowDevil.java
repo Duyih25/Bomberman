@@ -19,9 +19,10 @@ public class YellowDevil extends Enemy {
         name = "YellowDevil";
         UtilityTool uTool = new UtilityTool();
         BufferedImageLoader loader = new BufferedImageLoader();
-        BufferedImage sprite = loader.loadImage("../../Res/sprite_sheet.png");
-        for (int i = 0; i < 3; i++)
-            EnemyImage[i] = uTool.scaleImage(sprite.getSubimage(96 + i * 32, 0, 32, 32), 64, 64);
+        BufferedImage sprite = loader.loadImage("../../Res/yellow_sheet.png");
+        for (int i = 0; i < 6; i++)
+            EnemyImage[i] = uTool.scaleImage(sprite.getSubimage( 6+i * 32, 3, 32, 32), 120, 100);
+        EnemyImage[7] = uTool.scaleImage(sprite.getSubimage( 6+6 * 32, 3, 32-6, 32-3), 120, 100);
     }
 
     public void setAction() {
@@ -70,9 +71,9 @@ public class YellowDevil extends Enemy {
         int objIndex = gp.collisionChecker.checkObject(this);
 
 
-        if (actionLockCounter % 30==0) {
-            if (spriteNum > 1) spriteNum = 0;
+        if (actionLockCounter % 10==0) {
             spriteNum++;
+            if (spriteNum > 3) spriteNum = 0;
         }
     }
     public void update() {
@@ -135,15 +136,8 @@ public class YellowDevil extends Enemy {
     }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
-        if (spriteNum == 0) {
-            image = EnemyImage[1];
-        }
-        if (spriteNum == 1) {
-            image = EnemyImage[2];
-        }
-        if (spriteNum == 2) {
-            image = EnemyImage[0];
-        }
+        image = EnemyImage[spriteNum];
+
         screenX = worldX - gp.player.worldX + gp.player.screenX;
         screenY = worldY - gp.player.worldY + gp.player.screenY;
 
