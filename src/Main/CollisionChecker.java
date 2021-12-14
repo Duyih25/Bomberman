@@ -97,19 +97,6 @@ public class CollisionChecker {
                             if (entity.worldX == gp.objectManagement.obj.get(i).worldX &&
                                     entity.worldY == gp.objectManagement.obj.get(i).worldY + 32) {
 
-                                Item item = (Item) gp.objectManagement.obj.get(i);
-                                if (item instanceof BombItem) {
-                                    gp.objectManagement.maxBombNum++;
-                                } else if (item instanceof FlameItem) {
-                                    gp.objectManagement.maxBombRadius++;
-                                } else if (item instanceof SpeedItem) {
-                                    gp.player.speed += 4;
-                                } else if(item instanceof CrateItem) {
-                                    gp.objectManagement.currentBullets+=2;
-                                } else if(item instanceof Portal) {
-                                    gp.win = true;
-                                    System.out.println("true");
-                                }
                                 return i;
                             }
                             break;
@@ -117,35 +104,13 @@ public class CollisionChecker {
                             if (entity.worldX == gp.objectManagement.obj.get(i).worldX &&
                                     entity.worldY == gp.objectManagement.obj.get(i).worldY - 96) {
 
-                                Item item = (Item) gp.objectManagement.obj.get(i);
-                                if (item instanceof BombItem) {
-                                    gp.objectManagement.maxBombNum++;
-                                } else if (item instanceof FlameItem) {
-                                    gp.objectManagement.maxBombRadius++;
-                                } else if (item instanceof SpeedItem) {
-                                    gp.player.speed += 4;
-                                }
-                                else if(item instanceof CrateItem) {
-                                    gp.objectManagement.currentBullets+=2;
-                                }
-                            return i;
+                                return i;
                             }
                             break;
                         case "left":
                             if (entity.worldX == gp.objectManagement.obj.get(i).worldX + 64 &&
                                     entity.worldY == gp.objectManagement.obj.get(i).worldY - 32) {
 
-                                Item item = (Item) gp.objectManagement.obj.get(i);
-                                if (item instanceof BombItem) {
-                                    gp.objectManagement.maxBombNum++;
-                                } else if (item instanceof FlameItem) {
-                                    gp.objectManagement.maxBombRadius++;
-                                } else if (item instanceof SpeedItem) {
-                                    gp.player.speed += 4;
-                                }
-                                else if(item instanceof CrateItem) {
-                                    gp.objectManagement.currentBullets+=2;
-                                }
                                 return i;
                             }
                             break;
@@ -153,17 +118,6 @@ public class CollisionChecker {
                             if (entity.worldX == gp.objectManagement.obj.get(i).worldX - 64 &&
                                     entity.worldY == gp.objectManagement.obj.get(i).worldY - 32) {
 
-                                Item item = (Item) gp.objectManagement.obj.get(i);
-                                if (item instanceof BombItem) {
-                                    gp.objectManagement.maxBombNum++;
-                                } else if (item instanceof FlameItem) {
-                                    gp.objectManagement.maxBombRadius++;
-                                } else if (item instanceof SpeedItem) {
-                                    gp.player.speed += 4;
-                                }
-                                else if(item instanceof CrateItem) {
-                                    gp.objectManagement.currentBullets+=2;
-                                }
                                 return i;
                             }
                             break;
