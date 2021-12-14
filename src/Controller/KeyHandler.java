@@ -34,6 +34,7 @@ public class KeyHandler implements KeyListener {
                 gp.ui.commandNum--;
                 if (gp.ui.commandNum < 0)
                     gp.ui.commandNum = 2;
+
             }
             if (code == KeyEvent.VK_S) {
                 gp.ui.commandNum++;
@@ -43,7 +44,7 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_ENTER) {
                 gp.playStop(0);
                 gp.playSE(1);
-                gp.playMusic(2);
+                //gp.playMusic(2);
                 if (gp.ui.commandNum == 0) {
                     gp.restartGame(1);
                 }
@@ -55,6 +56,7 @@ public class KeyHandler implements KeyListener {
 
         if (gp.gameState == gp.playState) {
             if (code == KeyEvent.VK_W) {
+                gp.playSE(2);
                 upPressed = true;
                 facingLeft = false; //Duy
                 facingRight = false;
@@ -62,6 +64,7 @@ public class KeyHandler implements KeyListener {
                 facingUp = true;//
             }
             if (code == KeyEvent.VK_S) {
+                gp.playSE(2);
                 downPressed = true;
                 facingLeft = false;
                 facingRight = false;
@@ -69,6 +72,7 @@ public class KeyHandler implements KeyListener {
                 facingUp = false;
             }
             if (code == KeyEvent.VK_A) {
+                gp.playSE(2);
                 leftPressed = true;
                 facingLeft = true;
                 facingRight = false;
@@ -76,6 +80,7 @@ public class KeyHandler implements KeyListener {
                 facingUp = false;
             }
             if (code == KeyEvent.VK_D) {
+                gp.playSE(2);
                 rightPressed = true;
                 facingLeft = false;
                 facingRight = true;
@@ -93,6 +98,7 @@ public class KeyHandler implements KeyListener {
             }
 
             if (code == KeyEvent.VK_E) {
+                gp.playMusic(8);
                 bulletPressed = true;
             }
             if (code == KeyEvent.VK_P) {
