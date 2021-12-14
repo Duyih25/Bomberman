@@ -172,13 +172,17 @@ public class Player extends Entity {
                 }
                 //System.out.println("hi");
                 if (objCheck instanceof BombItem) {
+                    gp.playSE(4);
                     gp.objectManagement.maxBombNum++;
                 } else if (objCheck instanceof FlameItem) {
+                    gp.playSE(5);
                     gp.objectManagement.maxBombRadius++;
                 } else if (objCheck instanceof SpeedItem) {
+                    gp.playSE(6);
                     gp.player.speed += 4;
                 }
                 else if(objCheck instanceof CrateItem) {
+                    gp.playSE(7);
                     gp.objectManagement.currentBullets+=2;
                 }
                 gp.objectManagement.obj.remove(index);
