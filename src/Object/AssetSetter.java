@@ -17,6 +17,7 @@ public class AssetSetter {
 
     public void setObject(BufferedImage image) {
         int x = 0,y = 0;
+        int currentNPC = 0;
         while (x < image.getWidth() && y < image.getHeight()) {
 
             int pixel = image.getRGB(x,y);
@@ -28,7 +29,21 @@ public class AssetSetter {
                 gp.objectManagement.blockList.add(new Block(gp, x * 64, y * 64, false));
             } else if (red == 204 && green == 204 && blue == 204) {
                 gp.objectManagement.blockList.add(new Block(gp, x * 64, y * 64, true));
-
+            } else if (red == 0 && green == 255 && blue == 255) {
+                gp.npc[currentNPC] = new BlackDevil(gp);
+                gp.npc[currentNPC].worldX = gp.tileSize * x;
+                gp.npc[currentNPC].worldY = gp.tileSize * y;;
+                currentNPC++;
+            } else if (red == 195 && green == 92 && blue == 92) {
+                gp.npc[currentNPC] = new RedDevil(gp);
+                gp.npc[currentNPC].worldX = gp.tileSize * x;
+                gp.npc[currentNPC].worldY = gp.tileSize * y;;
+                currentNPC++;
+            } else if (red == 174 && green == 187 && blue == 23) {
+                gp.npc[currentNPC] = new YellowDevil(gp);
+                gp.npc[currentNPC].worldX = gp.tileSize * x;
+                gp.npc[currentNPC].worldY = gp.tileSize * y;;
+                currentNPC++;
             }
             x += 1;
             if (x == image.getWidth()) {
@@ -37,21 +52,5 @@ public class AssetSetter {
             }
         }
 
-        //them tam item bomb
-        gp.objectManagement.obj.add(new BombItem(gp, 6*64, 6*64));
-        gp.objectManagement.obj.add(new SpeedItem(gp, 7*64, 6*64));
-        gp.objectManagement.obj.add(new FlameItem(gp, 8*64, 6*64));
-    }
-
-    public void setNPC() {
-        gp.npc[0] = new BlackDevil(gp);
-        gp.npc[0].worldX = gp.tileSize*8;
-        gp.npc[0].worldY = gp.tileSize*8;
-        gp.npc[1] = new RedDevil(gp);
-        gp.npc[1].worldX = gp.tileSize*6;
-        gp.npc[1].worldY = gp.tileSize*6;
-        gp.npc[2] = new YellowDevil(gp);
-        gp.npc[2].worldX = gp.tileSize*13;
-        gp.npc[2].worldY = gp.tileSize*13;
     }
 }

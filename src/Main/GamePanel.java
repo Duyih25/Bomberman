@@ -47,13 +47,16 @@ public class GamePanel extends JPanel implements Runnable {
 
     //Game component
     BufferedImageLoader loader = new BufferedImageLoader();
+    BufferedImage hud = loader.loadImage("../../Res/hud.png");
     BufferedImage mapLevel1 = loader.loadImage("../../Res/level1/level1.png");
+    BufferedImage level1Sprite = loader.loadImage("../../Res/level1/level1_sprite_map.png");
     BufferedImage mapLevel2 = loader.loadImage("../../Res/level2/level2.png");
+    BufferedImage level2Sprite = loader.loadImage("../../Res/level2/level2_sprite_map.png");
     BufferedImage playerS = loader.loadImage("../../Res/bomber_sprite.png");
 
     Thread gameThread;
     KeyHandler keyH = new KeyHandler(this);
-    public TileManagement tileManagement = new TileManagement(this, mapLevel1);
+    public TileManagement tileManagement = new TileManagement(this, mapLevel1, level1Sprite);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyH, tileManagement, playerS);
     public Timer timer;
@@ -62,7 +65,7 @@ public class GamePanel extends JPanel implements Runnable {
     DecimalFormat dFormat = new DecimalFormat("00");
     public AssetSetter aSetter = new AssetSetter(this);
     public ObjectManagement objectManagement = new ObjectManagement(this, keyH);
-    public UI ui = new UI (this);
+    public UI ui = new UI (this, hud);
 
     public Enemy npc[] = new Enemy[10];
 
@@ -74,7 +77,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     public GamePanel() {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setPreferredSize(new Dimension(screenWidth + 64 * 4, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
@@ -84,7 +87,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setUpGame() {
         aSetter.setObject(mapLevel1);
-        aSetter.setNPC();
         gameState = titleState;
         playMusic(0);
     }
@@ -262,17 +264,21 @@ public class GamePanel extends JPanel implements Runnable {
         objectManagement.obj.clear();
         objectManagement.blockList.clear();
         npc = new Enemy[10];
-        aSetter.setNPC();
         switch (currentLevel) {
             case 1:
                 aSetter.setObject(mapLevel1);
-                tileManagement = new TileManagement(this, mapLevel1);
+                tileManagement = new TileManagement(this, mapLevel1, level1Sprite);
                 break;
             case 2:
                 aSetter.setObject(mapLevel2);
-                tileManagement = new TileManagement(this, mapLevel2);
+                tileManagement = new TileManagement(this, mapLevel2, level2Sprite);
+                break;
+            default:
+                aSetter.setObject(mapLevel1);
+                tileManagement = new TileManagement(this, mapLevel1, level1Sprite);
                 break;
         }
+        objectManagement.previousBomb = null;
         objectManagement.maxBombNum = 3;
         objectManagement.maxBombRadius = 1;
         player.setDefautValue();
