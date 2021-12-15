@@ -340,7 +340,7 @@ public class CollisionChecker {
                     break;
                 }
             }
-            if (entity instanceof Enemy) {
+            if (entity.name == "Enemy") {
                 switch (entity.direction) {
                     case "up":
                         if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&

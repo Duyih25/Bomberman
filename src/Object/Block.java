@@ -104,6 +104,6 @@ public class Block extends SuperObject {
         }
         public Rectangle getBound() {
                 //return null;
-                return new Rectangle(worldX, worldY, solidArea.width, solidArea.height);
+                return new Rectangle(worldX + 1, worldY + 1, 62, 62);
         }
 }

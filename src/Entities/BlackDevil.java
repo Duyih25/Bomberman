@@ -11,6 +11,7 @@ import java.util.Random;
 public class BlackDevil extends Enemy{
     public BlackDevil(GamePanel gp) {
         super(gp);
+        speed = 1;
     }
 
     public void setEnemyImage() {
@@ -21,12 +22,10 @@ public class BlackDevil extends Enemy{
             EnemyImage[i] = uTool.scaleImage(sprite.getSubimage(96+i*32,0,32,32),64,64);
     }
     public void setAction() {
-        actionLockCounter++;
         collision = false;
         gp.collisionChecker.checkTitle(this);
         gp.collisionChecker.checkBlock(this);
 
-        if(actionLockCounter == 64) {
             Random random = new Random();
             int i = random.nextInt(100) + 1;
             if (i <= 25) {
@@ -42,7 +41,6 @@ public class BlackDevil extends Enemy{
                 direction = "left";
                 moving = true;
             }
-            actionLockCounter=0;
             spriteNum++;
 
             //kiem tra va cham
@@ -51,44 +49,49 @@ public class BlackDevil extends Enemy{
             gp.collisionChecker.checkBlock(this);
             //check object collision
             int objIndex = gp.collisionChecker.checkObject(this);
-        }
-        if(actionLockCounter == 32) {
             if(spriteNum>1) spriteNum=0;
-        }
     }
 
     public void update() {
-        setAction();
         collision = false;
         gp.collisionChecker.checkBlock(this);
         gp.collisionChecker.checkTitle(this);
+
         int objIndex = gp.collisionChecker.checkObject(this);
 
-        if (moving && collision == false) {
-            switch (direction) {
-                case "up":
-                    worldY -= (speed);
 
-                    break;
-                case "down":
-                    worldY += (speed);
-
-                    break;
-                case "left":
-                    worldX -= (speed);
-
-                    break;
-                case "right":
-                    worldX += (speed);
-
-                    break;
+        if (!moving) {
+            objIndex = gp.collisionChecker.checkObjForEnemy(this);
+            collideObj(objIndex);
+            gp.collisionChecker.checkTitle(this);
+            gp.collisionChecker.checkBlock(this);
+            if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
+                //System.out.println("error black");
+                collidePlayer(gp.player);
             }
-
+            setAction();
+        }
+        if (moving) {
+            if (collision == false) {
+                switch (direction) {
+                    case "up":
+                        worldY -= (speed);
+                        break;
+                    case "down":
+                        worldY += (speed);
+                        break;
+                    case "left":
+                        worldX -= (speed);
+                        break;
+                    case "right":
+                        worldX += (speed);
+                        break;
+                }
+            }
             pixelCounter += speed;
             if (pixelCounter == 64) {
                 moving = false;
                 pixelCounter = 0;
-                //setAction();
             }
             objIndex = gp.collisionChecker.checkObjForEnemy(this);
             collideObj(objIndex);
@@ -105,18 +108,6 @@ public class BlackDevil extends Enemy{
                 collidingPlayer = false;
             }
         }
-        if (!moving) {
-            objIndex = gp.collisionChecker.checkObjForEnemy(this);
-            collideObj(objIndex);
-            gp.collisionChecker.checkTitle(this);
-            gp.collisionChecker.checkBlock(this);
-            if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
-                gp.lose = true;
-                //System.out.println("error black");
-                collidePlayer(gp.player);
-            }
-        }
-
     }
     public void collideObj(int index) {
         if(index != 999) {
