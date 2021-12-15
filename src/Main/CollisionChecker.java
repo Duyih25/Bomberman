@@ -343,26 +343,22 @@ public class CollisionChecker {
             if (entity instanceof Enemy) {
                 switch (entity.direction) {
                     case "up":
-                        if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
-                                entity.worldY == gp.objectManagement.blockList.get(i).worldY + 64) {
+                        if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound())) {
                             entity.collision = true;
                         }
                         break;
                     case "down":
-                        if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
-                                entity.worldY == gp.objectManagement.blockList.get(i).worldY - 64) {
+                        if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound())) {
                             entity.collision = true;
                         }
                         break;
                     case "left":
-                        if (entity.worldX == gp.objectManagement.blockList.get(i).worldX + 64 &&
-                                entity.worldY == gp.objectManagement.blockList.get(i).worldY ) {
+                        if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound()) ) {
                             entity.collision = true;
                         }
                         break;
                     case "right":
-                        if (entity.worldX == gp.objectManagement.blockList.get(i).worldX - 64 &&
-                                entity.worldY == gp.objectManagement.blockList.get(i).worldY ) {
+                        if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound()) ) {
                             entity.collision = true;
                         }
                         break;

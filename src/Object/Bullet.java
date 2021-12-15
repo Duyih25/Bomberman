@@ -45,6 +45,7 @@ public class Bullet extends SuperObject {
 
             g2.setColor(Color.yellow);
             g2.fillOval(screenX+24, screenY+48, 32, 32);
+            g2.drawRect(screenX+24, screenY+48, 32, 32);
             //Animation animation = new Animation(10, image);
         } else if(gp.player.screenX > gp.player.worldX ||
                 gp.player.screenY > gp.player.worldY ||
@@ -52,10 +53,11 @@ public class Bullet extends SuperObject {
                 bottomOffset > gp.maxWorldRow * gp.tileSize -gp.player.worldY ) {
             g2.setColor(Color.yellow);
             g2.fillOval(screenX+24, screenY+48, 32, 32);
+            g2.drawRect(screenX+24, screenY+48, 32, 32);
             //Animation animation = new Animation(10, image);
         }
     }
     public Rectangle getBound() {
-        return new Rectangle(worldX+16, worldY+16, 32, 32);
+        return new Rectangle(screenX+24, screenY+48, 32, 32);
     }
 }

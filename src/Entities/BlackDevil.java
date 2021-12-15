@@ -48,7 +48,7 @@ public class BlackDevil extends Enemy{
             //kiem tra va cham
             collision = false;
             gp.collisionChecker.checkTitle(this);
-            gp.collisionChecker.checkBlock(this);
+           // gp.collisionChecker.checkBlock(this);
             //check object collision
             int objIndex = gp.collisionChecker.checkObject(this);
         }
@@ -60,9 +60,9 @@ public class BlackDevil extends Enemy{
     public void update() {
         setAction();
         collision = false;
-        gp.collisionChecker.checkBlock(this);
+       // gp.collisionChecker.checkBlock(this);
         gp.collisionChecker.checkTitle(this);
-        int objIndex = gp.collisionChecker.checkObject(this);
+       int objIndex=1;
 
         if (moving && collision == false) {
             switch (direction) {
@@ -111,8 +111,8 @@ public class BlackDevil extends Enemy{
             gp.collisionChecker.checkTitle(this);
             gp.collisionChecker.checkBlock(this);
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
-                gp.lose = true;
-                //System.out.println("error black");
+                //gp.lose = true;
+                System.out.println("error black");
                 collidePlayer(gp.player);
             }
         }
@@ -172,4 +172,5 @@ public class BlackDevil extends Enemy{
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
     }
+
 }
