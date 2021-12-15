@@ -177,8 +177,11 @@ public class ObjectManagement {
                         System.out.println(gp.player.playerLives);
                     }
                 }
+
                 if (flame.explosionTime <= 0) {
                     obj.remove(i);
+                    gp.playStop(2);
+                    gp.playSE(3);
                     if (currentBomb == 0) previousBomb = null;
                 }
             }

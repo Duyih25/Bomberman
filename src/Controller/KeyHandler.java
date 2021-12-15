@@ -1,7 +1,7 @@
 package Controller;
 
 import Main.GamePanel;
-
+import Entities.Player;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -56,7 +56,7 @@ public class KeyHandler implements KeyListener {
 
         if (gp.gameState == gp.playState) {
             if (code == KeyEvent.VK_W) {
-                gp.playSE(2);
+                //gp.playSE(2);
                 upPressed = true;
                 facingLeft = false; //Duy
                 facingRight = false;
@@ -64,7 +64,8 @@ public class KeyHandler implements KeyListener {
                 facingUp = true;//
             }
             if (code == KeyEvent.VK_S) {
-                gp.playSE(2);
+
+               // gp.playSE(2);
                 downPressed = true;
                 facingLeft = false;
                 facingRight = false;
@@ -72,7 +73,8 @@ public class KeyHandler implements KeyListener {
                 facingUp = false;
             }
             if (code == KeyEvent.VK_A) {
-                gp.playSE(2);
+
+              //  gp.playSE(2);
                 leftPressed = true;
                 facingLeft = true;
                 facingRight = false;
@@ -80,7 +82,8 @@ public class KeyHandler implements KeyListener {
                 facingUp = false;
             }
             if (code == KeyEvent.VK_D) {
-                gp.playSE(2);
+
+             //   gp.playSE(2);
                 rightPressed = true;
                 facingLeft = false;
                 facingRight = true;

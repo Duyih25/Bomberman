@@ -55,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable {
     BufferedImage playerS = loader.loadImage("../../Res/bomber_sprite.png");
 
     Thread gameThread;
+    Thread soundThread;
     KeyHandler keyH = new KeyHandler(this);
     public TileManagement tileManagement = new TileManagement(this, mapLevel1, level1Sprite);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
@@ -95,6 +96,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         gameThread = new Thread(this);
         gameThread.start();
+        soundThread.start();
     }
 
 
@@ -162,6 +164,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
             if(lose) {
                 gameState = loseState;
+                //player.moving=false;
                 timer.stop();
             }
             if(win) {
@@ -174,6 +177,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         }
         if (gameState == loseState) {
+            //playMusic(10);
 
         }
         if (gameState == winState) {

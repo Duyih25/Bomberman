@@ -82,9 +82,7 @@ public class Bomb extends SuperObject {
     public void explode() {
         exploded = true;
 
-        gp.playStop(2);
-        gp.playSE(3);
-        gp.playMusic(2);
+
         flames = new Flame[5];
         flames[0] = new Flame(gp, worldX, worldY, "center", maxRadius);
         flames[1] = new Flame(gp, worldX, worldY, "down", maxRadius);
@@ -92,10 +90,12 @@ public class Bomb extends SuperObject {
         flames[3] = new Flame(gp, worldX, worldY, "up", maxRadius);
         flames[4] = new Flame(gp, worldX, worldY, "left", maxRadius);
 
+        //gp.playMusic(2);
 
         for (Flame flame : flames) {
             flame.update();
         }
+
     }
 
     @Override
