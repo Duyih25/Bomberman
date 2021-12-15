@@ -165,7 +165,7 @@ public class GamePanel extends JPanel implements Runnable {
                 timer.stop();
             }
             if(win) {
-                currentLevel +=1;
+                currentLevel += 1;
                 gameState = winState;
                 timer.stop();
             }
@@ -280,6 +280,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
         objectManagement.previousBomb = null;
         objectManagement.maxBombNum = 3;
+        objectManagement.currentBomb = 0;
         objectManagement.maxBombRadius = 1;
         player.setDefautValue();
         gameState = playState;

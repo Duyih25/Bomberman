@@ -90,7 +90,7 @@ public class RedDevil extends Enemy {
             gp.collisionChecker.checkTitle(this);
             gp.collisionChecker.checkBlock(this);
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
-                gp.lose = true;
+                //gp.lose = true;
                 //System.out.println("error black");
                 collidePlayer(gp.player);
             }

@@ -16,6 +16,7 @@ public class ObjectManagement {
     public int maxBombNum = 3;
     public int maxBombRadius = 1;
     public int currentBullets = 10;
+    public boolean getSpeedItem = false;
     public Bomb previousBomb = null;
     public ArrayList<Item> waitingItem = new ArrayList<>();
     public ArrayList<Block> blockList = new ArrayList<>();
@@ -69,15 +70,18 @@ public class ObjectManagement {
                     waitingItem.add(new Portal(gp, blockList.get(i).worldX, blockList.get(i).worldY)); //them portal
                 } else {
                     Random random = new Random();
-                    int func = random.nextInt(4) + 1;
+                    int func;
+                    if (!getSpeedItem) func = random.nextInt(4) + 1;
+                    else func = random.nextInt(3) + 1;
                     if (func == 1) {
                         waitingItem.add(new BombItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                     } else if (func == 2) {
                         waitingItem.add(new FlameItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                    } else if (func==3){
-                        waitingItem.add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                    } else if (func==4) {
+                    } else if (func == 3){
                         waitingItem.add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                    } else if (func == 4) {
+                        waitingItem.add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                        gp.objectManagement.getSpeedItem = true;
                     }
                 }
                 blockList.remove(i);

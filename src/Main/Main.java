@@ -10,6 +10,8 @@ public class Main {
 
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
+        Main a=new Main();
+        a.Sound();
 
         window.pack();
 
@@ -20,4 +22,7 @@ public class Main {
         gamePanel.startGameThread();
 
     }
+    private void Sound() {
+    }
+   
 }
