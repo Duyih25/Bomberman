@@ -4,7 +4,7 @@ import Main.GamePanel;
 
 import java.awt.*;
 
-public class Item extends SuperObject {
+public abstract class Item extends SuperObject {
     public int waitingTime = 28;
 
     public Item(GamePanel gp, int x, int y) {
@@ -14,7 +14,7 @@ public class Item extends SuperObject {
         this.name = "Item";
     }
 
-
+    public abstract void update();
 
     @Override
     public void draw(Graphics2D g2) {

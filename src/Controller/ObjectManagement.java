@@ -17,6 +17,7 @@ public class ObjectManagement {
     public int maxBombRadius = 1;
     public int currentBullets = 10;
     public boolean getSpeedItem = false;
+    public int countFlame = 0;
     public Bomb previousBomb = null;
     public ArrayList<Item> waitingItem = new ArrayList<>();
     public ArrayList<Block> blockList = new ArrayList<>();
@@ -46,6 +47,7 @@ public class ObjectManagement {
             if (obj.get(i).getName().equals("Item")) {
                 //System.out.println("I" + index);
                 Item check = (Item) obj.get(i);
+                check.update();
                 if (index != 999) {
                     obj.remove(i);
                 }
@@ -71,15 +73,24 @@ public class ObjectManagement {
                 } else {
                     Random random = new Random();
                     int func;
-                    if (!getSpeedItem) func = random.nextInt(20) + 1;
-                    else func = random.nextInt(20) + 1;
-                    if (func == 1) {
+                    if (!getSpeedItem || countFlame < 5) {
+                        func = random.nextInt(20);
+                    }
+                    else {
+                        func = random.nextInt(20) + 1;
+                        if (func == 1) {
+                            if (!getSpeedItem) func = 0;
+                        }
+                    }
+
+                    if (func == 2) {
                         waitingItem.add(new BombItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                    } else if (func == 2) {
+                    } else if (func == 1) {
                         waitingItem.add(new FlameItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                    } else if (func == 3){
+                        countFlame++;
+                    } else if (func == 3) {
                         waitingItem.add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                    } else if (func == 4) {
+                    } else if (func == 0) {
                         waitingItem.add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                         gp.objectManagement.getSpeedItem = true;
                     }

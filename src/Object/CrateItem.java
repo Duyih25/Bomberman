@@ -7,7 +7,7 @@ import Main.GamePanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class CrateItem extends Item{
+public class CrateItem extends Item {
     public CrateItem(GamePanel gp, int x, int y) {
         super(gp, x, y);
 
@@ -18,6 +18,10 @@ public class CrateItem extends Item{
 
         UtilityTool uTool = new UtilityTool();
         image[0] = uTool.scaleImage(image[0], 64, 64);
+    }
+
+    @Override
+    public void update() {
     }
 
     public void draw(Graphics2D g2) {

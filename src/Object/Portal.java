@@ -20,6 +20,10 @@ public class Portal extends Item {
         image[0] = uTool.scaleImage(image[0], 64, 64);
     }
 
+    @Override
+    public void update() {
+    }
+
     public void draw(Graphics2D g2) {
         super.draw(g2);
     }
