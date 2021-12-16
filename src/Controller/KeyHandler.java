@@ -68,7 +68,7 @@ public class KeyHandler implements KeyListener {
                // gp.playSE(2);
                 downPressed = true;
                 facingLeft = false;
-                facingRight = false;
+                facingRight = false; //Duy - huong dan
                 facingDown = true;
                 facingUp = false;
             }
@@ -102,7 +102,7 @@ public class KeyHandler implements KeyListener {
 
             if (code == KeyEvent.VK_E) {
                 gp.playMusic(8);
-                bulletPressed = true;
+                bulletPressed = true; //Duy
             }
             if (code == KeyEvent.VK_P) {
                 if (gp.gameState == gp.playState) {

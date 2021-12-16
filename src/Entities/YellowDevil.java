@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 
 public class YellowDevil extends Enemy {
 
-    private boolean caught=false;
-    private int extraSpeed = 0;
+    boolean caught=false;
+    int extraSpeed = 0;
     public YellowDevil(GamePanel gp) {
         super(gp);
     }
@@ -41,8 +41,6 @@ public class YellowDevil extends Enemy {
             caught = false;
         }
 
-
-
         if (worldY -31< gp.player.worldY) {
             direction = "down";
             moving = true;
@@ -65,9 +63,6 @@ public class YellowDevil extends Enemy {
         }
         else extraSpeed = 0;
 
-        //kiem tra va cham
-        //collision = false;
-        //check object collision
         int objIndex = gp.collisionChecker.checkObject(this);
 
 
@@ -109,13 +104,11 @@ public class YellowDevil extends Enemy {
                 moving = false;
                 pixelCounter = 0;
             }
-            objIndex = gp.collisionChecker.checkObjForEnemy(this);
-            collideObj(objIndex);
+            gp.collisionChecker.checkObjForEnemy(this);
 
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
-                //gp.lose = true;
                 if (!collidingPlayer) {
-                    collidePlayer(gp.player);
+                    collidePlayer(gp.player); // check quai voi ng Su
                     collidingPlayer = true;
                 }
             }
@@ -124,19 +117,9 @@ public class YellowDevil extends Enemy {
             }
         }
 
-
-    }
-    public void collideObj(int index) {
-        if(index != 999) {
-            String objName = gp.objectManagement.obj.get(index).getName();
-            if(objName.equals("Bullet")) {
-                gp.objectManagement.obj.remove(index);
-            }
-        }
     }
     public void draw(Graphics2D g2) {
-        BufferedImage image = null;
-        image = EnemyImage[spriteNum];
+        BufferedImage image = EnemyImage[spriteNum];
 
         screenX = worldX - gp.player.worldX + gp.player.screenX;
         screenY = worldY - gp.player.worldY + gp.player.screenY;
@@ -163,7 +146,7 @@ public class YellowDevil extends Enemy {
             g2.drawImage(image, screenX, screenY, null);
             g2.setColor(Color.red);
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
-            //Animation animation = new Animation(10, image);
+
         } else if(gp.player.screenX > gp.player.worldX ||
                 gp.player.screenY > gp.player.worldY ||
                 rightOffset > gp.maxWorldCol * gp.tileSize - gp.player.worldX ||
@@ -173,6 +156,5 @@ public class YellowDevil extends Enemy {
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
     }
-
 }
 

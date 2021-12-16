@@ -169,7 +169,7 @@ public class Player extends Entity {
 
     public void pickUpObject(int index) {
         if(index != 999) {
-            String objName = gp.objectManagement.obj.get(index).getName();
+            String objName = gp.objectManagement.obj.get(index).name;
             if (objName.equals("Item")) {
                 Item objCheck = (Item) gp.objectManagement.obj.get(index);
                 if (objCheck instanceof Portal) {
@@ -274,6 +274,6 @@ public class Player extends Entity {
         //System.out.println(worldX + " " + worldY);
     }
     public Rectangle getBound() {
-        return new Rectangle(worldX + 1 , worldY + 33 , 62, 62);
+        return new Rectangle(worldX + 1 , worldY + 33 , 60, 60);
     }
 }

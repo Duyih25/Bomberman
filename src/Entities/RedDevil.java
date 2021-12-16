@@ -20,6 +20,9 @@ public class RedDevil extends Enemy {
             EnemyImage[i] = uTool.scaleImage(sprite.getSubimage(i*16,0,16,16),64,64);
     }
     public void setAction() {
+        collision = false;  // sau khi va cham collision true nen can chuyen thanh false de no di chuyen dc
+        gp.collisionChecker.checkTitle(this); // ban Tuan Anh
+        gp.collisionChecker.checkBlock(this); // ban Su
         actionLockCounter++;
         if(actionLockCounter%30==0) {
             spriteNum++;
@@ -50,8 +53,7 @@ public class RedDevil extends Enemy {
         collision = false;
         gp.collisionChecker.checkBlock(this);
         gp.collisionChecker.checkTitle(this);
-        int objIndex = gp.collisionChecker.checkObject(this);
-
+        int objIndex=gp.collisionChecker.checkObject(this); // check Block,Bullet,...
         if (moving && collision == false) {
             switch (direction) {
                 case "left":
@@ -65,44 +67,26 @@ public class RedDevil extends Enemy {
             }
 
             pixelCounter += speed;
-            objIndex = gp.collisionChecker.checkObjForEnemy(this);
-            collideObj(objIndex);
-
+            gp.collisionChecker.checkObjForEnemy(this);
+            gp.collisionChecker.checkBlock(this);
             if(gp.collisionChecker.checkEntity(gp.player, this)==0){
                 if (!collidingPlayer) {
-                    collidePlayer(gp.player);
+                    collidePlayer(gp.player); // check quai voi ng - Su
                     collidingPlayer = true;
                 }
             } else {
                 collidingPlayer = false;
             }
-
+            gp.collisionChecker.checkBlock(this);
             if (pixelCounter == 64) {
+                gp.collisionChecker.checkBlock(this);
                 moving = false;
                 pixelCounter = 0;
             }
         }
 
-        if (collision) {
-            objIndex = gp.collisionChecker.checkObjForEnemy(this);
-            collideObj(objIndex);
-            gp.collisionChecker.checkTitle(this);
-            gp.collisionChecker.checkBlock(this);
-            if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
-                gp.lose = true;
-                collidePlayer(gp.player);
-            }
-        }
     }
 
-    public void collideObj(int index) {
-        if(index != 999) {
-            String objName = gp.objectManagement.obj.get(index).getName();
-            if(objName.equals("Bullet")) {
-                gp.objectManagement.obj.remove(index);
-            }
-        }
-    }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         if (spriteNum == 0) {
@@ -114,6 +98,8 @@ public class RedDevil extends Enemy {
         if (spriteNum == 2) {
             image = EnemyImage[2];
         }
+
+        // Tuan Anh - camera
         screenX = worldX - gp.player.worldX + gp.player.screenX;
         screenY = worldY - gp.player.worldY + gp.player.screenY;
 
@@ -139,7 +125,6 @@ public class RedDevil extends Enemy {
             g2.drawImage(image, screenX, screenY, null);
             g2.setColor(Color.red);
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
-            //Animation animation = new Animation(10, image);
         } else if(gp.player.screenX > gp.player.worldX ||
                 gp.player.screenY > gp.player.worldY ||
                 rightOffset > gp.maxWorldCol * gp.tileSize - gp.player.worldX ||
@@ -149,5 +134,4 @@ public class RedDevil extends Enemy {
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
     }
-
 }

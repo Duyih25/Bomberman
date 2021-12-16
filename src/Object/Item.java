@@ -9,44 +9,44 @@ public class Item extends SuperObject {
 
     public Item(GamePanel gp, int x, int y) {
         super(gp);
-        this.setWorldX(x);
-        this.setWorldY(y);
-        this.setName("Item");
+        this.worldX = x;
+        this.worldY = y;
+        this.name = "Item";
     }
 
 
 
     @Override
     public void draw(Graphics2D g2) {
-        screenX = getWorldX() - gp.player.getWorldX() + gp.player.screenX;
-        screenY = getWorldY() - gp.player.getWorldY() + gp.player.screenY;
+        screenX = worldX - gp.player.worldX + gp.player.screenX;
+        screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-        if (gp.player.screenX > gp.player.getWorldX()) {
-            screenX = getWorldX();
+        if (gp.player.screenX > gp.player.worldX) {
+            screenX = worldX;
         }
-        if (gp.player.screenY > gp.player.getWorldY()) {
-            screenY = getWorldY();
+        if (gp.player.screenY > gp.player.worldY) {
+            screenY = worldY;
         }
 
         int rightOffset = gp.screenWidth - gp.player.screenX;
-        if (rightOffset > (gp.maxWorldCol * gp.tileSize) - gp.player.getWorldX()) {
-            screenX = gp.screenWidth - ((gp.maxWorldCol * gp.tileSize) - getWorldX());
+        if (rightOffset > (gp.maxWorldCol * gp.tileSize) - gp.player.worldX) {
+            screenX = gp.screenWidth - ((gp.maxWorldCol * gp.tileSize) - worldX);
         }
         int bottomOffset = gp.screenHeight - gp.player.screenY;
-        if (bottomOffset > (gp.maxWorldRow * gp.tileSize) - gp.player.getWorldY()) {
-            screenY = gp.screenHeight - ((gp.maxWorldRow * gp.tileSize) - getWorldY());
+        if (bottomOffset > (gp.maxWorldRow * gp.tileSize) - gp.player.worldY) {
+            screenY = gp.screenHeight - ((gp.maxWorldRow * gp.tileSize) - worldY);
         }
 
-        if(getWorldX() + gp.tileSize > gp.player.getWorldX() - gp.player.screenX &&
-                getWorldX() - gp.tileSize < gp.player.getWorldX() + gp.player.screenX &&
-                getWorldY() + gp.tileSize > gp.player.getWorldY() - gp.player.screenY &&
-                getWorldY() - gp.tileSize < gp.player.getWorldY() + gp.player.screenY) {
+        if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
+                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
+                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
+                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
             g2.drawImage(image[0], screenX, screenY , null);
-        } else if(gp.player.screenX > gp.player.getWorldX() ||
-                gp.player.screenY > gp.player.getWorldY() ||
-                rightOffset > gp.maxWorldCol * gp.tileSize - gp.player.getWorldX() ||
-                bottomOffset > gp.maxWorldRow * gp.tileSize -gp.player.getWorldY() ) {
+        } else if(gp.player.screenX > gp.player.worldX ||
+                gp.player.screenY > gp.player.worldY ||
+                rightOffset > gp.maxWorldCol * gp.tileSize - gp.player.worldX ||
+                bottomOffset > gp.maxWorldRow * gp.tileSize -gp.player.worldY ) {
             g2.drawImage(image[0], screenX, screenY, null);
         }
         //g2.setColor(Color.white);
@@ -56,6 +56,6 @@ public class Item extends SuperObject {
 
     public Rectangle getBound() {
         //return null;
-        return new Rectangle(getWorldX(), getWorldY(), solidArea.width, solidArea.height);
+        return new Rectangle(worldX, worldY, solidArea.width, solidArea.height);
     }
 }

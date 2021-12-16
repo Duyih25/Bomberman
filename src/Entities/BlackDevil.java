@@ -22,46 +22,39 @@ public class BlackDevil extends Enemy{
             EnemyImage[i] = uTool.scaleImage(sprite.getSubimage(96+i*32,0,32,32),64,64);
     }
     public void setAction() {
-        collision = false;
-        gp.collisionChecker.checkTitle(this);
-        gp.collisionChecker.checkBlock(this);
+        collision = false;  // sau khi va cham collision true nen can chuyen thanh false de no di chuyen dc
+        gp.collisionChecker.checkTitle(this); // ban Tuan Anh
+        gp.collisionChecker.checkBlock(this); // ban Su
 
-            Random random = new Random();
-            int i = random.nextInt(100) + 1;
-            if (i <= 25) {
-                direction = "up";
-                moving = true;
-            } else if (i <= 50) {
-                direction = "down";
-                moving = true;
-            } else if (i <= 75) {
-                direction = "right";
-                moving = true;
-            } else {
-                direction = "left";
-                moving = true;
-            }
-            spriteNum++;
+        Random random = new Random();
+        int i = random.nextInt(100) + 1;
+        if (i <= 25) {
+            direction = "up";
+            moving = true;
+        } else if (i <= 50) {
+            direction = "down";
+            moving = true;
+        } else if (i <= 75) {
+            direction = "right";
+            moving = true;
+        } else {
+            direction = "left";
+            moving = true;
+        }
+        spriteNum++;
 
-            //kiem tra va cham
-            collision = false;
-            gp.collisionChecker.checkTitle(this);
-            gp.collisionChecker.checkBlock(this);
-            //check object collision
-            int objIndex = gp.collisionChecker.checkObject(this);
-            if(spriteNum>1) spriteNum=0;
+        int objIndex = gp.collisionChecker.checkObject(this);
+        if(spriteNum>1) spriteNum=0;
     }
 
     public void update() {
         collision = false;
         gp.collisionChecker.checkBlock(this);
         gp.collisionChecker.checkTitle(this);
-
-        int objIndex = gp.collisionChecker.checkObject(this);
+        gp.collisionChecker.checkObject(this);
 
         if (!moving) {
-            objIndex = gp.collisionChecker.checkObjForEnemy(this);
-            collideObj(objIndex);
+            gp.collisionChecker.checkObjForEnemy(this);
             gp.collisionChecker.checkTitle(this);
             gp.collisionChecker.checkBlock(this);
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
@@ -87,13 +80,15 @@ public class BlackDevil extends Enemy{
                         break;
                 }
             }
+            gp.collisionChecker.checkBlock(this);
             pixelCounter += speed;
             if (pixelCounter == 64) {
+                gp.collisionChecker.checkBlock(this);
                 moving = false;
                 pixelCounter = 0;
             }
-            objIndex = gp.collisionChecker.checkObjForEnemy(this);
-            collideObj(objIndex);
+            gp.collisionChecker.checkBlock(this);
+            gp.collisionChecker.checkObjForEnemy(this);
 
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
                 //gp.lose = true;
@@ -108,14 +103,6 @@ public class BlackDevil extends Enemy{
             }
         }
     }
-    public void collideObj(int index) {
-        if(index != 999) {
-            String objName = gp.objectManagement.obj.get(index).getName();
-            if(objName.equals("Bullet")) {
-                gp.objectManagement.obj.remove(index);
-            }
-        }
-    }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         if (spriteNum == 0) {
@@ -127,6 +114,8 @@ public class BlackDevil extends Enemy{
         if (spriteNum == 2) {
             image = EnemyImage[0];
         }
+
+        // ban Tuan Anh - camera
         screenX = worldX - gp.player.worldX + gp.player.screenX;
         screenY = worldY - gp.player.worldY + gp.player.screenY;
 
@@ -152,7 +141,6 @@ public class BlackDevil extends Enemy{
             g2.drawImage(image, screenX, screenY, null);
             g2.setColor(Color.red);
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
-            //Animation animation = new Animation(10, image);
         } else if(gp.player.screenX > gp.player.worldX ||
                 gp.player.screenY > gp.player.worldY ||
                 rightOffset > gp.maxWorldCol * gp.tileSize - gp.player.worldX ||
@@ -161,5 +149,8 @@ public class BlackDevil extends Enemy{
             g2.setColor(Color.red);
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
+    }
+    public Rectangle getBound() {
+        return new Rectangle(worldX + 1 , worldY + 1 , 64, 64);
     }
 }

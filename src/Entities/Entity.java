@@ -9,16 +9,18 @@ public abstract class Entity {
 
     public GamePanel gp;
     public BufferedImage[] image;
-    int worldX, worldY;
-    int speed;
-    String name;
-    int x,y;
-    public String direction;
+    public int worldX, worldY;
+    public int x,y;
     public int spriteCounter = 0;
-    public int spriteNum = 1;
     public int solidAreaDefaultX, solidAreaDefaultY;
-    public Rectangle solidArea = new Rectangle(0,0,48,48);
-    public boolean collision = false;
+
+    protected Rectangle solidArea = new Rectangle(0,0,48,48);
+    protected boolean collision = false;
+    protected String name;
+    protected String direction;
+    protected int spriteNum = 1;
+
+    int speed;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -27,7 +29,24 @@ public abstract class Entity {
     public abstract void draw(Graphics2D g2);
 
     abstract public Rectangle getBound();
-    public String getName(){
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public boolean isCollision() {
+        return collision;
+    }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
+    }
+
+    public String getName() {
         return name;
     }
 
@@ -35,26 +54,27 @@ public abstract class Entity {
         this.name = name;
     }
 
-    public int getWorldX() {
-        return worldX;
+    public String getDirection() {
+        return direction;
     }
 
-    public void setWorldX(int worldX) {
-        this.worldX = worldX;
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
-    public int getWorldY() {
-        return worldY;
+    public Rectangle getSolidArea() {
+        return solidArea;
     }
 
-    public void setWorldY(int worldY) {
-        this.worldY = worldY;
-    }
-    public int getSpeed() {
-        return speed;
+    public void setSolidArea(Rectangle solidArea) {
+        this.solidArea = solidArea;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
+    public int getSpriteNum() {
+        return spriteNum;
+    }
+
+    public void setSpriteNum(int spriteNum) {
+        this.spriteNum = spriteNum;
     }
 }

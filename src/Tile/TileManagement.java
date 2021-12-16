@@ -157,36 +157,36 @@ public class TileManagement {
             //camera
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
-            int screenX = worldX - gp.player.getWorldX() + gp.player.screenX;
-            int screenY = worldY - gp.player.getWorldY() + gp.player.screenY;
+            int screenX = worldX - gp.player.worldX + gp.player.screenX;
+            int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
 //            //stop camera
-            if (gp.player.screenX > gp.player.getWorldX()) {
+            if (gp.player.screenX > gp.player.worldX) {
                 screenX = worldX;
             }
-            if (gp.player.screenY > gp.player.getWorldY()) {
+            if (gp.player.screenY > gp.player.worldY) {
                 screenY = worldY;
             }
             int rightOffset = gp.screenWidth - gp.player.screenX;
-            if (rightOffset > (mapCol * gp.tileSize) - gp.player.getWorldX()) {
+            if (rightOffset > (mapCol * gp.tileSize) - gp.player.worldX) {
                 screenX = gp.screenWidth - ((mapCol * gp.tileSize) - worldX);
             }
             int bottomOffset = gp.screenHeight - gp.player.screenY;
-            if (bottomOffset > (mapRow * gp.tileSize) - gp.player.getWorldY()) {
+            if (bottomOffset > (mapRow * gp.tileSize) - gp.player.worldY) {
                 screenY = gp.screenHeight - ((mapRow * gp.tileSize) - worldY);
             }
 
 
-            if(worldX + gp.tileSize > gp.player.getWorldX() - gp.player.screenX &&
-                worldX - gp.tileSize < gp.player.getWorldX() + gp.player.screenX &&
-                worldY + gp.tileSize > gp.player.getWorldY() - gp.player.screenY &&
-                worldY - gp.tileSize < gp.player.getWorldY() + gp.player.screenY) {
+            if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
+                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
+                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
+                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
                     g2.drawImage(tilesMap[worldCol][worldRow].image, screenX, screenY , null);
-            } else if(gp.player.screenX > gp.player.getWorldX() ||
-                      gp.player.screenY > gp.player.getWorldY() ||
-                      rightOffset > mapCol * gp.tileSize - gp.player.getWorldX() ||
-                      bottomOffset > mapRow * gp.tileSize -gp.player.getWorldY() ) {
+            } else if(gp.player.screenX > gp.player.worldX ||
+                      gp.player.screenY > gp.player.worldY ||
+                      rightOffset > mapCol * gp.tileSize - gp.player.worldX ||
+                      bottomOffset > mapRow * gp.tileSize -gp.player.worldY ) {
                 g2.drawImage(tilesMap[worldCol][worldRow].image, screenX, screenY , null);
 
             }

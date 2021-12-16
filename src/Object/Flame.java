@@ -13,28 +13,28 @@ public class Flame extends SuperObject {
 
     public Flame(GamePanel gp, int x, int y, String direction, int maxRadius) {
         super(gp);
-        setWorldX(x);
-        setWorldY(y);
+        this.worldX = x;
+        this.worldY = y;
         tempX = x;
         tempY = y;
         collision = true;
         this.maxRadius = maxRadius;
         this.direction = direction;
         setSpeed(64);
-        setName("Flame");
+        name = "Flame";
         createFlameSegments();
     }
 
     private void createFlameSegments() {
         flameSegments = new FlameSegment[calculateFlameDistance()];
 
-        setWorldY(tempX);
-        setWorldY(tempY);
+        worldX = tempX;
+        worldY = tempY;
 
         boolean last = false;
 
-        int x = getWorldX();
-        int y = getWorldY();
+        int x = worldX;
+        int y = worldY;
 
         for (int i = 0; i < flameSegments.length; i++) {
             if (i == flameSegments.length - 1 && !isCollidingNearBomb) last = true;
@@ -53,8 +53,8 @@ public class Flame extends SuperObject {
         int radius = 0;
         if(direction.equals("center")) return 1;
 
-        int x = getWorldX();
-        int y = getWorldY();
+        int x = worldX;
+        int y = worldY;
 
         while(radius < maxRadius) {
             switch (direction) {
@@ -73,8 +73,8 @@ public class Flame extends SuperObject {
             gp.collisionChecker.checkBlock(this);
             if(collision) break;
 
-            setWorldX(x);
-            setWorldY(y);
+            worldX = x;
+            worldY = y;
 
             ++radius;
         }
@@ -97,6 +97,6 @@ public class Flame extends SuperObject {
 
     @Override
     public Rectangle getBound() {
-        return new Rectangle(getWorldX(), getWorldY(), solidArea.width , solidArea.height);
+        return new Rectangle(worldX, worldY, solidArea.width , solidArea.height);
     }
 }
