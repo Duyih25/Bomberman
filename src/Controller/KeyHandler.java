@@ -68,7 +68,7 @@ public class KeyHandler implements KeyListener {
                // gp.playSE(2);
                 downPressed = true;
                 facingLeft = false;
-                facingRight = false; //Duy - huong dan
+                facingRight = false; //Duy - huong bullet
                 facingDown = true;
                 facingUp = false;
             }

@@ -107,7 +107,7 @@ public class YellowDevil extends Enemy {
             gp.collisionChecker.checkObjForEnemy(this);
 
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
-                if (!collidingPlayer && gp.player.getRelievingTime() == 100) {
+                if (!collidingPlayer && gp.player.getRelievingTime() == 100) { // time dem sau khi va cham => va cham lan dau
                     collidePlayer(gp.player);
                     collidingPlayer = true;
                 }

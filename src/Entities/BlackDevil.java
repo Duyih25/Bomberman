@@ -92,14 +92,14 @@ public class BlackDevil extends Enemy{
 
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
                 //gp.lose = true;
-                System.out.println("error black");
-                if (!collidingPlayer && gp.player.getRelievingTime() == 100) {
-                    collidePlayer(gp.player);
+               // System.out.println("error black");
+                if (!collidingPlayer && gp.player.getRelievingTime() == 100) { // cham roi
+                    collidePlayer(gp.player);    // time dem sau khi va cham => va cham lan dau
                     collidingPlayer = true;
                 }
             }
             else {
-                if (gp.player.getRelievingTime() == 100) collidingPlayer = false;
+                if (gp.player.getRelievingTime() == 100) collidingPlayer = false; // chua cham neu reset roi thi moi la false
             }
         }
     }

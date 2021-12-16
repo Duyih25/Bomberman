@@ -299,7 +299,7 @@ public class CollisionChecker {
                     break;
                 }
             }
-            if (entity.getName() == "Enemy") {
+            if (entity.getName() == "Enemy") { //Duy
                 switch (entity.getDirection()) {
                     case "up":
                         if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound())) {
