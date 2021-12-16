@@ -11,7 +11,7 @@ import java.util.Random;
 public class BlackDevil extends Enemy{
     public BlackDevil(GamePanel gp) {
         super(gp);
-        speed = 1;
+        speed = 2;
     }
 
     public void setEnemyImage() {
@@ -58,7 +58,6 @@ public class BlackDevil extends Enemy{
         gp.collisionChecker.checkTitle(this);
 
         int objIndex = gp.collisionChecker.checkObject(this);
-
 
         if (!moving) {
             objIndex = gp.collisionChecker.checkObjForEnemy(this);
