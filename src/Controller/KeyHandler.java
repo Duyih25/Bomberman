@@ -173,22 +173,30 @@ public class KeyHandler implements KeyListener {
         }
 
         if (gp.gameState == gp.winState) {
-            if (code == KeyEvent.VK_W) {
-                gp.ui.commandNum--;
-                if (gp.ui.commandNum < 0)
-                    gp.ui.commandNum = 1;
-            }
-            if (code == KeyEvent.VK_S) {
-                gp.ui.commandNum++;
-                if (gp.ui.commandNum > 1)
-                    gp.ui.commandNum = 0;
-            }
-            if (code == KeyEvent.VK_ENTER) {
-                if (gp.ui.commandNum == 0) {
-                    gp.restartGame(gp.getCurrentLevel());
-                    gp.win = false;
+            if (gp.getCurrentLevel() == 1) {
+                if (code == KeyEvent.VK_W) {
+                    gp.ui.commandNum--;
+                    if (gp.ui.commandNum < 0)
+                        gp.ui.commandNum = 1;
                 }
-                if (gp.ui.commandNum == 1) {
+                if (code == KeyEvent.VK_S) {
+                    gp.ui.commandNum++;
+                    if (gp.ui.commandNum > 1)
+                        gp.ui.commandNum = 0;
+                }
+                if (code == KeyEvent.VK_ENTER) {
+                    if (gp.ui.commandNum == 0) {
+                        gp.currentLevel += 1;
+                        gp.restartGame(gp.getCurrentLevel());
+                        gp.win = false;
+                    }
+                    if (gp.ui.commandNum == 1) {
+                        gp.gameState = gp.titleState;
+                        gp.win = false;
+                    }
+                }
+            } else {
+                if (code == KeyEvent.VK_ENTER) {
                     gp.gameState = gp.titleState;
                     gp.win = false;
                 }
