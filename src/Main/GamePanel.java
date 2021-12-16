@@ -68,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable {
     public ObjectManagement objectManagement = new ObjectManagement(this, keyH);
     public UI ui = new UI (this, hud);
 
-    public Enemy npc[] = new Enemy[10];
+    public Enemy npc[] = new Enemy[20];
 
     int FPS = 60;
     public Graphics2D g2d;
@@ -267,7 +267,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void restartGame(int currentLevel) {
         objectManagement.obj.clear();
         objectManagement.blockList.clear();
-        npc = new Enemy[10];
+        npc = new Enemy[20];
         switch (currentLevel) {
             case 1:
                 aSetter.setObject(mapLevel1);

@@ -59,7 +59,6 @@ public class BlackDevil extends Enemy{
 
         int objIndex = gp.collisionChecker.checkObject(this);
 
-
         if (!moving) {
             objIndex = gp.collisionChecker.checkObjForEnemy(this);
             collideObj(objIndex);
