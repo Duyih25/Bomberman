@@ -81,8 +81,9 @@ public class Player extends Entity {
         if (!moving) {
             if(gp.player.count%10==0) {
                 gp.playStop(2);
-                if(count%20==0) count=0;
             }
+               if(count%20==0) count=0;
+//            }
             if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
                 if (keyH.upPressed == true) {
                     direction = "up";
@@ -122,11 +123,11 @@ public class Player extends Entity {
 
         if (moving) {
             //false
-            if(count%20==0) {
-                System.out.println(count+ "play");
-                gp.playSE(2);
-                count=0;
-            }
+//            if(count%20==0) {
+//                System.out.println(count+ "play");
+//                gp.playSE(2);
+//                count=0;
+//            }
             if (collision == false) {
                 switch (direction) {
                     case "up":
