@@ -17,9 +17,10 @@ public class ObjectManagement {
     public int maxBombRadius = 1;
     public int currentBullets = 10;
     public boolean getSpeedItem = false;
-    public int countFlame = 0;
+    private int countFlame = 0;
+    private boolean getHealItem = false;
     public Bomb previousBomb = null;
-    public ArrayList<Item> waitingItem = new ArrayList<>();
+    private ArrayList<Item> waitingItem = new ArrayList<>();
     public ArrayList<Block> blockList = new ArrayList<>();
 
     public ObjectManagement(GamePanel gp, KeyHandler keyH) {
@@ -73,8 +74,8 @@ public class ObjectManagement {
                 } else {
                     Random random = new Random();
                     int func;
-                    
-                    if (!getSpeedItem || countFlame < 5) {
+
+                    if (!getSpeedItem && !getHealItem) {
                         func = random.nextInt(20);
                     }
                     else {
@@ -84,16 +85,19 @@ public class ObjectManagement {
                         }
                     }
 
-                    if (func == 2) {
+                    if (func == 3) {
                         waitingItem.add(new BombItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                    } else if (func == 1) {
+                    } else if (func == 2) {
                         waitingItem.add(new FlameItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                        countFlame++;
-                    } else if (func == 3) {
+                        //countFlame++;
+                    } else if (func == 4) {
                         waitingItem.add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                     } else if (func == 0) {
                         waitingItem.add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                        gp.objectManagement.getSpeedItem = true;
+                        getSpeedItem = true;
+                    } else if (func == 1) {
+                        waitingItem.add(new HealItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                        getHealItem = true;
                     }
                 }
                 //blockList.remove(i);
