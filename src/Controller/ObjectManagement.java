@@ -71,7 +71,7 @@ public class ObjectManagement {
                 } else {
                     Random random = new Random();
                     int func;
-                    if (!getSpeedItem) func = random.nextInt(20) + 1;
+                    if (!getSpeedItem) func = random.nextInt(20);
                     else func = random.nextInt(20) + 1;
                     if (func == 1) {
                         waitingItem.add(new BombItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
@@ -79,7 +79,7 @@ public class ObjectManagement {
                         waitingItem.add(new FlameItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                     } else if (func == 3){
                         waitingItem.add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                    } else if (func == 4) {
+                    } else if (func == 0) {
                         waitingItem.add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                         gp.objectManagement.getSpeedItem = true;
                     }
