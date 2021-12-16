@@ -120,20 +120,6 @@ public class Player extends Entity {
             }
         }
 
-        if (getRelievingTime() != 100) {
-            moving = false;
-            spriteCounter++;
-            if (spriteCounter > 25) {
-                if (spriteNum != 3) {
-                    tempSpriteNum = spriteNum;
-                    spriteNum = 3;
-                } else {
-                    spriteNum = tempSpriteNum;
-                }
-                spriteCounter = 0;
-            }
-        }
-
         if (moving) {
             //false
             if(count%20==0) {
@@ -158,20 +144,33 @@ public class Player extends Entity {
                 }
             }
             spriteCounter++;
-            if (spriteCounter > 10) {
-                if (spriteNum == 3) {
-                    spriteNum = tempSpriteNum;
+            if (getRelievingTime() != 100) {
+                if (spriteCounter > 15) {
+                    if (spriteNum != 3) {
+                        tempSpriteNum = spriteNum;
+                        spriteNum = 3;
+                    } else {
+                        spriteNum = tempSpriteNum;
+                    }
+                    spriteCounter = 0;
                 }
-                if (spriteNum == 0) {
-                    spriteNum = 1;
+            } else {
+                if (spriteCounter > 10) {
+                    if (spriteNum == 3) {
+                        spriteNum = tempSpriteNum;
+                    }
+                    if (spriteNum == 0) {
+                        spriteNum = 1;
+                    }
+                    if (spriteNum == 1) {
+                        spriteNum = 2;
+                    } else if (spriteNum == 2) {
+                        spriteNum = 1;
+                    }
+                    spriteCounter = 0;
                 }
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
             }
+
             pixelCounter += speed;
             if (pixelCounter == 64) {
                 moving = false;
