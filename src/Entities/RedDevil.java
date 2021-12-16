@@ -70,12 +70,13 @@ public class RedDevil extends Enemy {
             gp.collisionChecker.checkObjForEnemy(this);
             gp.collisionChecker.checkBlock(this);
             if(gp.collisionChecker.checkEntity(gp.player, this)==0){
-                if (!collidingPlayer) {
-                    collidePlayer(gp.player); // check quai voi ng - Su
+                if (!collidingPlayer && gp.player.getRelievingTime() == 100) {
+                    collidePlayer(gp.player);
                     collidingPlayer = true;
                 }
-            } else {
-                collidingPlayer = false;
+            }
+            else {
+                if (gp.player.getRelievingTime() == 100) collidingPlayer = false;
             }
             gp.collisionChecker.checkBlock(this);
             if (pixelCounter == 64) {

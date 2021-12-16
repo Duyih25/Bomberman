@@ -17,13 +17,15 @@ public class Player extends Entity {
     int standCounter = 0;
     public boolean moving = false;
     int pixelCounter = 0;
-    public int relievingTime = 70;
+
+    private int relievingTime = 100;
+    private int tempSpriteNum = 3;
     public int x,y;
 
     public final int screenX;
     public final int screenY;
     public int count = 0;
-    public int playerLives = 3;
+    private int playerLives;
 
     BufferedImage playerImage[][];
 
@@ -52,7 +54,7 @@ public class Player extends Entity {
         worldY = 32 * 1;
         speed = 4;
         direction = "down";
-        playerLives = 3;
+        setPlayerLives(3);
     }
 
     public void setPlayerImage(Sprite sprite) {
@@ -70,9 +72,9 @@ public class Player extends Entity {
 
 
     public void update() {
-        if (relievingTime < 70) {
-            if (relievingTime > 0) relievingTime--;
-            else relievingTime = 70;
+        if (getRelievingTime() < 100) {
+            if (getRelievingTime() > 0) setRelievingTime(getRelievingTime() - 1);
+            else setRelievingTime(100);
         }
 
         count++;
@@ -117,6 +119,21 @@ public class Player extends Entity {
                 }
             }
         }
+
+        if (getRelievingTime() != 100) {
+            moving = false;
+            spriteCounter++;
+            if (spriteCounter > 25) {
+                if (spriteNum != 3) {
+                    tempSpriteNum = spriteNum;
+                    spriteNum = 3;
+                } else {
+                    spriteNum = tempSpriteNum;
+                }
+                spriteCounter = 0;
+            }
+        }
+
         if (moving) {
             //false
             if(count%20==0) {
@@ -142,6 +159,9 @@ public class Player extends Entity {
             }
             spriteCounter++;
             if (spriteCounter > 10) {
+                if (spriteNum == 3) {
+                    spriteNum = tempSpriteNum;
+                }
                 if (spriteNum == 0) {
                     spriteNum = 1;
                 }
@@ -158,13 +178,7 @@ public class Player extends Entity {
                 pixelCounter = 0;
             }
         }
-//        if (relievingTime != 70) {
-//            keyH.upPressed = false;
-//            keyH.downPressed = false;
-//            keyH.leftPressed = false;
-//            keyH.rightPressed = false;
-//        }
-        //System.out.println(worldY);
+
     }
 
     public void pickUpObject(int index) {
@@ -275,5 +289,21 @@ public class Player extends Entity {
     }
     public Rectangle getBound() {
         return new Rectangle(worldX + 1 , worldY + 33 , 60, 60);
+    }
+
+    public int getRelievingTime() {
+        return relievingTime;
+    }
+
+    public void setRelievingTime(int relievingTime) {
+        this.relievingTime = relievingTime;
+    }
+
+    public int getPlayerLives() {
+        return playerLives;
+    }
+
+    public void setPlayerLives(int playerLives) {
+        this.playerLives = playerLives;
     }
 }

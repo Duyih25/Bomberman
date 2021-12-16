@@ -84,7 +84,7 @@ public class ObjectManagement {
                         gp.objectManagement.getSpeedItem = true;
                     }
                 }
-                blockList.remove(i);
+                //blockList.remove(i);
                 check.destroyed = true;
                 check.setSpriteNum(3);
 
@@ -168,13 +168,13 @@ public class ObjectManagement {
                 flame.update();
                 for (FlameSegment fs : flame.flameSegments) {
                     if (gp.player.getBound().intersects(fs.getBound())) {
-                        if (gp.player.playerLives > 0) {
-                            if (gp.player.relievingTime == 70) {
-                                gp.player.playerLives--;
-                                gp.player.relievingTime--;
+                        if (gp.player.getPlayerLives() > 0) {
+                            if (gp.player.getRelievingTime() == 100) {
+                                gp.player.setPlayerLives(gp.player.getPlayerLives() - 1);
+                                gp.player.setRelievingTime(gp.player.getRelievingTime() - 1);
                             }
                         } else gp.lose = true;
-                        System.out.println(gp.player.playerLives);
+                        System.out.println(gp.player.getPlayerLives());
                     }
                 }
 

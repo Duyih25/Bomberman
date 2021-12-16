@@ -32,7 +32,7 @@ public class UI {
         if (gp.gameState == gp.playState) {
             g2.drawImage(hud, 64 * 10, 0, null);
             Sprite.drawArray(g2, font, gp.ddMinute + ":" + gp.ddSecond , gp.maxScreenCol  * gp.tileSize + 32, 32 , 32, 32, 32, 0);
-            Sprite.drawArray(g2, font, "X" + gp.player.playerLives + "" , (gp.maxScreenCol + 2)  * gp.tileSize, 64 * 2 - 32 , 64, 64, 64, 0);
+            Sprite.drawArray(g2, font, "X" + gp.player.getPlayerLives() + "" , (gp.maxScreenCol + 2)  * gp.tileSize, 64 * 2 - 32 , 64, 64, 64, 0);
         }
         //Pause state
         if (gp.gameState == gp.pauseState) {

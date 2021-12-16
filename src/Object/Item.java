@@ -5,7 +5,7 @@ import Main.GamePanel;
 import java.awt.*;
 
 public class Item extends SuperObject {
-    public int waitingTime = 22;
+    public int waitingTime = 28;
 
     public Item(GamePanel gp, int x, int y) {
         super(gp);

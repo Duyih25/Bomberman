@@ -30,13 +30,13 @@ public abstract class Enemy extends Entity{
     public abstract void update();
 
     public void collidePlayer(Player player) {
-        if (player.playerLives > 1) {
-            if (player.relievingTime == 70) { // Su
-                player.playerLives--;
-                player.relievingTime--;
+        if (player.getPlayerLives() > 1) {
+            if (player.getRelievingTime() == 100) {
+                player.setPlayerLives(player.getPlayerLives() - 1);
+                player.setRelievingTime(player.getRelievingTime() -1);
             }
         } else gp.lose = true;
-        System.out.println(player.playerLives);
+        System.out.println(player.getPlayerLives());
 
     }
     public void draw(Graphics2D g2) {

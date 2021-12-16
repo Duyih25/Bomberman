@@ -93,13 +93,13 @@ public class BlackDevil extends Enemy{
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
                 //gp.lose = true;
                 System.out.println("error black");
-                if (!collidingPlayer) {
+                if (!collidingPlayer && gp.player.getRelievingTime() == 100) {
                     collidePlayer(gp.player);
                     collidingPlayer = true;
                 }
             }
             else {
-                collidingPlayer = false;
+                if (gp.player.getRelievingTime() == 100) collidingPlayer = false;
             }
         }
     }
