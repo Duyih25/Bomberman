@@ -15,6 +15,7 @@ public abstract class Enemy extends Entity{
     boolean collidingPlayer = false;
     int pixelCounter = 0;
     int screenX,screenY;
+
     public Enemy(GamePanel gp) {
         super(gp);
         name = "Enemy";
@@ -31,7 +32,7 @@ public abstract class Enemy extends Entity{
 
     public void collideObj(int index) {
         if(index != 999) {
-            String objName = gp.objectManagement.obj.get(index).name;
+            String objName = gp.objectManagement.obj.get(index).getName();
             if(objName.equals("Bullet")) {
                 gp.objectManagement.obj.remove(index);
             }
@@ -47,9 +48,7 @@ public abstract class Enemy extends Entity{
         System.out.println(player.playerLives);
 
     }
-    public void draw(Graphics2D g2) {
-
-    }
+    abstract public void draw(Graphics2D g2);
     public Rectangle getBound() {
         return new Rectangle(worldX + 1 , worldY + 1 , 62, 62);
     }

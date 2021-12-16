@@ -169,7 +169,7 @@ public class Player extends Entity {
 
     public void pickUpObject(int index) {
         if(index != 999) {
-            String objName = gp.objectManagement.obj.get(index).name;
+            String objName = gp.objectManagement.obj.get(index).getName();
             if (objName.equals("Item")) {
                 Item objCheck = (Item) gp.objectManagement.obj.get(index);
                 if (objCheck instanceof Portal) {

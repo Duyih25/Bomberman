@@ -110,7 +110,7 @@ public class BlackDevil extends Enemy{
     }
     public void collideObj(int index) {
         if(index != 999) {
-            String objName = gp.objectManagement.obj.get(index).name;
+            String objName = gp.objectManagement.obj.get(index).getName();
             if(objName.equals("Bullet")) {
                 gp.objectManagement.obj.remove(index);
             }

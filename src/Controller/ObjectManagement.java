@@ -43,7 +43,7 @@ public class ObjectManagement {
 
         for (int i = 0; i < obj.size(); i++) {
             int index = gp.collisionChecker.checkObject(obj.get(i));
-            if (obj.get(i).name.equals("Item")) {
+            if (obj.get(i).getName().equals("Item")) {
                 //System.out.println("I" + index);
                 Item check = (Item) obj.get(i);
                 if (index != 999) {
@@ -67,20 +67,20 @@ public class ObjectManagement {
             if (index != 999 && !check.destroyed) {
                 System.out.println("B" + index);
                 if (blockList.get(i).portal) {
-                    waitingItem.add(new Portal(gp, blockList.get(i).worldX, blockList.get(i).worldY)); //them portal
+                    waitingItem.add(new Portal(gp, blockList.get(i).getWorldX(), blockList.get(i).getWorldY())); //them portal
                 } else {
                     Random random = new Random();
                     int func;
                     if (!getSpeedItem) func = random.nextInt(4) + 1;
                     else func = random.nextInt(3) + 1;
                     if (func == 1) {
-                        waitingItem.add(new BombItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                        waitingItem.add(new BombItem(gp, blockList.get(i).getWorldX(), blockList.get(i).getWorldY()));
                     } else if (func == 2) {
-                        waitingItem.add(new FlameItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                        waitingItem.add(new FlameItem(gp, blockList.get(i).getWorldX(), blockList.get(i).getWorldY()));
                     } else if (func == 3){
-                        waitingItem.add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                        waitingItem.add(new CrateItem(gp, blockList.get(i).getWorldX(), blockList.get(i).getWorldY()));
                     } else if (func == 4) {
-                        waitingItem.add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                        waitingItem.add(new SpeedItem(gp, blockList.get(i).getWorldX(), blockList.get(i).getWorldY()));
                         gp.objectManagement.getSpeedItem = true;
                     }
                 }
@@ -94,7 +94,7 @@ public class ObjectManagement {
     }
     public void collideObj(int index) {
         if(index != 999) {
-            String objName = gp.objectManagement.obj.get(index).name;
+            String objName = gp.objectManagement.obj.get(index).getName();
             if(objName.equals("Bullet")) {
                 gp.objectManagement.obj.remove(index);
             }
@@ -118,20 +118,20 @@ public class ObjectManagement {
         updateExistingBombs();
         //DROP BOMB
         if (keyH.bombPressed && currentBomb < maxBombNum) {
-            int playerLeftWorldX = gp.player.worldX + gp.player.solidArea.x;
-            int playerTopWorldY = gp.player.worldY + gp.player.solidArea.y;
+            int playerLeftWorldX = gp.player.getWorldX() + gp.player.solidArea.x;
+            int playerTopWorldY = gp.player.getWorldY() + gp.player.solidArea.y;
 
             int bombTileCol = playerLeftWorldX / gp.tileSize;
             int bombTileRow = playerTopWorldY / gp.tileSize;
             //System.out.println(bombTileCol + " " + bombTileRow);
 
             int bombTileNum = gp.tileManagement.mapTileNum[bombTileCol][bombTileRow];
-            if (previousBomb == null || previousBomb.worldX != (gp.player.worldX + 32) / 64 * 64 ||
-                    previousBomb.worldY != (gp.player.worldY + 32) / 64 * 64) {
+            if (previousBomb == null || previousBomb.getWorldX() != (gp.player.getWorldX() + 32) / 64 * 64 ||
+                    previousBomb.getWorldY() != (gp.player.getWorldY() + 32) / 64 * 64) {
                 //SET BOMB TO PLAYER POSITION
                 obj.add(new Bomb(gp));
-                obj.get(obj.size() - 1).worldX = (gp.player.worldX + 32) / 64 * 64;
-                obj.get(obj.size() - 1).worldY = (gp.player.worldY + 32) / 64 * 64;
+                obj.get(obj.size() - 1).setWorldX((gp.player.getWorldX() + 32) / 64 * 64);
+                obj.get(obj.size() - 1).setWorldY((gp.player.getWorldY() + 32) / 64 * 64);
                 //obj[currentObj].mapPosition = bombTileNum;
                 //obj[currentObj].collision = true;
                 currentBomb++;
@@ -139,8 +139,8 @@ public class ObjectManagement {
                 //gp.tileManagement.tiles[bombTileNum].available = false;
                 //keyH.bombPressed = false;
 
-                System.out.println(previousBomb.worldX);
-                System.out.println(previousBomb.worldY);
+                System.out.println(previousBomb.getWorldX());
+                System.out.println(previousBomb.getWorldY());
             }
         }
 
@@ -150,7 +150,7 @@ public class ObjectManagement {
 
     private void updateExistingBombs() {
         for (int i = 0; i < obj.size(); i++) {
-            if (obj.get(i).name.equals("Bomb")) {
+            if (obj.get(i).getName().equals("Bomb")) {
                 Bomb check = (Bomb) obj.get(i);
                 check.update();
                 if (check.isExploded() && check.explosionTime == 120) {
@@ -163,7 +163,7 @@ public class ObjectManagement {
                     if (currentBomb == 0) previousBomb = null;
 
                 }
-            } else if (obj.get(i).name.equals("Flame")) {
+            } else if (obj.get(i).getName().equals("Flame")) {
                 Flame flame = (Flame) obj.get(i);
                 flame.update();
                 for (FlameSegment fs : flame.flameSegments) {
@@ -190,8 +190,8 @@ public class ObjectManagement {
 
     public boolean checkNearBomb(int x, int y) {
         for (int i = 0; i < obj.size(); i++) {
-            if (obj.get(i).name.equals("Bomb") &&
-                    obj.get(i).worldX == x && obj.get(i).worldY == y) {
+            if (obj.get(i).getName().equals("Bomb") &&
+                    obj.get(i).getWorldX() == x && obj.get(i).getWorldY() == y) {
                 Bomb check = (Bomb) obj.get(i);
                 check.countdown = 0;
                 return true;
@@ -206,11 +206,11 @@ public class ObjectManagement {
         }
 
         for (int i = 0; i < obj.size(); i++) {
-            if (!obj.get(i).name.equals("Item"))
+            if (!obj.get(i).getName().equals("Item"))
                 obj.get(i).draw(g2);
         }
         for (int i = 0; i < obj.size(); i++) {
-            if (obj.get(i).name.equals("Item"))
+            if (obj.get(i).getName().equals("Item"))
                 obj.get(i).draw(g2);
         }
 

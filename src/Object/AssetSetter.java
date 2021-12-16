@@ -31,18 +31,18 @@ public class AssetSetter {
                 gp.objectManagement.blockList.add(new Block(gp, x * 64, y * 64, true));
             } else if (red == 0 && green == 255 && blue == 255) {
                 gp.npc[currentNPC] = new BlackDevil(gp);
-                gp.npc[currentNPC].worldX = gp.tileSize * x;
-                gp.npc[currentNPC].worldY = gp.tileSize * y;;
+                gp.npc[currentNPC].setWorldX(gp.tileSize * x);
+                gp.npc[currentNPC].setWorldY(gp.tileSize * y);
                 currentNPC++;
             } else if (red == 195 && green == 92 && blue == 92) {
                 gp.npc[currentNPC] = new RedDevil(gp);
-                gp.npc[currentNPC].worldX = gp.tileSize * x;
-                gp.npc[currentNPC].worldY = gp.tileSize * y;;
+                gp.npc[currentNPC].setWorldX( gp.tileSize * x);
+                gp.npc[currentNPC].setWorldY(gp.tileSize * y);
                 currentNPC++;
             } else if (red == 174 && green == 187 && blue == 23) {
                 gp.npc[currentNPC] = new YellowDevil(gp);
-                gp.npc[currentNPC].worldX = gp.tileSize * x;
-                gp.npc[currentNPC].worldY = gp.tileSize * y;;
+                gp.npc[currentNPC].setWorldX(gp.tileSize * x);
+                gp.npc[currentNPC].setWorldY(gp.tileSize * y);
                 currentNPC++;
             }
             x += 1;

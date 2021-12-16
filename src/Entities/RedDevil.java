@@ -51,6 +51,7 @@ public class RedDevil extends Enemy {
         gp.collisionChecker.checkBlock(this);
         gp.collisionChecker.checkTitle(this);
         int objIndex = gp.collisionChecker.checkObject(this);
+
         if (moving && collision == false) {
             switch (direction) {
                 case "left":
@@ -68,8 +69,6 @@ public class RedDevil extends Enemy {
             collideObj(objIndex);
 
             if(gp.collisionChecker.checkEntity(gp.player, this)==0){
-                //System.out.println("error red");
-                //gp.lose = true;
                 if (!collidingPlayer) {
                     collidePlayer(gp.player);
                     collidingPlayer = true;
@@ -91,16 +90,14 @@ public class RedDevil extends Enemy {
             gp.collisionChecker.checkBlock(this);
             if(gp.collisionChecker.checkEntity(gp.player, this) == 0){
                 gp.lose = true;
-                //System.out.println("error black");
                 collidePlayer(gp.player);
             }
         }
-//        System.out.println(worldX);
-//        System.out.println(worldY);
     }
+
     public void collideObj(int index) {
         if(index != 999) {
-            String objName = gp.objectManagement.obj.get(index).name;
+            String objName = gp.objectManagement.obj.get(index).getName();
             if(objName.equals("Bullet")) {
                 gp.objectManagement.obj.remove(index);
             }

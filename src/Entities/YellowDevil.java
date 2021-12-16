@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 
 public class YellowDevil extends Enemy {
 
-    boolean caught=false;
-    int extraSpeed = 0;
+    private boolean caught=false;
+    private int extraSpeed = 0;
     public YellowDevil(GamePanel gp) {
         super(gp);
     }
@@ -128,7 +128,7 @@ public class YellowDevil extends Enemy {
     }
     public void collideObj(int index) {
         if(index != 999) {
-            String objName = gp.objectManagement.obj.get(index).name;
+            String objName = gp.objectManagement.obj.get(index).getName();
             if(objName.equals("Bullet")) {
                 gp.objectManagement.obj.remove(index);
             }

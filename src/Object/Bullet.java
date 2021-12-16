@@ -9,53 +9,53 @@ public class Bullet extends SuperObject {
 
     public Bullet(GamePanel gp) {
         super(gp);
-        worldX = gp.player.worldX + gp.player.solidAreaDefaultX;
-        worldY = gp.player.worldY + gp.player.solidAreaDefaultX;
-        name = "Bullet";
+        setWorldX(gp.player.getWorldX() + gp.player.solidAreaDefaultX);
+        setWorldY(gp.player.getWorldY() + gp.player.solidAreaDefaultX);
+        setName("Bullet");
     }
 
 
     public void draw(Graphics2D g2) {
-        if(right) worldX = worldX +6;
-        if(left) worldX = worldX -6;
-        if(up) worldY -= 6;
-        if(down) worldY +=6;
-        screenX = worldX - gp.player.worldX + gp.player.screenX;
-        screenY = worldY - gp.player.worldY + gp.player.screenY;
+        if(right) setWorldX(getWorldX() + 6);
+        if(left) setWorldX(getWorldX() - 6);
+        if(up) setWorldY(getWorldY() - 6);
+        if(down) setWorldY(getWorldY() + 6);
+        screenX = getWorldX() - gp.player.getWorldX() + gp.player.screenX;
+        screenY = getWorldX() - gp.player.getWorldY() + gp.player.screenY;
 
-        if (gp.player.screenX > gp.player.worldX) {
-            screenX = worldX;
+        if (gp.player.screenX > gp.player.getWorldX()) {
+            screenX = getWorldX();
         }
-        if (gp.player.screenY > gp.player.worldY) {
-            screenY = worldY;
+        if (gp.player.screenY > gp.player.getWorldY()) {
+            screenY = getWorldY();
         }
         int rightOffset = gp.screenWidth - gp.player.screenX;
-        if (rightOffset > (gp.maxWorldCol * gp.tileSize) - gp.player.worldX) {
-            screenX = gp.screenWidth - ((gp.maxWorldCol * gp.tileSize) - worldX);
+        if (rightOffset > (gp.maxWorldCol * gp.tileSize) - gp.player.getWorldX()) {
+            screenX = gp.screenWidth - ((gp.maxWorldCol * gp.tileSize) - getWorldX());
         }
         int bottomOffset = gp.screenHeight - gp.player.screenY;
-        if (bottomOffset > (gp.maxWorldRow * gp.tileSize) - gp.player.worldY) {
-            screenY = gp.screenHeight - ((gp.maxWorldRow * gp.tileSize) - worldY);
+        if (bottomOffset > (gp.maxWorldRow * gp.tileSize) - gp.player.getWorldX()) {
+            screenY = gp.screenHeight - ((gp.maxWorldRow * gp.tileSize) - getWorldY());
         }
 
-        if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+        if(getWorldX() + gp.tileSize > gp.player.getWorldX() - gp.player.screenX &&
+                getWorldX() - gp.tileSize < gp.player.getWorldX() + gp.player.screenX &&
+                getWorldY() + gp.tileSize > gp.player.getWorldY() - gp.player.screenY &&
+                getWorldY() - gp.tileSize < gp.player.getWorldY() + gp.player.screenY) {
 
             g2.setColor(Color.yellow);
             g2.fillOval(screenX+24, screenY+48, 32, 32);
             //Animation animation = new Animation(10, image);
-        } else if(gp.player.screenX > gp.player.worldX ||
-                gp.player.screenY > gp.player.worldY ||
-                rightOffset > gp.maxWorldCol * gp.tileSize - gp.player.worldX ||
-                bottomOffset > gp.maxWorldRow * gp.tileSize -gp.player.worldY ) {
+        } else if(gp.player.screenX > gp.player.getWorldX() ||
+                gp.player.screenY > gp.player.getWorldY() ||
+                rightOffset > gp.maxWorldCol * gp.tileSize - gp.player.getWorldX() ||
+                bottomOffset > gp.maxWorldRow * gp.tileSize -gp.player.getWorldY() ) {
             g2.setColor(Color.yellow);
             g2.fillOval(screenX+24, screenY+48, 32, 32);
             //Animation animation = new Animation(10, image);
         }
     }
     public Rectangle getBound() {
-        return new Rectangle(worldX + 24, worldY + 48, 32, 32);
+        return new Rectangle(getWorldX() + 24, getWorldY() + 48, 32, 32);
     }
 }
