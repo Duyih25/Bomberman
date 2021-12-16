@@ -73,6 +73,7 @@ public class ObjectManagement {
                 } else {
                     Random random = new Random();
                     int func;
+                    
                     if (!getSpeedItem || countFlame < 5) {
                         func = random.nextInt(20);
                     }
