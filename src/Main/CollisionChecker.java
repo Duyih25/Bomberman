@@ -304,21 +304,25 @@ public class CollisionChecker {
                     case "up":
                         if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound())) {
                             entity.setDirection("down"); //Duy
+                            entity.worldY+= entity.getSpeed();
                         }
                         break;
                     case "down":
                         if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound())) {
                             entity.setDirection("up");
+                            entity.worldY-= entity.getSpeed();
                         }
                         break;
                     case "left":
                         if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound())) {
                             entity.setDirection("right");
+                            entity.worldX+=entity.getSpeed();
                         }
                         break;
                     case "right":
                         if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound())) {
                             entity.setDirection("left");
+                            entity.worldX-=entity.getSpeed();
                         }
                         break;
                 }
