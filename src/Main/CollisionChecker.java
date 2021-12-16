@@ -340,25 +340,29 @@ public class CollisionChecker {
                     break;
                 }
             }
-            if (entity instanceof Enemy) {
+            if (entity.name == "Enemy") {
                 switch (entity.direction) {
                     case "up":
-                        if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound())) {
+                        if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
+                                entity.worldY == gp.objectManagement.blockList.get(i).worldY + 64) {
                             entity.collision = true;
                         }
                         break;
                     case "down":
-                        if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound())) {
+                        if (entity.worldX == gp.objectManagement.blockList.get(i).worldX &&
+                                entity.worldY == gp.objectManagement.blockList.get(i).worldY - 64) {
                             entity.collision = true;
                         }
                         break;
                     case "left":
-                        if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound()) ) {
+                        if (entity.worldX == gp.objectManagement.blockList.get(i).worldX + 64 &&
+                                entity.worldY == gp.objectManagement.blockList.get(i).worldY ) {
                             entity.collision = true;
                         }
                         break;
                     case "right":
-                        if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound()) ) {
+                        if (entity.worldX == gp.objectManagement.blockList.get(i).worldX - 64 &&
+                                entity.worldY == gp.objectManagement.blockList.get(i).worldY ) {
                             entity.collision = true;
                         }
                         break;

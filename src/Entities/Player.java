@@ -77,11 +77,9 @@ public class Player extends Entity {
 
         count++;
         if (!moving) {
-            //if(gp.player.count%20==0) gp.playSE(2);
             if(gp.player.count%10==0) {
                 gp.playStop(2);
                 if(count%20==0) count=0;
-                System.out.println(count+ "stop");
             }
             if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
                 if (keyH.upPressed == true) {
@@ -98,7 +96,6 @@ public class Player extends Entity {
                 } else if (keyH.rightPressed == true) {
                     direction = "right";
                     moving = true;
-
                 }
 
                 //kiem tra va cham
@@ -159,7 +156,6 @@ public class Player extends Entity {
             if (pixelCounter == 64) {
                 moving = false;
                 pixelCounter = 0;
-                //gp.playStop(2);
             }
         }
 //        if (relievingTime != 70) {
