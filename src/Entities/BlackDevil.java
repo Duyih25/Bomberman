@@ -43,7 +43,7 @@ public class BlackDevil extends Enemy{
         }
         spriteNum++;
 
-        int objIndex = gp.collisionChecker.checkObject(this);
+        //int objIndex = gp.collisionChecker.checkObject(this);
         if(spriteNum>1) spriteNum=0;
     }
 

@@ -178,7 +178,7 @@ public class CollisionChecker {
                         && gp.objectManagement.obj.get(i).getBound().intersects(entity.getBound())){
                     return i;
                 }
-            } 
+            }
 
                 entity.getSolidArea().x = entity.solidAreaDefaultX;
                 entity.getSolidArea().y = entity.solidAreaDefaultY;
