@@ -45,7 +45,6 @@ public class RedDevil extends Enemy {
         collision = false;
         gp.collisionChecker.checkTitle(this);
         gp.collisionChecker.checkBlock(this);
-
     }
 
     public void update() {

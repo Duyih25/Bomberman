@@ -183,26 +183,30 @@ public class CollisionChecker {
                     switch (entity.getDirection()) {
                         case "up":
                             if (entity.worldX == gp.objectManagement.obj.get(i).worldX &&
-                                    entity.worldY == gp.objectManagement.obj.get(i).worldY + 64) {
+                                    entity.worldY - 1 == gp.objectManagement.obj.get(i).worldY + 64) {
                                 entity.setCollision(true);
+                                entity.setDirection("down");
                             }
                             break;
                             case "down":
                                 if (entity.worldX == gp.objectManagement.obj.get(i).worldX &&
-                                        entity.worldY == gp.objectManagement.obj.get(i).worldY - 64) {
+                                        entity.worldY + 1 == gp.objectManagement.obj.get(i).worldY - 64) {
                                     entity.setCollision(true);
+                                    entity.setDirection("up");
                                 }
                                 break;
                             case "left":
-                                if (entity.worldX == gp.objectManagement.obj.get(i).worldX + 64 &&
+                                if (entity.worldX - 1 == gp.objectManagement.obj.get(i).worldX + 64 &&
                                         entity.worldY == gp.objectManagement.obj.get(i).worldY) {
                                     entity.setCollision(true);
+                                    entity.setDirection("right");
                                 }
                                 break;
                             case "right":
-                                if (entity.worldX == gp.objectManagement.obj.get(i).worldX - 64 &&
+                                if (entity.worldX + 1 == gp.objectManagement.obj.get(i).worldX - 64 &&
                                         entity.worldY == gp.objectManagement.obj.get(i).worldY) {
                                     entity.setCollision(true);
+                                    entity.setDirection("left");
                                 }
                                 break;
                         }

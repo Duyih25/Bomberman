@@ -73,16 +73,19 @@ public class KeyHandler implements KeyListener {
                 gp.playSE(1);
                 //gp.playMusic(2);
                 if (gp.ui.commandNum == 0) {
+                    gp.setScore(0);
                     gp.currentLevel = 1;
                     gp.restartGame(gp.getCurrentLevel());
                 }
                 if (gp.ui.commandNum == 1) {
+                    gp.setScore(0);
                     gp.currentLevel = 1;
                     Sprite sprite = new Sprite(gp.playerB, 32, 48);
                     gp.player.setPlayerImage(sprite);
                     gp.restartGame(gp.getCurrentLevel());
                 }
                 if (gp.ui.commandNum == 2) {
+                    gp.setScore(0);
                     gp.currentLevel = 1;
                     Sprite sprite = new Sprite(gp.playerR, 32, 48);
                     gp.player.setPlayerImage(sprite);

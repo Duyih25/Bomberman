@@ -277,7 +277,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void restartGame(int currentLevel) {
-        setScore(0);
         objectManagement.obj.clear();
         objectManagement.blockList.clear();
         npc = new Enemy[20];
