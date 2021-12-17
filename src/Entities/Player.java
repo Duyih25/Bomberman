@@ -189,29 +189,36 @@ public class Player extends Entity {
 
     public void pickUpObject(int index) {
         if(index != 999) {
-            gp.setScore(gp.getScore() + 50);
             Item objCheck = (Item) gp.objectManagement.obj.get(index);
                 if (objCheck instanceof Portal) {
-                    if (gp.numOfEnemies == 0) gp.win = true;
+                    if (gp.numOfEnemies == 0) {
+                        gp.win = true;
+                        gp.setScore(gp.getScore() + 500);
+                    }
                     System.out.println("true");
                 }
                 //System.out.println("hi");
                 if (objCheck instanceof BombItem) {
                     gp.playSE(4);
                     gp.objectManagement.maxBombNum++;
+                    gp.setScore(gp.getScore() + 50);
                 } else if (objCheck instanceof FlameItem) {
                     gp.playSE(5);
                     gp.objectManagement.maxBombRadius++;
+                    gp.setScore(gp.getScore() + 50);
                 } else if (objCheck instanceof SpeedItem) {
                     gp.playSE(6);
                     gp.player.speed += 4;
+                    gp.setScore(gp.getScore() + 50);
                 }
                 else if(objCheck instanceof CrateItem) {
                     gp.playSE(7);
                     gp.objectManagement.currentBullets+=2;
+                    gp.setScore(gp.getScore() + 50);
                 }
                 else if (objCheck instanceof HealItem) {
                     gp.player.setPlayerLives(gp.player.getPlayerLives() + 1);
+                    gp.setScore(gp.getScore() + 50);
                 }
                 if (objCheck instanceof Portal) {
                 }
