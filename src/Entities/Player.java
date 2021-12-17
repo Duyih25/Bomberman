@@ -205,6 +205,9 @@ public class Player extends Entity {
                     gp.playSE(7);
                     gp.objectManagement.currentBullets+=2;
                 }
+                else if (objCheck instanceof HealItem) {
+                    gp.player.setPlayerLives(gp.player.getPlayerLives() + 1);
+                }
                 gp.objectManagement.obj.remove(index);
             }
         }
