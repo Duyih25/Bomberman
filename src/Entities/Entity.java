@@ -28,6 +28,8 @@ public abstract class Entity {
 
     public abstract void draw(Graphics2D g2);
 
+    public abstract void update();
+
     abstract public Rectangle getBound();
 
     public int getSpeed() {

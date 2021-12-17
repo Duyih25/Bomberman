@@ -11,19 +11,15 @@ import java.util.Timer;
 
 public class Bomb extends SuperObject {
     public int countdown = 210;
-    public int explosionTime = 150;
     public Flame[] flames;
     private BufferedImage bomb;
     protected boolean exploded = false;
     protected int maxRadius;
-    int cycle = 0;
-    int second = 0;
-    Timer timer;
 
     public Bomb(GamePanel gp) {
         super(gp);
         collision = true;
-        this.maxRadius = gp.objectManagement.maxBombRadius;
+        this.maxRadius = gp.objectManagement.getMaxBombRadius();
         UtilityTool uTool = new UtilityTool();
         name = "Bomb";
         image = new BufferedImage[3];
@@ -32,10 +28,6 @@ public class Bomb extends SuperObject {
         for (int i = 0; i < image.length; i++) {
             image[i] = uTool.scaleImage(image[i], 64, 64);
         }
-//        BufferedImageLoader loader = new BufferedImageLoader();
-//        image = loader.loadImage("../../Res/bomb_sprite_sheet.png");
-//        image = image.getSubimage(32, 0, 16, 16);
-//        image = uTool.scaleImage(image, 64, 64);
     }
 
     public void setBomb(GamePanel gp) {
@@ -70,12 +62,7 @@ public class Bomb extends SuperObject {
         else {
             if(!exploded)
                 explode();
-            else {
-                for (Flame flame : flames) {
-                    flame.update();
-                }
-            }
-            explosionTime--;
+
         }
     }
 

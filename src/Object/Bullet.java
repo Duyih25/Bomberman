@@ -55,6 +55,11 @@ public class Bullet extends SuperObject {
             g2.fillOval(screenX+24, screenY+48, 32, 32);
         }
     }
+
+    @Override
+    public void update() {
+    }
+
     public Rectangle getBound() {
         return new Rectangle(worldX + 24, worldY + 48, 32, 32);
     }

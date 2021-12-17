@@ -280,10 +280,12 @@ public class GamePanel extends JPanel implements Runnable {
                 tileManagement = new TileManagement(this, mapLevel1, level1Sprite);
                 break;
         }
-        objectManagement.previousBomb = null;
-        objectManagement.maxBombNum = 3;
-        objectManagement.currentBomb = 0;
-        objectManagement.maxBombRadius = 1;
+        objectManagement.setPreviousBomb(null);
+        objectManagement.setGetSpeedItem(false);
+        objectManagement.setGetHealItem(false);
+        objectManagement.setMaxBombNum(3);
+        objectManagement.setCurrentBomb(0);
+        objectManagement.setMaxBombRadius(1);
         player.setDefautValue();
         gameState = playState;
         keyH.restartPressed = false;

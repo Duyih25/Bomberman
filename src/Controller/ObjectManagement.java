@@ -12,14 +12,13 @@ public class ObjectManagement {
     KeyHandler keyH;
 
     public ArrayList<SuperObject> obj = new ArrayList<>();
-    public int currentBomb = 0;
-    public int maxBombNum = 3;
-    public int maxBombRadius = 1;
+    private int currentBomb = 0;
+    private int maxBombNum = 3;
+    private int maxBombRadius = 1;
     public int currentBullets = 10;
-    public boolean getSpeedItem = false;
-    private int countFlame = 0;
+    private boolean getSpeedItem = false;
     private boolean getHealItem = false;
-    public Bomb previousBomb = null;
+    private Bomb previousBomb = null;
     private ArrayList<Item> waitingItem = new ArrayList<>();
     public ArrayList<Block> blockList = new ArrayList<>();
 
@@ -75,13 +74,15 @@ public class ObjectManagement {
                     Random random = new Random();
                     int func;
 
-                    if (!getSpeedItem && !getHealItem) {
+                    if (!isGetSpeedItem() && !isGetHealItem()) {
                         func = random.nextInt(20);
                     }
-                    else {
+                    else if (isGetSpeedItem() && isGetHealItem()){
+                        func = random.nextInt(20) + 2;
+                    } else {
                         func = random.nextInt(20) + 1;
                         if (func == 1) {
-                            if (!getSpeedItem) func = 0;
+                            if (!isGetSpeedItem()) func = 0;
                         }
                     }
 
@@ -89,15 +90,14 @@ public class ObjectManagement {
                         waitingItem.add(new BombItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                     } else if (func == 2) {
                         waitingItem.add(new FlameItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                        //countFlame++;
                     } else if (func == 4) {
                         waitingItem.add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                     } else if (func == 0) {
                         waitingItem.add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                        getSpeedItem = true;
+                        setGetSpeedItem(true);
                     } else if (func == 1) {
                         waitingItem.add(new HealItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                        getHealItem = true;
+                        setGetHealItem(true);
                     }
                 }
                 //blockList.remove(i);
@@ -132,8 +132,10 @@ public class ObjectManagement {
     }
     private void updateBomb() {
         updateExistingBombs();
+
+        //Tuan Anh
         //DROP BOMB
-        if (keyH.bombPressed && currentBomb < maxBombNum) {
+        if (keyH.bombPressed && getCurrentBomb() < getMaxBombNum()) {
             int playerLeftWorldX = gp.player.worldX + gp.player.getSolidArea().x;
             int playerTopWorldY = gp.player.worldY + gp.player.getSolidArea().y;
 
@@ -142,21 +144,18 @@ public class ObjectManagement {
             //System.out.println(bombTileCol + " " + bombTileRow);
 
             int bombTileNum = gp.tileManagement.mapTileNum[bombTileCol][bombTileRow];
-            if (previousBomb == null || previousBomb.worldX != (gp.player.worldX + 32) / 64 * 64 ||
-                    previousBomb.worldY != (gp.player.worldY + 32) / 64 * 64) {
+            if (getPreviousBomb() == null || getPreviousBomb().worldX != (gp.player.worldX + 32) / 64 * 64 ||
+                    getPreviousBomb().worldY != (gp.player.worldY + 32) / 64 * 64) {
                 //SET BOMB TO PLAYER POSITION
                 obj.add(new Bomb(gp));
                 obj.get(obj.size() - 1).worldX = (gp.player.worldX + 32) / 64 * 64;
                 obj.get(obj.size() - 1).worldY = (gp.player.worldY + 32) / 64 * 64;
-                //obj[currentObj].mapPosition = bombTileNum;
-                //obj[currentObj].collision = true;
-                currentBomb++;
-                previousBomb = (Bomb) obj.get(obj.size() - 1);
-                //gp.tileManagement.tiles[bombTileNum].available = false;
-                //keyH.bombPressed = false;
 
-                System.out.println(previousBomb.worldX);
-                System.out.println(previousBomb.worldY);
+                setCurrentBomb(getCurrentBomb() + 1);
+                setPreviousBomb((Bomb) obj.get(obj.size() - 1));
+
+                System.out.println(getPreviousBomb().worldX);
+                System.out.println(getPreviousBomb().worldY);
             }
         }
 
@@ -169,14 +168,13 @@ public class ObjectManagement {
             if (obj.get(i).getName().equals("Bomb")) {
                 Bomb check = (Bomb) obj.get(i);
                 check.update();
-                if (check.isExploded() && check.explosionTime == 120) {
-                    //gp.tileManagement.tiles[obj[i].mapPosition].available = true;
+                if (check.isExploded()) {
                     obj.remove(i);
                     for (Flame flame : check.flames) {
                         obj.add(flame);
                     }
-                    currentBomb--;
-                    if (currentBomb == 0) previousBomb = null;
+                    setCurrentBomb(getCurrentBomb() - 1);
+                    if (getCurrentBomb() == 0) setPreviousBomb(null);
 
                 }
             } else if (obj.get(i).getName().equals("Flame")) {
@@ -198,7 +196,7 @@ public class ObjectManagement {
                     obj.remove(i);
                     gp.playStop(2);
                     gp.playSE(3);
-                    if (currentBomb == 0) previousBomb = null;
+                    if (getCurrentBomb() == 0) setPreviousBomb(null);
                 }
             }
         }
@@ -230,5 +228,53 @@ public class ObjectManagement {
                 obj.get(i).draw(g2);
         }
 
+    }
+
+    public boolean isGetHealItem() {
+        return getHealItem;
+    }
+
+    public void setGetHealItem(boolean getHealItem) {
+        this.getHealItem = getHealItem;
+    }
+
+    public boolean isGetSpeedItem() {
+        return getSpeedItem;
+    }
+
+    public void setGetSpeedItem(boolean getSpeedItem) {
+        this.getSpeedItem = getSpeedItem;
+    }
+
+    public int getMaxBombNum() {
+        return maxBombNum;
+    }
+
+    public void setMaxBombNum(int maxBombNum) {
+        this.maxBombNum = maxBombNum;
+    }
+
+    public int getCurrentBomb() {
+        return currentBomb;
+    }
+
+    public void setCurrentBomb(int currentBomb) {
+        this.currentBomb = currentBomb;
+    }
+
+    public int getMaxBombRadius() {
+        return maxBombRadius;
+    }
+
+    public void setMaxBombRadius(int maxBombRadius) {
+        this.maxBombRadius = maxBombRadius;
+    }
+
+    public Bomb getPreviousBomb() {
+        return previousBomb;
+    }
+
+    public void setPreviousBomb(Bomb previousBomb) {
+        this.previousBomb = previousBomb;
     }
 }

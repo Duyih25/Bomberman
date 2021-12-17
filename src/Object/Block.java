@@ -31,7 +31,7 @@ public class Block extends SuperObject {
 
         public void update() {
                 spriteCounter++;
-                if (!destroyed) {
+                if (!destroyed || destroyingTime > 18) {
                         if (spriteCounter > 15) {
                                 if (spriteNum == 0) {
                                         spriteNum = 1;

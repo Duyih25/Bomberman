@@ -8,7 +8,7 @@ public class Flame extends SuperObject {
     private int maxRadius;
     public int explosionTime = 50;
     private int tempX, tempY;
-    public boolean isCollidingNearBomb = false;
+    protected boolean isCollidingNearBomb = false;
     public FlameSegment[] flameSegments = new FlameSegment[0];
 
     public Flame(GamePanel gp, int x, int y, String direction, int maxRadius) {
