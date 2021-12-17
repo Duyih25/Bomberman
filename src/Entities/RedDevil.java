@@ -53,6 +53,7 @@ public class RedDevil extends Enemy {
         gp.collisionChecker.checkBlock(this);
         gp.collisionChecker.checkTitle(this);
         int objIndex=gp.collisionChecker.checkObject(this); // check Block,Bullet,...
+        gp.collisionChecker.checkObjForEnemy(this);
         if (moving && collision == false) {
             switch (direction) {
                 case "left":

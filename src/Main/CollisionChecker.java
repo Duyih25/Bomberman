@@ -178,40 +178,7 @@ public class CollisionChecker {
                         && gp.objectManagement.obj.get(i).getBound().intersects(entity.getBound())){
                     return i;
                 }
-            } else if (entity instanceof Enemy) {
-                if (gp.objectManagement.obj.get(i).getName().equals("Bomb")) {
-                    switch (entity.getDirection()) {
-                        case "up":
-                            if (entity.worldX == gp.objectManagement.obj.get(i).worldX &&
-                                    entity.worldY - 1 == gp.objectManagement.obj.get(i).worldY + 64) {
-                                entity.setCollision(true);
-                                entity.setDirection("down");
-                            }
-                            break;
-                            case "down":
-                                if (entity.worldX == gp.objectManagement.obj.get(i).worldX &&
-                                        entity.worldY + 1 == gp.objectManagement.obj.get(i).worldY - 64) {
-                                    entity.setCollision(true);
-                                    entity.setDirection("up");
-                                }
-                                break;
-                            case "left":
-                                if (entity.worldX - 1 == gp.objectManagement.obj.get(i).worldX + 64 &&
-                                        entity.worldY == gp.objectManagement.obj.get(i).worldY) {
-                                    entity.setCollision(true);
-                                    entity.setDirection("right");
-                                }
-                                break;
-                            case "right":
-                                if (entity.worldX + 1 == gp.objectManagement.obj.get(i).worldX - 64 &&
-                                        entity.worldY == gp.objectManagement.obj.get(i).worldY) {
-                                    entity.setCollision(true);
-                                    entity.setDirection("left");
-                                }
-                                break;
-                        }
-                    }
-                }
+            } 
 
                 entity.getSolidArea().x = entity.solidAreaDefaultX;
                 entity.getSolidArea().y = entity.solidAreaDefaultY;
@@ -272,6 +239,37 @@ public class CollisionChecker {
                             }
                         }
                     }
+                }
+            } else if (gp.objectManagement.obj.get(i).getName().equals("Bomb")) {
+                switch (enemy.getDirection()) {
+                    case "up":
+                        if (enemy.worldX == gp.objectManagement.obj.get(i).worldX &&
+                                enemy.worldY - 1 == gp.objectManagement.obj.get(i).worldY + 64) {
+                            enemy.setCollision(true);
+                            enemy.setDirection("down");
+                        }
+                        break;
+                    case "down":
+                        if (enemy.worldX == gp.objectManagement.obj.get(i).worldX &&
+                                enemy.worldY + 1 == gp.objectManagement.obj.get(i).worldY - 64) {
+                            enemy.setCollision(true);
+                            enemy.setDirection("up");
+                        }
+                        break;
+                    case "left":
+                        if (enemy.worldX - 1 == gp.objectManagement.obj.get(i).worldX + 64 &&
+                                enemy.worldY == gp.objectManagement.obj.get(i).worldY) {
+                            enemy.setCollision(true);
+                            enemy.setDirection("right");
+                        }
+                        break;
+                    case "right":
+                        if (enemy.worldX + 1 == gp.objectManagement.obj.get(i).worldX - 64 &&
+                                enemy.worldY == gp.objectManagement.obj.get(i).worldY) {
+                            enemy.setCollision(true);
+                            enemy.setDirection("left");
+                        }
+                        break;
                 }
             }
             //gp.objectManagement.obj.get(i).setSolidAreaDefault();
