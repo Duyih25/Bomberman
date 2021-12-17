@@ -189,11 +189,10 @@ public class Player extends Entity {
 
     public void pickUpObject(int index) {
         if(index != 999) {
-            String objName = gp.objectManagement.obj.get(index).name;
-            if (objName.equals("Item")) {
-                Item objCheck = (Item) gp.objectManagement.obj.get(index);
+            gp.setScore(gp.getScore() + 50);
+            Item objCheck = (Item) gp.objectManagement.obj.get(index);
                 if (objCheck instanceof Portal) {
-                    gp.win = true;
+                    if (gp.numOfEnemies == 0) gp.win = true;
                     System.out.println("true");
                 }
                 //System.out.println("hi");
@@ -214,9 +213,10 @@ public class Player extends Entity {
                 else if (objCheck instanceof HealItem) {
                     gp.player.setPlayerLives(gp.player.getPlayerLives() + 1);
                 }
-                gp.objectManagement.obj.remove(index);
+                if (objCheck instanceof Portal) {
+                }
+                else gp.objectManagement.obj.remove(index);
             }
-        }
     }
 
 

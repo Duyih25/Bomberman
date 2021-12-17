@@ -6,6 +6,7 @@ import Controller.ObjectManagement;
 import Entities.Enemy;
 import Entities.Player;
 import Object.AssetSetter;
+import Object.Item;
 import Tile.TileManagement;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 
 public class GamePanel extends JPanel implements Runnable {
@@ -45,7 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //Level
     public int currentLevel = 1;
-    public int Score = 0;
+    private int Score = 0;
     public String ddScore = "000000";
 
     //Game component
@@ -65,6 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
     public TileManagement tileManagement = new TileManagement(this, mapLevel1, map1);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyH, tileManagement, playerW);
+    public int numOfEnemies;
     public Timer timer;
     public int second, minute;
     String ddSecond, ddMinute;
@@ -161,9 +164,11 @@ public class GamePanel extends JPanel implements Runnable {
             player.update();
             objectManagement.update();
 
+            numOfEnemies = 0;
             for(int i=0;i<npc.length;i++) {
                 if(npc[i]!=null) {
                     npc[i].update();
+                    numOfEnemies++;
                 }
             }
             if(lose) {
@@ -272,7 +277,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void restartGame(int currentLevel) {
-        Score = 0;
+        setScore(0);
         objectManagement.obj.clear();
         objectManagement.blockList.clear();
         npc = new Enemy[20];
@@ -294,7 +299,8 @@ public class GamePanel extends JPanel implements Runnable {
         objectManagement.maxBombNum = 3;
         objectManagement.currentBomb = 0;
         objectManagement.maxBombRadius = 1;
-        objectManagement.currentBullets=0;
+        objectManagement.currentBullets = 0;
+        objectManagement.setWaitingItem(new ArrayList<Item>());
         player.setDefautValue();
         gameState = playState;
         keyH.restartPressed = false;
@@ -305,5 +311,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     public int getCurrentLevel() {
         return currentLevel;
+    }
+
+    public int getScore() {
+        return Score;
+    }
+
+    public void setScore(int score) {
+        Score = score;
     }
 }

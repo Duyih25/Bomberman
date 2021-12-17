@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 public class Block extends SuperObject {
         public boolean destroyed = false;
-        public int destroyingTime = 20;
+        public int destroyingTime = 25;
         public boolean portal = false;
 
         public Block(GamePanel gp, int x, int y, boolean portal) {

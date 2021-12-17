@@ -1,5 +1,8 @@
 package Main;
 
+import Entities.BlackDevil;
+import Entities.RedDevil;
+import Entities.YellowDevil;
 import Entities.Enemy;
 import Entities.Entity;
 import Object.*;
@@ -176,8 +179,7 @@ public class CollisionChecker {
                     return i;
                 }
             } else if (entity instanceof Enemy) {
-                if (gp.objectManagement.obj.get(i).getName().equals("Bomb") ||
-                        gp.objectManagement.obj.get(i).getName().equals("Block")) {
+                if (gp.objectManagement.obj.get(i).getName().equals("Bomb")) {
                     switch (entity.getDirection()) {
                         case "up":
                             if (entity.worldX == gp.objectManagement.obj.get(i).worldX &&
@@ -251,6 +253,15 @@ public class CollisionChecker {
                     if (enemy.getBound().intersects(fs.getBound())) {
                         for (int j = 0; j < gp.npc.length; j++) {
                             if (enemy == gp.npc[j]) {
+                                if (enemy instanceof RedDevil) {
+                                    gp.setScore(gp.getScore() + 100);
+                                }
+                                if (enemy instanceof BlackDevil) {
+                                    gp.setScore(gp.getScore() + 200);
+                                }
+                                if (enemy instanceof YellowDevil) {
+                                    gp.setScore(gp.getScore() + 300);
+                                }
                                 gp.npc[j] = null;
                                 //return index;
                                 return;
