@@ -15,7 +15,7 @@ public class ObjectManagement {
     public int currentBomb = 0;
     public int maxBombNum = 3;
     public int maxBombRadius = 1;
-    public int currentBullets = 10;
+    public int currentBullets = 0;
     public boolean getSpeedItem = false;
     private int countFlame = 0;
     private boolean getHealItem = false;

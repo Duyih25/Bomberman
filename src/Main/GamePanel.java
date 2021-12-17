@@ -284,6 +284,7 @@ public class GamePanel extends JPanel implements Runnable {
         objectManagement.maxBombNum = 3;
         objectManagement.currentBomb = 0;
         objectManagement.maxBombRadius = 1;
+        objectManagement.currentBullets=0;
         player.setDefautValue();
         gameState = playState;
         keyH.restartPressed = false;
