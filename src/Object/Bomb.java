@@ -70,11 +70,7 @@ public class Bomb extends SuperObject {
         else {
             if(!exploded)
                 explode();
-            else {
-                for (Flame flame : flames) {
-                    flame.update();
-                }
-            }
+
             explosionTime--;
         }
     }
@@ -92,9 +88,6 @@ public class Bomb extends SuperObject {
 
         //gp.playMusic(2);
 
-        for (Flame flame : flames) {
-            flame.update();
-        }
 
     }
 

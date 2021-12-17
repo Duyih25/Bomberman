@@ -29,7 +29,7 @@ public class FlameSegment extends SuperObject {
 
     public void update() {
         spriteCounter++;
-        if (spriteCounter > 10) {
+        if (spriteCounter > 5) {
             spriteNum++;
             spriteCounter = 0;
         }

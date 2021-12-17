@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Flame extends SuperObject {
     private int maxRadius;
-    public int explosionTime = 50;
+    public int explosionTime = 25;
     private int tempX, tempY;
     public boolean isCollidingNearBomb = false;
     public FlameSegment[] flameSegments = new FlameSegment[0];
@@ -28,6 +28,7 @@ public class Flame extends SuperObject {
     private void createFlameSegments() {
         flameSegments = new FlameSegment[calculateFlameDistance()];
 
+        /**tempX, tempY là vị trí đặt bom.*/
         worldX = tempX;
         worldY = tempY;
 
@@ -73,6 +74,7 @@ public class Flame extends SuperObject {
             gp.collisionChecker.checkBlock(this);
             if(collision) break;
 
+            /**Gán để kiểm tra collision.*/
             worldX = x;
             worldY = y;
 

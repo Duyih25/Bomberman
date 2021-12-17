@@ -36,7 +36,7 @@ public class UI {
             Sprite.drawArray(g2, font, "X" + gp.player.getPlayerLives() + "" , (gp.maxScreenCol + 2)  * gp.tileSize, 64 * 2 - 32 , 64, 64, 64, 0);
             Sprite.drawArray(g2, font, "^CO]E" , (gp.maxScreenCol + 1)  * gp.tileSize - 32, 64 * 4 - 32 , 32, 32, 32, 0);
             DecimalFormat dFormat = new DecimalFormat("000000");
-            gp.ddScore = dFormat.format(gp.Score);
+            gp.ddScore = dFormat.format(gp.getScore());
             Sprite.drawArray(g2, font, gp.ddScore , (gp.maxScreenCol + 1)  * gp.tileSize - 32, 64 * 5 - 32 , 32, 32, 32, 0);
 
         }

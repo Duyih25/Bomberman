@@ -34,12 +34,12 @@ public class ObjectManagement {
         updateBullet();
     }
 
-    private void updateItem() {
-        for (int i = 0; i < waitingItem.size(); i++) {
-            if (waitingItem.get(i).waitingTime > 0) waitingItem.get(i).waitingTime--;
+    private void updateItem() {//Su
+        for (int i = 0; i < getWaitingItem().size(); i++) {
+            if (getWaitingItem().get(i).waitingTime > 0) getWaitingItem().get(i).waitingTime--;
             else {
-                obj.add(waitingItem.get(i));
-                waitingItem.remove(i);
+                obj.add(getWaitingItem().get(i));
+                getWaitingItem().remove(i);
             }
         }
 
@@ -70,7 +70,7 @@ public class ObjectManagement {
             if (index != 999 && !check.destroyed) {
                 System.out.println("B" + index);
                 if (blockList.get(i).portal) {
-                    waitingItem.add(new Portal(gp, blockList.get(i).worldX, blockList.get(i).worldY)); //them portal
+                    getWaitingItem().add(new Portal(gp, blockList.get(i).worldX, blockList.get(i).worldY)); //them portal
                 } else {
                     Random random = new Random();
                     int func;
@@ -78,7 +78,9 @@ public class ObjectManagement {
                     if (!getSpeedItem && !getHealItem) {
                         func = random.nextInt(20);
                     }
-                    else {
+                    else if (getSpeedItem && getHealItem) {
+                        func = random.nextInt(20) + 2;
+                    } else {
                         func = random.nextInt(20) + 1;
                         if (func == 1) {
                             if (!getSpeedItem) func = 0;
@@ -86,17 +88,17 @@ public class ObjectManagement {
                     }
 
                     if (func == 3) {
-                        waitingItem.add(new BombItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                        getWaitingItem().add(new BombItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                     } else if (func == 2) {
-                        waitingItem.add(new FlameItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                        getWaitingItem().add(new FlameItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                         //countFlame++;
                     } else if (func == 4) {
-                        waitingItem.add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                        getWaitingItem().add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                     } else if (func == 0) {
-                        waitingItem.add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                        getWaitingItem().add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                         getSpeedItem = true;
                     } else if (func == 1) {
-                        waitingItem.add(new HealItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
+                        getWaitingItem().add(new HealItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                         getHealItem = true;
                     }
                 }
@@ -131,7 +133,9 @@ public class ObjectManagement {
         }
     }
     private void updateBomb() {
-        updateExistingBombs();
+        updateExistingBombs(); //Su
+
+        //Tuấn Anh
         //DROP BOMB
         if (keyH.bombPressed && currentBomb < maxBombNum) {
             int playerLeftWorldX = gp.player.worldX + gp.player.getSolidArea().x;
@@ -169,8 +173,12 @@ public class ObjectManagement {
             if (obj.get(i).getName().equals("Bomb")) {
                 Bomb check = (Bomb) obj.get(i);
                 check.update();
-                if (check.isExploded() && check.explosionTime == 120) {
-                    //gp.tileManagement.tiles[obj[i].mapPosition].available = true;
+                /** explosionTime mặc định = 150 khi explode se trừ đi 1 -> 149.
+                 * Đợi đến tick tiếp theo khi các bom đã check được nearBomb của mình
+                 * đồng thời explosionTime bằng 148 thì xóa bomb đi và add Flame để
+                 * render Flame -> Để Flame của 2 bomb gần nhau k bị chồng lên nhau.
+                 */
+                if (check.isExploded() && check.explosionTime == 148) {
                     obj.remove(i);
                     for (Flame flame : check.flames) {
                         obj.add(flame);
@@ -186,10 +194,13 @@ public class ObjectManagement {
                     if (gp.player.getBound().intersects(fs.getBound())) {
                         if (gp.player.getPlayerLives() > 0) {
                             if (gp.player.getRelievingTime() == 100) {
+                                /**Khi relievingTime == 100 <=> chưa bị thương
+                                 * (va chạm với quái/ trong phạm vi bom nổ).
+                                 */
                                 gp.player.setPlayerLives(gp.player.getPlayerLives() - 1);
                                 gp.player.setRelievingTime(gp.player.getRelievingTime() - 1);
                             }
-                        } else gp.lose = true;
+                        } else gp.lose = true; //thua
                         System.out.println(gp.player.getPlayerLives());
                     }
                 }
@@ -209,7 +220,7 @@ public class ObjectManagement {
             if (obj.get(i).getName().equals("Bomb") &&
                     obj.get(i).worldX == x && obj.get(i).worldY == y) {
                 Bomb check = (Bomb) obj.get(i);
-                check.countdown = 0;
+                check.countdown = 0; // để cho explode
                 return true;
             }
         }
@@ -230,5 +241,13 @@ public class ObjectManagement {
                 obj.get(i).draw(g2);
         }
 
+    }
+
+    public ArrayList<Item> getWaitingItem() {
+        return waitingItem;
+    }
+
+    public void setWaitingItem(ArrayList<Item> waitingItem) {
+        this.waitingItem = waitingItem;
     }
 }

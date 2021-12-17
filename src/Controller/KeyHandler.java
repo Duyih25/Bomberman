@@ -139,7 +139,7 @@ public class KeyHandler implements KeyListener {
             }
 
             if (code == KeyEvent.VK_E) {
-                gp.playMusic(8);
+                if (gp.objectManagement.currentBullets > 0) gp.playMusic(8);
                 bulletPressed = true; //Duy
             }
             if (code == KeyEvent.VK_P) {
