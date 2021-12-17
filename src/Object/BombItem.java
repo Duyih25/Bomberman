@@ -24,7 +24,7 @@ public class BombItem extends Item {
 
     public void update() {
         spriteCounter++;
-        if (spriteCounter > 10) {
+        if (spriteCounter > 15) {
             if (spriteNum == 0) {
                 spriteNum = 1;
             } else if (spriteNum == 1) {

@@ -139,15 +139,15 @@ public class BlackDevil extends Enemy{
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
             g2.drawImage(image, screenX, screenY, null);
-//            g2.setColor(Color.red);
-//            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+            g2.setColor(Color.red);
+            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         } else if(gp.player.screenX > gp.player.worldX ||
                 gp.player.screenY > gp.player.worldY ||
                 rightOffset > gp.maxWorldCol * gp.tileSize - gp.player.worldX ||
                 bottomOffset > gp.maxWorldRow * gp.tileSize -gp.player.worldY ) {
             g2.drawImage(image, screenX, screenY, null);
-//            g2.setColor(Color.red);
-//            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+            g2.setColor(Color.red);
+            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }
     }
     public Rectangle getBound() {

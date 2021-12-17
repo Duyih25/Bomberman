@@ -83,7 +83,7 @@ public class Font {
             if ((value % 11 >=5 && value % 11 <= 10)) {
                 value -= 11;
             }
-            if ( value == 'w' || value == 'u' || value == 's') {
+            if (value == 'i' || value == 'w' || value == 'u' || value == 's') {
                 value += 11;
             }
 

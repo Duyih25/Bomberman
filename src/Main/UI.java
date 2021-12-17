@@ -33,13 +33,6 @@ public class UI {
             g2.drawImage(hud, 64 * 10, 0, null);
             Sprite.drawArray(g2, font, gp.ddMinute + ":" + gp.ddSecond , gp.maxScreenCol  * gp.tileSize + 32, 32 , 32, 32, 32, 0);
             Sprite.drawArray(g2, font, "X" + gp.player.getPlayerLives() + "" , (gp.maxScreenCol + 2)  * gp.tileSize, 64 * 2 - 32 , 64, 64, 64, 0);
-            Sprite.drawArray(g2, font, "^CO]E" , (gp.maxScreenCol + 1)  * gp.tileSize, 64 * 4 - 32 , 32, 32, 32, 0);
-            Sprite.drawArray(g2, font, gp.Score + "" , (gp.maxScreenCol + 1)  * gp.tileSize, 64 * 5 - 32 , 32, 32, 32, 0);
-
-        }
-        //
-        if (gp.gameState == gp.chooseState) {
-            drawChooseState();
         }
         //Pause state
         if (gp.gameState == gp.pauseState) {
@@ -142,38 +135,6 @@ public class UI {
             Sprite.drawArray(g2, font, "MENU", 3 * gp.tileSize, 8 * gp.tileSize, 32, 32, 32, 0);
         } else {
             Sprite.drawArray(g2, font, "MENU", 3 * gp.tileSize, 8 * gp.tileSize, 32, 32, 32, 0);
-        }
-    }
-
-    public void drawChooseState() {
-        BufferedImageLoader loader = new BufferedImageLoader();
-        g2.setColor(Color.black);
-        g2.fillRect(0, 0, gp.screenWidth + 64*4, gp.screenHeight);
-        Sprite.drawArray(g2, font, "^ELECT", 3 * gp.tileSize, 8 * gp.tileSize, 32, 32, 32, 0);
-        Sprite.drawArray(g2, font, "CHA]ACTE]", 7 * gp.tileSize, 8 * gp.tileSize, 32, 32, 32, 0);
-        Sprite.drawArray(g2, font, "P]E^^", 2 * gp.tileSize + 32, 7 * gp.tileSize, 32, 32, 32, 0);
-        Sprite.drawArray(g2, font, "W", 5 * gp.tileSize  + 32, 7 * gp.tileSize, 32, 32, 32, 0);
-        Sprite.drawArray(g2, font, "TO", 6 * gp.tileSize + 32, 7 * gp.tileSize, 32, 32, 32, 0);
-        Sprite.drawArray(g2, font, "CHOO^E", 8 * gp.tileSize + 32, 7 * gp.tileSize, 32, 32, 32, 0);
-
-
-        BufferedImage white = loader.loadImage("../../Res/Sprite-0001.png");
-        BufferedImage black = loader.loadImage("../../Res/Sprite-0002.png");
-        BufferedImage red = loader.loadImage("../../Res/Sprite-0003.png");
-        g2.drawImage(white, 64 * 3 + 64 + 32, 64, null);
-        g2.drawImage(black,  64 * 3 + 124 + 64 + 32 , 64, null);
-        g2.drawImage(red, 64 * 3 + 128 + 64 + 64 + 64 + 32, 64, null);
-
-        if (commandNum == 0) {
-            Sprite.drawArray(g2,font, "i", 64 * 3 + 64 + 32 + 16, 64 + 64 + 32, 32, 32, 32, 0);
-        }
-
-        if (commandNum == 1) {
-            Sprite.drawArray(g2,font, "i", 64 * 3 + 124 + 64 + 32 + 16, 64 + 64 + 32, 32, 32, 32, 0);
-        }
-
-        if (commandNum == 2) {
-            Sprite.drawArray(g2,font, "i", 64 * 3 + 128 + 64 + 64 + 64 + 32 + 16,  64 + 64 + 32, 32, 32, 32, 0);
         }
     }
 }

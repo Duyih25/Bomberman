@@ -14,9 +14,9 @@ public class TileManagement {
     public int mapTileNum[][];
     public int mapCol;
     public int mapRow;
-    BufferedImage map;
+    BufferedImage sprite;
 
-    public TileManagement(GamePanel gp, BufferedImage image, BufferedImage map) {
+    public TileManagement(GamePanel gp, BufferedImage image, BufferedImage sprite) {
         this.gp = gp;
 
         mapCol = image.getWidth();
@@ -29,10 +29,9 @@ public class TileManagement {
         mapTileNum = new int[gp.maxWorldCol + 1][gp.maxWorldRow + 1];
         tilesMap = new Tile[gp.maxWorldCol + 1][gp.maxWorldRow + 1];
 
+        this.sprite = sprite;
         getTileImage();
         loadMap(image);
-
-        this.map = map;
     }
 
     public void getTileImage() {
@@ -74,7 +73,9 @@ public class TileManagement {
         UtilityTool uTool = new UtilityTool();
         tiles[index] = new Tile();
 
+        tiles[index].image = sprite.getSubimage(x, y, w, h);
         tiles[index].collision = collision;
+        tiles[index].image = uTool.scaleImage(tiles[index].image, gp.tileSize, gp.tileSize);
     }
 
     public void setTiles(int index, boolean collision, boolean available) {
@@ -150,9 +151,12 @@ public class TileManagement {
         int worldCol = 0;
         int worldRow = 0;
 
+        while (worldCol < mapCol && worldRow < mapRow) {
+            int tileNum = mapTileNum[worldCol][worldRow];
+
             //camera
-            int worldX = 0;
-            int worldY = 0;
+            int worldX = worldCol * gp.tileSize;
+            int worldY = worldRow * gp.tileSize;
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
@@ -172,6 +176,29 @@ public class TileManagement {
                 screenY = gp.screenHeight - ((mapRow * gp.tileSize) - worldY);
             }
 
-                g2.drawImage(map, screenX, screenY , null);
+
+            if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
+                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
+                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
+                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+
+                    g2.drawImage(tilesMap[worldCol][worldRow].image, screenX, screenY , null);
+            } else if(gp.player.screenX > gp.player.worldX ||
+                      gp.player.screenY > gp.player.worldY ||
+                      rightOffset > mapCol * gp.tileSize - gp.player.worldX ||
+                      bottomOffset > mapRow * gp.tileSize -gp.player.worldY ) {
+                g2.drawImage(tilesMap[worldCol][worldRow].image, screenX, screenY , null);
+
+            }
+
+            worldCol++;
+
+            if (worldCol == mapCol) {
+                worldCol = 0;
+
+                worldRow++;
+
+            }
+        }
     }
 }

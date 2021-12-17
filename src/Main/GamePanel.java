@@ -41,29 +41,25 @@ public class GamePanel extends JPanel implements Runnable {
     public final int titleState = 0;
     public final int loseState = 3;
     public final int winState = 4;
-    public final int chooseState = 5;
 
     //Level
     public int currentLevel = 1;
-    public int Score = 0;
 
     //Game component
     BufferedImageLoader loader = new BufferedImageLoader();
     BufferedImage hud = loader.loadImage("../../Res/hud.png");
     BufferedImage mapLevel1 = loader.loadImage("../../Res/level1/level1.png");
-    BufferedImage map1 = loader.loadImage("../../Res/level1/map1.png");
+    BufferedImage level1Sprite = loader.loadImage("../../Res/level1/level1_sprite_map.png");
     BufferedImage mapLevel2 = loader.loadImage("../../Res/level2/level2.png");
-    BufferedImage map2 = loader.loadImage("../../Res/level2/map2.png");
-    public BufferedImage playerW = loader.loadImage("../../Res/bomber_sprite2.png");
-    public BufferedImage playerB = loader.loadImage("../../Res/bomber_sprite3.png");
-    public BufferedImage playerR = loader.loadImage("../../Res/bomber_sprite4.png");
+    BufferedImage level2Sprite = loader.loadImage("../../Res/level2/level2_sprite_map.png");
+    BufferedImage playerS = loader.loadImage("../../Res/bomber_sprite.png");
 
     Thread gameThread;
     Thread soundThread;
     KeyHandler keyH = new KeyHandler(this);
-    public TileManagement tileManagement = new TileManagement(this, mapLevel1, map1);
+    public TileManagement tileManagement = new TileManagement(this, mapLevel1, level1Sprite);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
-    public Player player = new Player(this, keyH, tileManagement, playerW);
+    public Player player = new Player(this, keyH, tileManagement, playerS);
     public Timer timer;
     public int second, minute;
     String ddSecond, ddMinute;
@@ -185,10 +181,6 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == winState) {
 
         }
-
-        if (gameState == chooseState) {
-
-        }
     }
 
     public void paintComponent(Graphics g) {
@@ -207,7 +199,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2d = g2;
 
         //Tiltle Screen
-        if (gameState == titleState || gameState == loseState || gameState == winState || gameState == loseState) {
+        if (gameState == titleState || gameState == loseState || gameState == winState) {
             ui.draw(g2);
         } //OTHERS
         else {
@@ -271,22 +263,21 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void restartGame(int currentLevel) {
-        Score = 0;
         objectManagement.obj.clear();
         objectManagement.blockList.clear();
         npc = new Enemy[20];
         switch (currentLevel) {
             case 1:
                 aSetter.setObject(mapLevel1);
-                tileManagement = new TileManagement(this, mapLevel1, map1);
+                tileManagement = new TileManagement(this, mapLevel1, level1Sprite);
                 break;
             case 2:
                 aSetter.setObject(mapLevel2);
-                tileManagement = new TileManagement(this, mapLevel2, map2);
+                tileManagement = new TileManagement(this, mapLevel2, level2Sprite);
                 break;
             default:
                 aSetter.setObject(mapLevel1);
-                tileManagement = new TileManagement(this, mapLevel1, map1);
+                tileManagement = new TileManagement(this, mapLevel1, level1Sprite);
                 break;
         }
         objectManagement.previousBomb = null;
