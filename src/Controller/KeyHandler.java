@@ -1,5 +1,6 @@
 package Controller;
 
+import Graphics.Sprite;
 import Main.GamePanel;
 import Entities.Player;
 import java.awt.event.KeyEvent;
@@ -46,11 +47,48 @@ public class KeyHandler implements KeyListener {
                 gp.playSE(1);
                 //gp.playMusic(2);
                 if (gp.ui.commandNum == 0) {
-                    gp.restartGame(1);
+                    gp.currentLevel = 1;
+                    gp.gameState = gp.chooseState;
                 }
                 if (gp.ui.commandNum == 2) {
                     System.exit(0);
                 }
+            }
+        }
+
+        if (gp.gameState == gp.chooseState) {
+            if (code == KeyEvent.VK_A) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0)
+                    gp.ui.commandNum = 2;
+
+            }
+            if (code == KeyEvent.VK_D) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 2)
+                    gp.ui.commandNum = 0;
+            }
+            if (code == KeyEvent.VK_W) {
+                gp.playStop(0);
+                gp.playSE(1);
+                //gp.playMusic(2);
+                if (gp.ui.commandNum == 0) {
+                    gp.currentLevel = 1;
+                    gp.restartGame(gp.getCurrentLevel());
+                }
+                if (gp.ui.commandNum == 1) {
+                    gp.currentLevel = 1;
+                    Sprite sprite = new Sprite(gp.playerB, 32, 48);
+                    gp.player.setPlayerImage(sprite);
+                    gp.restartGame(gp.getCurrentLevel());
+                }
+                if (gp.ui.commandNum == 2) {
+                    gp.currentLevel = 1;
+                    Sprite sprite = new Sprite(gp.playerR, 32, 48);
+                    gp.player.setPlayerImage(sprite);
+                    gp.restartGame(gp.getCurrentLevel());
+                }
+
             }
         }
 

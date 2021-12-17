@@ -19,7 +19,7 @@ public class Player extends Entity {
     int pixelCounter = 0;
 
     private int relievingTime = 100;
-    private int tempSpriteNum = 3;
+    private int tempSpriteNum = 6;
     public int x,y;
 
     public final int screenX;
@@ -147,9 +147,9 @@ public class Player extends Entity {
             spriteCounter++;
             if (getRelievingTime() != 100) {
                 if (spriteCounter > 15) {
-                    if (spriteNum != 3) {
+                    if (spriteNum != 6) {
                         tempSpriteNum = spriteNum;
-                        spriteNum = 3;
+                        spriteNum = 6;
                     } else {
                         spriteNum = tempSpriteNum;
                     }
@@ -157,7 +157,7 @@ public class Player extends Entity {
                 }
             } else {
                 if (spriteCounter > 10) {
-                    if (spriteNum == 3) {
+                    if (spriteNum == 6) {
                         spriteNum = tempSpriteNum;
                     }
                     if (spriteNum == 0) {
@@ -166,7 +166,13 @@ public class Player extends Entity {
                     if (spriteNum == 1) {
                         spriteNum = 2;
                     } else if (spriteNum == 2) {
-                        spriteNum = 1;
+                        spriteNum = 3;
+                    } else if (spriteNum == 3) {
+                        spriteNum = 4;
+                    } else if (spriteNum == 4) {
+                        spriteNum = 5;
+                    } else if (spriteNum == 5) {
+                        spriteNum = 0;
                     }
                     spriteCounter = 0;
                 }
@@ -224,35 +230,62 @@ public class Player extends Entity {
         switch (direction) {
             case "up":
                 if (spriteNum == 0) {
-                    player_image = playerImage[1][1];
+                    player_image = playerImage[1][0];
                 }
                 if (spriteNum == 1) {
-                    player_image = playerImage[1][0];
+                    player_image = playerImage[1][1];
                 }
                 if (spriteNum == 2) {
                     player_image = playerImage[1][2];
                 }
+                if (spriteNum == 3) {
+                    player_image = playerImage[1][3];
+                }
+                if (spriteNum == 4) {
+                    player_image = playerImage[1][4];
+                }
+                if (spriteNum == 5) {
+                    player_image = playerImage[1][5];
+                }
                 break;
             case "down":
                 if (spriteNum == 0) {
-                    player_image = playerImage[0][1];
+                    player_image = playerImage[0][0];
                 }
                 if (spriteNum == 1) {
-                    player_image = playerImage[0][0];
+                    player_image = playerImage[0][1];
                 }
                 if (spriteNum == 2) {
                     player_image = playerImage[0][2];
                 }
+                if (spriteNum == 3) {
+                    player_image = playerImage[0][3];
+                }
+                if (spriteNum == 4) {
+                    player_image = playerImage[0][4];
+                }
+                if (spriteNum == 5) {
+                    player_image = playerImage[0][5];
+                }
                 break;
             case "left":
                 if (spriteNum == 0) {
-                    player_image = playerImage[3][0];
+                    player_image = playerImage[3][5];
                 }
                 if (spriteNum == 1) {
-                    player_image = playerImage[3][1];
+                    player_image = playerImage[3][4];
                 }
                 if (spriteNum == 2) {
+                    player_image = playerImage[3][3];
+                }
+                if (spriteNum == 3) {
                     player_image = playerImage[3][2];
+                }
+                if (spriteNum == 4) {
+                    player_image = playerImage[3][1];
+                }
+                if (spriteNum == 5) {
+                    player_image = playerImage[3][0];
                 }
                 break;
             case "right":
@@ -264,6 +297,15 @@ public class Player extends Entity {
                 }
                 if (spriteNum == 2) {
                     player_image = playerImage[2][2];
+                }
+                if (spriteNum == 3) {
+                    player_image = playerImage[2][3];
+                }
+                if (spriteNum == 4) {
+                    player_image = playerImage[2][4];
+                }
+                if (spriteNum == 5) {
+                    player_image = playerImage[2][5];
                 }
                 break;
         }
@@ -286,8 +328,8 @@ public class Player extends Entity {
         }
 
         g2.drawImage(player_image, x, y, null);
-        g2.setColor(Color.red);
-        g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
+//        g2.setColor(Color.red);
+//        g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
         //System.out.println(worldX + " " + worldY);
     }
     public Rectangle getBound() {
