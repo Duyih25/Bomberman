@@ -46,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
     //Level
     public int currentLevel = 1;
     public int Score = 0;
+    public String ddScore = "000000";
 
     //Game component
     BufferedImageLoader loader = new BufferedImageLoader();

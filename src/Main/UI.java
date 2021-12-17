@@ -7,6 +7,7 @@ import Graphics.Sprite;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
 
 public class UI {
     GamePanel gp;
@@ -33,8 +34,10 @@ public class UI {
             g2.drawImage(hud, 64 * 10, 0, null);
             Sprite.drawArray(g2, font, gp.ddMinute + ":" + gp.ddSecond , gp.maxScreenCol  * gp.tileSize + 32, 32 , 32, 32, 32, 0);
             Sprite.drawArray(g2, font, "X" + gp.player.getPlayerLives() + "" , (gp.maxScreenCol + 2)  * gp.tileSize, 64 * 2 - 32 , 64, 64, 64, 0);
-            Sprite.drawArray(g2, font, "^CO]E" , (gp.maxScreenCol + 1)  * gp.tileSize, 64 * 4 - 32 , 32, 32, 32, 0);
-            Sprite.drawArray(g2, font, gp.Score + "" , (gp.maxScreenCol + 1)  * gp.tileSize, 64 * 5 - 32 , 32, 32, 32, 0);
+            Sprite.drawArray(g2, font, "^CO]E" , (gp.maxScreenCol + 1)  * gp.tileSize - 32, 64 * 4 - 32 , 32, 32, 32, 0);
+            DecimalFormat dFormat = new DecimalFormat("000000");
+            gp.ddScore = dFormat.format(gp.Score);
+            Sprite.drawArray(g2, font, gp.ddScore , (gp.maxScreenCol + 1)  * gp.tileSize - 32, 64 * 5 - 32 , 32, 32, 32, 0);
 
         }
         //
