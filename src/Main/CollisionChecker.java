@@ -242,28 +242,37 @@ public class CollisionChecker {
             } else if (gp.objectManagement.obj.get(i).getName().equals("Bomb")) {
                 switch (enemy.getDirection()) {
                     case "up":
-                        if (enemy.getBound().intersects(gp.objectManagement.obj.get(i).getBound())) {
+                        if (((enemy.worldX >= gp.objectManagement.obj.get(i).worldX - 1) &&
+                                (enemy.worldX <= gp.objectManagement.obj.get(i).worldX + 1)) &&
+                                enemy.worldY == gp.objectManagement.obj.get(i).worldY + 64) {
                             enemy.setCollision(true);
 
                         }
                         break;
                     case "down":
-                        if (enemy.getBound().intersects(gp.objectManagement.obj.get(i).getBound())) {
+                        if (((enemy.worldX >= gp.objectManagement.obj.get(i).worldX - 1) &&
+                                (enemy.worldX <= gp.objectManagement.obj.get(i).worldX + 1)) &&
+                                enemy.worldY == gp.objectManagement.obj.get(i).worldY - 64) {
                             enemy.setCollision(true);
 
                         }
                         break;
                     case "left":
-                        if (enemy.getBound().intersects(gp.objectManagement.obj.get(i).getBound())) {
+                        if (enemy.worldX == gp.objectManagement.obj.get(i).worldX + 64 &&
+                            (enemy.worldY <= gp.objectManagement.obj.get(i).worldY + 1) &&
+                            (enemy.worldY >= gp.objectManagement.obj.get(i).worldY - 1)) {
                             enemy.setCollision(true);
                             if (enemy.getName() == "Red") {
                                 enemy.setDirection("right");
                                 enemy.worldX ++;
                             }
+
                         }
                         break;
                     case "right":
-                        if (enemy.getBound().intersects(gp.objectManagement.obj.get(i).getBound())) {
+                        if (enemy.worldX == gp.objectManagement.obj.get(i).worldX - 64 &&
+                            (enemy.worldY <= gp.objectManagement.obj.get(i).worldY + 1) &&
+                                (enemy.worldY >= gp.objectManagement.obj.get(i).worldY - 1)) {
                             enemy.setCollision(true);
                             if (enemy.getName() == "Red") {
                                 enemy.setDirection("left");
