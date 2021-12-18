@@ -84,6 +84,7 @@ public class BlackDevil extends Enemy{
             pixelCounter += speed;
             if (pixelCounter == 64) {
                 gp.collisionChecker.checkBlock(this);
+                gp.collisionChecker.checkObjForEnemy(this);
                 moving = false;
                 pixelCounter = 0;
             }
