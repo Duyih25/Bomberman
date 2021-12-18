@@ -125,17 +125,17 @@ public class Bomb extends SuperObject {
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
             g2.drawImage(bomb, screenX, screenY, null);
-            g2.setColor(Color.red);
-            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
-            //Animation animation = new Animation(10, image);
+//            g2.setColor(Color.red);
+//            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+//            //Animation animation = new Animation(10, image);
         } else if(gp.player.screenX > gp.player.worldX ||
                 gp.player.screenY > gp.player.worldY ||
                 rightOffset > gp.maxWorldCol * gp.tileSize - gp.player.worldX ||
                 bottomOffset > gp.maxWorldRow * gp.tileSize -gp.player.worldY ) {
             g2.drawImage(bomb, screenX, screenY , null);
-            g2.setColor(Color.red);
-            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
-            //Animation animation = new Animation(10, image);
+//            g2.setColor(Color.red);
+//            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+//            //Animation animation = new Animation(10, image);
         }
     }
     public Rectangle getBound() {
