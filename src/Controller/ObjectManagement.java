@@ -12,12 +12,12 @@ public class ObjectManagement {
     KeyHandler keyH;
 
     public ArrayList<SuperObject> obj = new ArrayList<>();
-    public int currentBomb = 0;
-    public int maxBombNum = 3;
-    public int maxBombRadius = 1;
-    public int currentBullets = 0;
-    public boolean getSpeedItem = false;
-    private int countFlame = 0;
+    private int currentBomb = 0;
+    private int maxBombNum = 3;
+    private int maxBombRadius = 1;
+    private int currentBullets = 0;
+    private boolean getSpeedItem = false;
+    private boolean shootLastBullet = false;
     private boolean getHealItem = false;
     public Bomb previousBomb = null;
     private ArrayList<Item> waitingItem = new ArrayList<>();
@@ -75,15 +75,15 @@ public class ObjectManagement {
                     Random random = new Random();
                     int func;
 
-                    if (!getSpeedItem && !getHealItem) {
+                    if (!isGetSpeedItem() && !isGetHealItem()) {
                         func = random.nextInt(20);
                     }
-                    else if (getSpeedItem && getHealItem) {
+                    else if (isGetSpeedItem() && isGetHealItem()) {
                         func = random.nextInt(20) + 2;
                     } else {
                         func = random.nextInt(20) + 1;
                         if (func == 1) {
-                            if (!getSpeedItem) func = 0;
+                            if (!isGetSpeedItem()) func = 0;
                         }
                     }
 
@@ -96,10 +96,10 @@ public class ObjectManagement {
                         getWaitingItem().add(new CrateItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
                     } else if (func == 0) {
                         getWaitingItem().add(new SpeedItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                        getSpeedItem = true;
+                        setGetSpeedItem(true);
                     } else if (func == 1) {
                         getWaitingItem().add(new HealItem(gp, blockList.get(i).worldX, blockList.get(i).worldY));
-                        getHealItem = true;
+                        setGetHealItem(true);
                     }
                 }
                 //blockList.remove(i);
@@ -120,7 +120,7 @@ public class ObjectManagement {
     }
 
     private void updateBullet() {
-        if(keyH.bulletPressed && currentBullets >0) {
+        if(keyH.bulletPressed && getCurrentBullets() >0) {
             obj.add(new Bullet(gp));
             Bullet k = (Bullet) obj.get(obj.size() - 1);
             if(keyH.facingUp) k.up=true;
@@ -128,7 +128,8 @@ public class ObjectManagement {
             if(keyH.facingRight) k.right = true;
             if(keyH.facingLeft) k.left = true;
 
-            currentBullets--;
+            if(currentBullets == 1) setShootLastBullet(true);
+            setCurrentBullets(getCurrentBullets() - 1);
             keyH.bulletPressed = false;
         }
     }
@@ -137,7 +138,7 @@ public class ObjectManagement {
 
         //Tuấn Anh
         //DROP BOMB
-        if (keyH.bombPressed && currentBomb < maxBombNum) {
+        if (keyH.bombPressed && getCurrentBomb() < getMaxBombNum()) {
             int playerLeftWorldX = gp.player.worldX + gp.player.getSolidArea().x;
             int playerTopWorldY = gp.player.worldY + gp.player.getSolidArea().y;
 
@@ -154,7 +155,7 @@ public class ObjectManagement {
                 obj.get(obj.size() - 1).worldY = (gp.player.worldY + 32) / 64 * 64;
                 //obj[currentObj].mapPosition = bombTileNum;
                 //obj[currentObj].collision = true;
-                currentBomb++;
+                setCurrentBomb(getCurrentBomb() + 1);
                 previousBomb = (Bomb) obj.get(obj.size() - 1);
                 //gp.tileManagement.tiles[bombTileNum].available = false;
                 //keyH.bombPressed = false;
@@ -183,8 +184,8 @@ public class ObjectManagement {
                     for (Flame flame : check.flames) {
                         obj.add(flame);
                     }
-                    currentBomb--;
-                    if (currentBomb == 0) previousBomb = null;
+                    setCurrentBomb(getCurrentBomb() - 1);
+                    if (getCurrentBomb() == 0) previousBomb = null;
 
                 }
             } else if (obj.get(i).getName().equals("Flame")) {
@@ -209,7 +210,7 @@ public class ObjectManagement {
                     obj.remove(i);
                     gp.playStop(2);
                     gp.playSE(3);
-                    if (currentBomb == 0) previousBomb = null;
+                    if (getCurrentBomb() == 0) previousBomb = null;
                 }
             }
         }
@@ -249,5 +250,61 @@ public class ObjectManagement {
 
     public void setWaitingItem(ArrayList<Item> waitingItem) {
         this.waitingItem = waitingItem;
+    }
+
+    public boolean isGetSpeedItem() {
+        return getSpeedItem;
+    }
+
+    public void setGetSpeedItem(boolean getSpeedItem) {
+        this.getSpeedItem = getSpeedItem;
+    }
+
+    public boolean isGetHealItem() {
+        return getHealItem;
+    }
+
+    public void setGetHealItem(boolean getHealItem) {
+        this.getHealItem = getHealItem;
+    }
+
+    public int getMaxBombNum() {
+        return maxBombNum;
+    }
+
+    public void setMaxBombNum(int maxBombNum) {
+        this.maxBombNum = maxBombNum;
+    }
+
+    public int getCurrentBomb() {
+        return currentBomb;
+    }
+
+    public void setCurrentBomb(int currentBomb) {
+        this.currentBomb = currentBomb;
+    }
+
+    public int getMaxBombRadius() {
+        return maxBombRadius;
+    }
+
+    public void setMaxBombRadius(int maxBombRadius) {
+        this.maxBombRadius = maxBombRadius;
+    }
+
+    public int getCurrentBullets() {
+        return currentBullets;
+    }
+
+    public void setCurrentBullets(int currentBullets) {
+        this.currentBullets = currentBullets;
+    }
+
+    public boolean isShootLastBullet() {
+        return shootLastBullet;
+    }
+
+    public void setShootLastBullet(boolean shootLastBullet) {
+        this.shootLastBullet = shootLastBullet;
     }
 }

@@ -23,7 +23,7 @@ public class Bomb extends SuperObject {
     public Bomb(GamePanel gp) {
         super(gp);
         collision = true;
-        this.maxRadius = gp.objectManagement.maxBombRadius;
+        this.maxRadius = gp.objectManagement.getMaxBombRadius();
         UtilityTool uTool = new UtilityTool();
         name = "Bomb";
         image = new BufferedImage[3];

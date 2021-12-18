@@ -200,11 +200,11 @@ public class Player extends Entity {
                 //System.out.println("hi");
                 if (objCheck instanceof BombItem) {
                     gp.playSE(4);
-                    gp.objectManagement.maxBombNum++;
+                    gp.objectManagement.setMaxBombNum(gp.objectManagement.getMaxBombNum() + 1);
                     gp.setScore(gp.getScore() + 50);
                 } else if (objCheck instanceof FlameItem) {
                     gp.playSE(5);
-                    gp.objectManagement.maxBombRadius++;
+                    gp.objectManagement.setMaxBombRadius(gp.objectManagement.getMaxBombRadius() + 1);
                     gp.setScore(gp.getScore() + 50);
                 } else if (objCheck instanceof SpeedItem) {
                     gp.playSE(6);
@@ -213,7 +213,7 @@ public class Player extends Entity {
                 }
                 else if(objCheck instanceof CrateItem) {
                     gp.playSE(7);
-                    gp.objectManagement.currentBullets+=2;
+                    gp.objectManagement.setCurrentBullets(gp.objectManagement.getCurrentBullets() + 2);
                     gp.setScore(gp.getScore() + 50);
                 }
                 else if (objCheck instanceof HealItem) {
