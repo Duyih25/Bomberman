@@ -50,21 +50,25 @@ public class Balloon extends Enemy {
     @Override
     public void setAction() {
 
-        switch (direction) {
-            case "up":
-                direction = "right";
-                break;
-            case "down":
-                direction = "left";
-                break;
-            case "left":
-                direction = "up";
-                break;
-            case "right":
-                direction = "down";
-                break;
+        actionLockCounter++;
+        if(actionLockCounter%10==0) {
+            switch (direction) {
+                case "up":
+                    direction = "right";
+                    break;
+                case "down":
+                    direction = "left";
+                    break;
+                case "left":
+                    direction = "up";
+                    break;
+                case "right":
+                    direction = "down";
+                    break;
+            }
+            collision = false;
+            actionLockCounter = 0;
         }
-        collision = false;
     }
 
     @Override
