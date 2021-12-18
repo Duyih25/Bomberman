@@ -142,7 +142,10 @@ public class KeyHandler implements KeyListener {
             }
 
             if (code == KeyEvent.VK_E) {
-                if (gp.objectManagement.currentBullets > 0) gp.playMusic(8);
+                if (gp.objectManagement.getCurrentBullets() > 0 || gp.objectManagement.isShootLastBullet()) {
+                    gp.playMusic(8);
+                    if (gp.objectManagement.getCurrentBullets() == 0) gp.objectManagement.setShootLastBullet(false);
+                }
                 bulletPressed = true; //Duy
             }
             if (code == KeyEvent.VK_P) {
