@@ -190,7 +190,7 @@ public class CollisionChecker {
     public int checkEntity(Entity entity, Enemy target) {
         int index = 999;
 
-        if(entity.getBound().intersects(target.getBound())) {
+        if(entity.getBound().intersects(target.getHitBox())) {
             index = 0;
         }
         entity.getSolidArea().x = entity.solidAreaDefaultX;

@@ -46,5 +46,5 @@ public abstract class Enemy extends Entity{
         return new Rectangle(worldX + 1 , worldY + 1 , 62, 62);
     }
 
-
+    public Rectangle getHitBox() {return new Rectangle(worldX + 16 , worldY + 16 , 32, 32);}
 }
