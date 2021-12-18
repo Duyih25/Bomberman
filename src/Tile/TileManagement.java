@@ -92,13 +92,10 @@ public class TileManagement {
             int green = (pixel >> 8) & 0xff;
             int blue = pixel & 0xff;
 
-            if ((red ==0 && green == 255 && blue == 255) || (red == 195 && green == 92 && blue == 92) || (red == 174 && green == 187 && blue == 23)) {
+            if ((red ==0 && green == 255 && blue == 255) || (red == 195 && green == 92 && blue == 92) || (red == 174 && green == 187 && blue == 23) ||
+                    (red == 255 && green == 128 && blue == 0)) {
                 //mapTileNum[x][y] = 1;
                 tilesMap[x][y] = tiles[0];
-            }
-            if (red == 255 && green == 128 && blue == 0) {
-                mapTileNum[x][y] = 1;
-                tilesMap[x][y] = tiles[1];
             }
             if ((red == 0 && green == 0 && blue == 0) || (red == 255 && green == 255 && blue == 255) || (red == 204 && green == 204 && blue == 204)) {
                 mapTileNum[x][y] = 0;

@@ -11,6 +11,7 @@ public class RedDevil extends Enemy {
 
     public RedDevil(GamePanel gp) {
         super(gp);
+        name = "Red";
     }
     public void setEnemyImage() {
         UtilityTool uTool = new UtilityTool();
@@ -85,6 +86,9 @@ public class RedDevil extends Enemy {
                 moving = false;
                 pixelCounter = 0;
             }
+        }
+        if (collision) {
+            setAction();
         }
 
     }

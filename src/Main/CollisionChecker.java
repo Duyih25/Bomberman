@@ -1,10 +1,6 @@
 package Main;
 
-import Entities.BlackDevil;
-import Entities.RedDevil;
-import Entities.YellowDevil;
-import Entities.Enemy;
-import Entities.Entity;
+import Entities.*;
 import Object.*;
 
 public class CollisionChecker {
@@ -227,6 +223,9 @@ public class CollisionChecker {
                                 if (enemy instanceof RedDevil) {
                                     gp.setScore(gp.getScore() + 100);
                                 }
+                                if (enemy instanceof Balloon) {
+                                    gp.setScore(gp.getScore() + 150);
+                                }
                                 if (enemy instanceof BlackDevil) {
                                     gp.setScore(gp.getScore() + 200);
                                 }
@@ -243,34 +242,37 @@ public class CollisionChecker {
             } else if (gp.objectManagement.obj.get(i).getName().equals("Bomb")) {
                 switch (enemy.getDirection()) {
                     case "up":
-                        if (enemy.worldX == gp.objectManagement.obj.get(i).worldX &&
-                                enemy.worldY - 1 == gp.objectManagement.obj.get(i).worldY + 64) {
+                        if (enemy.getBound().intersects(gp.objectManagement.obj.get(i).getBound())) {
                             enemy.setCollision(true);
-                            enemy.setDirection("down");
+
                         }
                         break;
                     case "down":
-                        if (enemy.worldX == gp.objectManagement.obj.get(i).worldX &&
-                                enemy.worldY + 1 == gp.objectManagement.obj.get(i).worldY - 64) {
+                        if (enemy.getBound().intersects(gp.objectManagement.obj.get(i).getBound())) {
                             enemy.setCollision(true);
-                            enemy.setDirection("up");
+
                         }
                         break;
                     case "left":
-                        if (enemy.worldX - 1 == gp.objectManagement.obj.get(i).worldX + 64 &&
-                                enemy.worldY == gp.objectManagement.obj.get(i).worldY) {
+                        if (enemy.getBound().intersects(gp.objectManagement.obj.get(i).getBound())) {
                             enemy.setCollision(true);
-                            enemy.setDirection("right");
+                            if (enemy.getName() == "Red") {
+                                enemy.setDirection("right");
+                                enemy.worldX ++;
+                            }
                         }
                         break;
                     case "right":
-                        if (enemy.worldX + 1 == gp.objectManagement.obj.get(i).worldX - 64 &&
-                                enemy.worldY == gp.objectManagement.obj.get(i).worldY) {
+                        if (enemy.getBound().intersects(gp.objectManagement.obj.get(i).getBound())) {
                             enemy.setCollision(true);
-                            enemy.setDirection("left");
+                            if (enemy.getName() == "Red") {
+                                enemy.setDirection("left");
+                                enemy.worldX--;
+                            }
                         }
                         break;
                 }
+
             }
             //gp.objectManagement.obj.get(i).setSolidAreaDefault();
         }
@@ -312,33 +314,37 @@ public class CollisionChecker {
                     break;
                 }
             }
-            if (entity.getName() == "Enemy") { //Duy
-                switch (entity.getDirection()) {
-                    case "up":
-                        if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound())) {
-                            entity.setDirection("down"); //Duy
-                            entity.worldY+= entity.getSpeed();
-                        }
-                        break;
-                    case "down":
-                        if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound())) {
-                            entity.setDirection("up");
-                            entity.worldY-= entity.getSpeed();
-                        }
-                        break;
-                    case "left":
-                        if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound())) {
-                            entity.setDirection("right");
-                            entity.worldX+=entity.getSpeed();
-                        }
-                        break;
-                    case "right":
-                        if (entity.getBound().intersects(gp.objectManagement.blockList.get(i).getBound())) {
-                            entity.setDirection("left");
-                            entity.worldX-=entity.getSpeed();
-                        }
-                        break;
-                }
+        }
+    }
+
+    public void checkBlock (Enemy enemy) { //Duy
+        for (Block block: gp.objectManagement.blockList) {
+            switch (enemy.getDirection()) {
+                case "up":
+
+                    if (enemy.getBound().intersects(block.getBound())) {
+                        enemy.worldY+= enemy.getSpeed();
+                        enemy.setCollision(true);
+                    }
+                    break;
+                case "down":
+                    if (enemy.getBound().intersects(block.getBound())) {
+                        enemy.setCollision(true);
+                        enemy.worldY-= enemy.getSpeed();
+                    }
+                    break;
+                case "left":
+                    if (enemy.getBound().intersects(block.getBound())) {
+                        enemy.setCollision(true);
+                        enemy.worldX+=enemy.getSpeed();
+                    }
+                    break;
+                case "right":
+                    if (enemy.getBound().intersects(block.getBound())) {
+                        enemy.setCollision(true);
+                        enemy.worldX-=enemy.getSpeed();
+                    }
+                    break;
             }
         }
     }

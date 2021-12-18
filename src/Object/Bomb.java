@@ -139,6 +139,6 @@ public class Bomb extends SuperObject {
         }
     }
     public Rectangle getBound() {
-        return new Rectangle(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+        return new Rectangle(worldX, worldY, 64, 64);
     }
 }

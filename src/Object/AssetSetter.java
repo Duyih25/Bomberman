@@ -1,5 +1,6 @@
 package Object;
 
+import Entities.Balloon;
 import Entities.BlackDevil;
 import Entities.RedDevil;
 import Entities.YellowDevil;
@@ -44,13 +45,17 @@ public class AssetSetter {
                 gp.npc[currentNPC].worldX = gp.tileSize * x;
                 gp.npc[currentNPC].worldY = gp.tileSize * y;;
                 currentNPC++;
+            } else if (red == 255 && green == 128 && blue == 0) {
+                gp.npc[currentNPC] = new Balloon(gp);
+                gp.npc[currentNPC].worldX = gp.tileSize * x;
+                gp.npc[currentNPC].worldY = gp.tileSize * y;;
+                currentNPC++;
             }
             x += 1;
             if (x == image.getWidth()) {
                 x = 0;
-                y++;
+                y+=1;
             }
         }
-
     }
 }
